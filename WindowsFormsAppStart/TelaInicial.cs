@@ -15,6 +15,14 @@ namespace WindowsFormsAppStart
         public TelaInicial()
         {
             InitializeComponent();
+            var listaClientes = new List<Cliente>();
+            listaClientes.AddRange(new[]
+            {
+                new Cliente(1, "joao vitor",DateTime.Now,"masculino","5435453453"),
+                new Cliente(2, "joao pedro",DateTime.Now,"masculino","5435773453"),
+            });
+
+            this.dataGridViewList.DataSource = listaClientes;
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -53,7 +61,12 @@ namespace WindowsFormsAppStart
 
         }
 
-        private void dataGridViewTelaInicial(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridViewList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

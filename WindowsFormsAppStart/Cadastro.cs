@@ -74,7 +74,6 @@ namespace WindowsFormsAppStart
 
         private void dateTimePickerDataNascimento(object sender, EventArgs e)
         {
-
         }
     }
 }
