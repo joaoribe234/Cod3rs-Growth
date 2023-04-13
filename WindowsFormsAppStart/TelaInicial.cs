@@ -12,17 +12,11 @@ namespace WindowsFormsAppStart
 {
     public partial class TelaInicial : Form
     {
+        List<Cliente> listaClientes = new List<Cliente>();
         public TelaInicial()
         {
             InitializeComponent();
-            var listaClientes = new List<Cliente>();
-            listaClientes.AddRange(new[]
-            {
-                new Cliente(1, "joao vitor",DateTime.Now,"masculino","5435453453"),
-                new Cliente(2, "joao pedro",DateTime.Now,"masculino","5435773453"),
-            });
-
-            this.dataGridViewList.DataSource = listaClientes;
+            AtualizarLista();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -67,6 +61,23 @@ namespace WindowsFormsAppStart
         }
 
         private void dataGridViewList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void AtualizarLista()
+        {
+            listaClientes = new List<Cliente>()
+            {
+                new Cliente(1, "joao vitor",DateTime.Now,"masculino","5435453453"),
+                new Cliente(2, "joao pedro",DateTime.Now,"masculino","5435773453"),
+            };
+
+            //vai mudar o datagrid pro novo que você criou
+            this.dataGridVieww.DataSource = listaClientes.ToList();
+        }
+
+        private void dataGridVieww_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

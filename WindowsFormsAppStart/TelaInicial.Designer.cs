@@ -38,8 +38,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.dataGridViewList = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewList)).BeginInit();
+            this.dataGridVieww = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridVieww)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -130,20 +130,19 @@
             this.label14.TabIndex = 10;
             this.label14.Text = "TELA INICIAL";
             // 
-            // dataGridViewList
+            // dataGridVieww
             // 
-            this.dataGridViewList.AllowUserToOrderColumns = true;
-            this.dataGridViewList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewList.Location = new System.Drawing.Point(3, 30);
-            this.dataGridViewList.Name = "dataGridViewList";
-            this.dataGridViewList.Size = new System.Drawing.Size(470, 287);
-            this.dataGridViewList.TabIndex = 11;
-            this.dataGridViewList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewList_CellContentClick);
+            this.dataGridVieww.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridVieww.Location = new System.Drawing.Point(24, 30);
+            this.dataGridVieww.Name = "dataGridVieww";
+            this.dataGridVieww.Size = new System.Drawing.Size(460, 287);
+            this.dataGridVieww.TabIndex = 11;
+            this.dataGridVieww.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridVieww_CellContentClick);
             // 
             // TelaInicial
             // 
             this.ClientSize = new System.Drawing.Size(585, 329);
-            this.Controls.Add(this.dataGridViewList);
+            this.Controls.Add(this.dataGridVieww);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -155,7 +154,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "TelaInicial";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridVieww)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,7 +190,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.DataGridView dataGridViewList;
+        private System.Windows.Forms.DataGridView dataGridVieww;
     }
 }
 
