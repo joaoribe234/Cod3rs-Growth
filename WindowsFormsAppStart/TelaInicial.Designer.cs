@@ -37,14 +37,14 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.label14 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.dataGridVieww = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridVieww)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(479, 46);
+            this.button1.Location = new System.Drawing.Point(490, 30);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 23);
             this.button1.TabIndex = 0;
@@ -54,9 +54,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(479, 166);
+            this.button2.Location = new System.Drawing.Point(490, 147);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(83, 23);
             this.button2.TabIndex = 1;
             this.button2.Text = "EDITAR";
             this.button2.UseVisualStyleBackColor = true;
@@ -64,7 +64,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(479, 294);
+            this.button3.Location = new System.Drawing.Point(490, 294);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 2;
@@ -121,15 +121,6 @@
             this.label13.Size = new System.Drawing.Size(0, 13);
             this.label13.TabIndex = 8;
             // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(24, 46);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(421, 271);
-            this.dataGridView2.TabIndex = 9;
-            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTelaInicial);
-            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -139,11 +130,20 @@
             this.label14.TabIndex = 10;
             this.label14.Text = "TELA INICIAL";
             // 
+            // dataGridVieww
+            // 
+            this.dataGridVieww.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridVieww.Location = new System.Drawing.Point(24, 30);
+            this.dataGridVieww.Name = "dataGridVieww";
+            this.dataGridVieww.Size = new System.Drawing.Size(460, 287);
+            this.dataGridVieww.TabIndex = 11;
+            this.dataGridVieww.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridVieww_CellContentClick);
+            // 
             // TelaInicial
             // 
             this.ClientSize = new System.Drawing.Size(585, 329);
+            this.Controls.Add(this.dataGridVieww);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -154,7 +154,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "TelaInicial";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridVieww)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,8 +189,8 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.DataGridView dataGridVieww;
     }
 }
 
