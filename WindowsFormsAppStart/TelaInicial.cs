@@ -28,12 +28,6 @@ namespace WindowsFormsAppStart
         {
 
         }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void buttonCadastrar(object sender, EventArgs e)
         {
             Cadastro cad = new Cadastro();
@@ -55,12 +49,7 @@ namespace WindowsFormsAppStart
 
         }
 
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void dataGridViewList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridVieww_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
@@ -70,16 +59,20 @@ namespace WindowsFormsAppStart
             listaClientes = new List<Cliente>()
             {
                 new Cliente(1, "joao vitor",DateTime.Now,"masculino","5435453453"),
-                new Cliente(2, "joao pedro",DateTime.Now,"masculino","5435773453"),
+                new Cliente(2, "letícia",DateTime.Now,"feminino", "982435568"),
             };
 
-            //vai mudar o datagrid pro novo que você criou
-            this.dataGridVieww.DataSource = listaClientes.ToList();
+            
+            this.dataGridVieww.DataSource = listaClientes.Select(x => new
+            {
+                x.id,
+                x.nome,
+                x.dataNascimento,
+                x.sexo,
+                x.telefone
+            }).ToList();
         }
 
-        private void dataGridVieww_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
-        }
     }
 }
