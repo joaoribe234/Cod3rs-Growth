@@ -12,33 +12,25 @@ namespace WindowsFormsAppStart
 {
     public partial class TelaInicial : Form
     {
-        List<Cliente> listaClientes = new List<Cliente>();
+        private List<Cliente> listaClientes = new List<Cliente>();
+        Cliente cliente = new Cliente();
         public TelaInicial()
         {
             InitializeComponent();
+            listaClientes = new List<Cliente>();
             AtualizarLista();
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
         private void buttonCadastrar(object sender, EventArgs e)
         {
             Cadastro cad = new Cadastro();
             cad.ShowDialog();
+
+            if(cad.DialogResult == DialogResult.OK)
+            {
+                listaClientes.Add(cliente);
+            }
+            AtualizarLista();
         }
-
-        private void label12_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonEditar(object sender, EventArgs e)
         {
 
@@ -56,23 +48,27 @@ namespace WindowsFormsAppStart
 
         private void AtualizarLista()
         {
-            listaClientes = new List<Cliente>()
-            {
-                new Cliente(1, "joao vitor",DateTime.Now,"masculino","5435453453"),
-                new Cliente(2, "letícia",DateTime.Now,"feminino", "982435568"),
-            };
+            dataGridVieww.DataSource = listaClientes.ToList();
+            //listaClientes = new List<Cliente>()
+            //{
+            //    new Cliente(1, "joao vitor",DateTime.Now,"masculino","5435453453"),
+            //    new Cliente(2, "letícia",DateTime.Now,"feminino", "982435568"),
+            //};
 
             
-            this.dataGridVieww.DataSource = listaClientes.Select(x => new
-            {
-                x.id,
-                x.nome,
-                x.dataNascimento,
-                x.sexo,
-                x.telefone
-            }).ToList();
+            //this.dataGridVieww.DataSource = listaClientes.Select(x => new
+            //{
+            //    x.id,
+            //    x.nome,
+            //    x.dataNascimento,
+            //    x.sexo,
+            //    x.telefone
+            //}).ToList();
         }
 
+        private void TelaInicial_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }

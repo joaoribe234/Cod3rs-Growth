@@ -12,9 +12,12 @@ namespace WindowsFormsAppStart
 {
     public partial class Cadastro : Form
     {
+        private List<Cliente> ListaCliente;
+        Cliente cliente = new Cliente();    
         public Cadastro()
         {
             InitializeComponent();
+            //ListaCliente = listaCliente;
         }
 
         private void labelNome(object sender, EventArgs e)
@@ -29,15 +32,15 @@ namespace WindowsFormsAppStart
 
         private void ButtonSalvar(object sender, EventArgs e)
         {
+            cliente.nome = txt_Nome.Text;
+            //cliente.dataNascimento = txtDataNascimento.Text;
+            cliente.sexo = txt_sexo.Text;   
+            cliente.telefone = txt_telefone.Text;
 
+            DialogResult = DialogResult.OK;
         }
 
         private void ButtonCancelar(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxDataNascimento(object sender, EventArgs e)
         {
 
         }
@@ -66,14 +69,13 @@ namespace WindowsFormsAppStart
         {
 
         }
-
-        private void textBoxSexo(object sender, EventArgs e)
-        {
-
-        }
-
         private void dateTimePickerDataNascimento(object sender, EventArgs e)
         {
+        }
+
+        private void comboBox1_Sexo(object sender, EventArgs e)
+        {
+
         }
     }
 }

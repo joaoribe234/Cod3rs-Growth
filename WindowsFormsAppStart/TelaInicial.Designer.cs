@@ -106,12 +106,10 @@
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(378, 30);
+            this.label12.Location = new System.Drawing.Point(0, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(0, 13);
-            this.label12.TabIndex = 7;
-            this.label12.Click += new System.EventHandler(this.label12_Click);
+            this.label12.Size = new System.Drawing.Size(100, 23);
+            this.label12.TabIndex = 12;
             // 
             // label13
             // 
@@ -154,6 +152,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "TelaInicial";
+            this.Load += new System.EventHandler(this.TelaInicial_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVieww)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
