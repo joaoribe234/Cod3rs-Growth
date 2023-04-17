@@ -12,54 +12,32 @@ namespace WindowsFormsAppStart
 {
     public partial class Cadastro : Form
     {
-        private List<Cliente> ListaCliente;
-        Cliente cliente = new Cliente();    
+        public Cliente cliente = new Cliente();    
         public Cadastro()
         {
             InitializeComponent();
-            //ListaCliente = listaCliente;
         }
-
-        private void labelNome(object sender, EventArgs e)
-        {
-
-        }
-
         private void Cadastro_Load(object sender, EventArgs e)
         {
 
         }
-
         private void ButtonSalvar(object sender, EventArgs e)
+
         {
             cliente.nome = txt_Nome.Text;
-            //cliente.dataNascimento = txtDataNascimento.Text;
+            cliente.dataNascimento = Convert.ToDateTime(txtDataNascimento.Text);
             cliente.sexo = txt_sexo.Text;   
             cliente.telefone = txt_telefone.Text;
-
             DialogResult = DialogResult.OK;
+            
         }
 
         private void ButtonCancelar(object sender, EventArgs e)
         {
-
+            
+            TelaInicial tela = new TelaInicial();
+            tela.ShowDialog();
         }
-
-        private void labelDataNascimento(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelTelefone(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelSexo(object sender, EventArgs e)
-        {
-
-        }
-
         private void textBoxNome(object sender, EventArgs e)
         {
 

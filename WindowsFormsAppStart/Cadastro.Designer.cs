@@ -50,47 +50,7 @@
             this.label1.Location = new System.Drawing.Point(76, 52);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 13);
-            this.label1.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(35, 52);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "NOME";
-            this.label2.Click += new System.EventHandler(this.labelNome);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(35, 133);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(113, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "DATA_NASCIMENTO";
-            this.label3.Click += new System.EventHandler(this.labelDataNascimento);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(35, 210);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(31, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Sexo";
-            this.label4.Click += new System.EventHandler(this.labelSexo);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(35, 322);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(63, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "TELEFONE";
-            this.label5.Click += new System.EventHandler(this.labelTelefone);
+            this.label1.TabIndex = 0;        
             // 
             // txt_telefone
             // 
@@ -149,8 +109,8 @@
             // 
             this.txt_sexo.FormattingEnabled = true;
             this.txt_sexo.Items.AddRange(new object[] {
-            "M",
-            "F"});
+            "Masculino\t",
+            "Feminino"});
             this.txt_sexo.Location = new System.Drawing.Point(38, 226);
             this.txt_sexo.Name = "txt_sexo";
             this.txt_sexo.Size = new System.Drawing.Size(264, 21);
