@@ -23,14 +23,14 @@ namespace WindowsFormsAppStart
         }
         private void botaoCadastrarCliente(object sender, EventArgs e)
         {
-            Cadastro cad = new Cadastro();
-            cad.ShowDialog();
+            Cadastro cadastro = new Cadastro();
+            cadastro.ShowDialog();
 
-            if((cad.DialogResult == DialogResult.OK ))
+            if((cadastro.DialogResult == DialogResult.OK ))
             {
                 MessageBox.Show("Cliente adicionado com sucesso!");
-                cad.cliente.id = ObterProximoId();
-                listaClientes.Add(cad.cliente);
+                cadastro.cliente.id = ObterProximoId();
+                listaClientes.Add(cadastro.cliente);
             }
 
             AtualizarLista();

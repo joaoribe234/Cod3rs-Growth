@@ -22,8 +22,20 @@ namespace WindowsFormsAppStart
         private void BotaoSalvarDadosFormulario(object sender, EventArgs e)
 
         {
-            
-            if ((!String.IsNullOrWhiteSpace(txt_Nome.Text) && !String.IsNullOrWhiteSpace(txt_sexo.Text))  && (!String.IsNullOrWhiteSpace(txt_telefone.Text) && !String.IsNullOrWhiteSpace(txtDataNascimento.Text)))
+            if ((String.IsNullOrWhiteSpace(txt_Nome.Text)))
+            {
+                MessageBox.Show(" O campo nome deve ser preenchido!");
+                txt_Nome.BackColor = Color.LightGreen;
+            }
+            else if (String.IsNullOrWhiteSpace(txt_sexo.Text))
+            { MessageBox.Show("O campo sexo deve ser preenchido!");
+                txt_sexo.BackColor = Color.LightGreen;
+            }
+            else if (!txt_telefone.MaskCompleted) {
+                MessageBox.Show("O telefone deve ser válido!");
+                txt_telefone.BackColor = Color.LightGreen;
+            }
+            else
             {
                 cliente.nome = txt_Nome.Text;
                 cliente.dataNascimento = Convert.ToDateTime(txtDataNascimento.Text);
@@ -31,9 +43,6 @@ namespace WindowsFormsAppStart
                 cliente.telefone = txt_telefone.Text;
                 DialogResult = DialogResult.OK;
             }
-            else {
-                MessageBox.Show("Não pode haver valores nulos ao cadastrar cliente!");
-            }    
         }
 
         private void botaoAoClicarCancelarRetornaTelaInicial(object sender, EventArgs e)

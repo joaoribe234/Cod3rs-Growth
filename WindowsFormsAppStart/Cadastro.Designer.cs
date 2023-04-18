@@ -33,7 +33,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.txt_telefone = new System.Windows.Forms.TextBox();
             this.txt_Nome = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -44,6 +43,7 @@
             this.labelDataNascimento = new System.Windows.Forms.Label();
             this.labelSexo = new System.Windows.Forms.Label();
             this.labelTelefone = new System.Windows.Forms.Label();
+            this.txt_telefone = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -81,13 +81,6 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 23);
             this.label5.TabIndex = 17;
-            // 
-            // txt_telefone
-            // 
-            this.txt_telefone.Location = new System.Drawing.Point(38, 338);
-            this.txt_telefone.Name = "txt_telefone";
-            this.txt_telefone.Size = new System.Drawing.Size(264, 20);
-            this.txt_telefone.TabIndex = 5;
             // 
             // txt_Nome
             // 
@@ -175,11 +168,20 @@
             this.labelTelefone.TabIndex = 25;
             this.labelTelefone.Text = "Telefone";
             // 
+            // txt_telefone
+            // 
+            this.txt_telefone.Location = new System.Drawing.Point(38, 338);
+            this.txt_telefone.Mask = "(99) 00000-0000";
+            this.txt_telefone.Name = "txt_telefone";
+            this.txt_telefone.Size = new System.Drawing.Size(264, 20);
+            this.txt_telefone.TabIndex = 26;
+            // 
             // Cadastro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.txt_telefone);
             this.Controls.Add(this.labelTelefone);
             this.Controls.Add(this.labelSexo);
             this.Controls.Add(this.labelDataNascimento);
@@ -190,7 +192,6 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txt_Nome);
-            this.Controls.Add(this.txt_telefone);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -210,7 +211,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txt_telefone;
         private System.Windows.Forms.TextBox txt_Nome;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button1;
@@ -221,5 +221,6 @@
         private System.Windows.Forms.Label labelDataNascimento;
         private System.Windows.Forms.Label labelSexo;
         private System.Windows.Forms.Label labelTelefone;
+        private System.Windows.Forms.MaskedTextBox txt_telefone;
     }
 }
