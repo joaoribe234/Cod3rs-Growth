@@ -14,16 +14,5 @@ namespace WindowsFormsAppStart
         public string sexo;
         public string telefone;
 
-        
-        //public Cliente(int id, string nome, DateTime dataNascimento, string sexo, string telefone)
-        //{
-        //    this.id = id;
-        //    this.nome = nome;
-        //    this.dataNascimento = dataNascimento;
-        //    this.sexo = sexo;
-        //    this.telefone = telefone;
-        //}
-
-
     }
 }

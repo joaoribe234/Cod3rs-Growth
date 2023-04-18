@@ -50,7 +50,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "CADASTRAR";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.buttonCadastrar);
+            this.button1.Click += new System.EventHandler(this.botaoCadastrarCliente);
             // 
             // button2
             // 
@@ -60,7 +60,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "EDITAR";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.buttonEditar);
+            this.button2.Click += new System.EventHandler(this.botaoEditarCliente);
             // 
             // button3
             // 
@@ -70,7 +70,7 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "DELETAR";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.buttonDeletar);
+            this.button3.Click += new System.EventHandler(this.botaonDeletarCliente);
             // 
             // label8
             // 
@@ -135,7 +135,6 @@
             this.dataGridVieww.Name = "dataGridVieww";
             this.dataGridVieww.Size = new System.Drawing.Size(578, 279);
             this.dataGridVieww.TabIndex = 11;
-            this.dataGridVieww.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridVieww_CellContentClick);
             // 
             // TelaInicial
             // 
@@ -153,7 +152,6 @@
             this.Controls.Add(this.button1);
             this.Name = "TelaInicial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.TelaInicial_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVieww)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

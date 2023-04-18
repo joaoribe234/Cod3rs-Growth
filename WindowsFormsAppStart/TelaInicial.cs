@@ -21,33 +21,26 @@ namespace WindowsFormsAppStart
             listaClientes = new List<Cliente>();
             AtualizarLista();
         }
-        private void buttonCadastrar(object sender, EventArgs e)
+        private void botaoCadastrarCliente(object sender, EventArgs e)
         {
             Cadastro cad = new Cadastro();
             cad.ShowDialog();
 
-            cad.cliente.id = ObterProximoId();
-
-            if(cad.DialogResult == DialogResult.OK )
+            if((cad.DialogResult == DialogResult.OK ))
             {
+                MessageBox.Show("Cliente adicionado com sucesso!");
+                cad.cliente.id = ObterProximoId();
                 listaClientes.Add(cad.cliente);
-                
-            
             }
 
             AtualizarLista();
         }
-        private void buttonEditar(object sender, EventArgs e)
+        private void botaoEditarCliente(object sender, EventArgs e)
         {
 
         }
 
-        private void buttonDeletar(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridVieww_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void botaonDeletarCliente(object sender, EventArgs e)
         {
 
         }
@@ -64,15 +57,9 @@ namespace WindowsFormsAppStart
         }
 
         private int ObterProximoId()
-        {
-            MessageBox.Show("Cliente adicionado com sucesso!");
+        {   
             return ++_Id;
-            
         }
 
-        private void TelaInicial_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
