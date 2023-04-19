@@ -13,7 +13,8 @@ namespace WindowsFormsAppStart
 {
     public partial class Cadastro : Form
     {
-        public Cliente cliente = new Cliente();    
+        public Cliente cliente = new Cliente();
+        
         public Cadastro()
         {
             InitializeComponent();
