@@ -211,16 +211,16 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txt_Nome;
+        public System.Windows.Forms.TextBox txt_Nome;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DateTimePicker txtDataNascimento;
-        private System.Windows.Forms.TextBox txt_sexo;
+        public System.Windows.Forms.DateTimePicker txtDataNascimento;
+        public System.Windows.Forms.TextBox txt_sexo;
         private System.Windows.Forms.Label labelNome;
         private System.Windows.Forms.Label labelDataNascimento;
         private System.Windows.Forms.Label labelSexo;
         private System.Windows.Forms.Label labelTelefone;
-        private System.Windows.Forms.MaskedTextBox txt_telefone;
+        public System.Windows.Forms.MaskedTextBox txt_telefone;
     }
 }

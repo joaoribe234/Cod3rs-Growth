@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MensagensDeErros.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="TelaInicial.cs">
       <SubType>Form</SubType>
