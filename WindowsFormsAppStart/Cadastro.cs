@@ -13,10 +13,7 @@ namespace WindowsFormsAppStart
 {
     public partial class Cadastro : Form
     {
-
-        
         public Cliente cliente = new Cliente();
-        
         
         public Cadastro()
         {
@@ -26,7 +23,6 @@ namespace WindowsFormsAppStart
         private void BotaoSalvarDadosFormulario(object sender, EventArgs e)
 
         {
-            
                 cliente.nome = txt_Nome.Text;
                 cliente.dataNascimento = Convert.ToDateTime(txtDataNascimento.Text);
                 cliente.sexo = txt_sexo.Text;
@@ -38,16 +34,14 @@ namespace WindowsFormsAppStart
                  ValidarFormulario.validacaoDeCampos(cliente);
                 DialogResult = DialogResult.OK;
 
-            }
+                }
                 catch (MensagensDeErros ex)
                 {
                  
                 MessageBox.Show(ex.Message);
                 
-            }
+                }
                 
-                
-            
         }
 
         private void botaoAoClicarCancelarRetornaTelaInicial(object sender, EventArgs e)
