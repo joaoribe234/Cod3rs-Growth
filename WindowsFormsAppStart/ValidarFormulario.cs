@@ -4,11 +4,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsFormsAppStart
 {
     public class ValidarFormulario
     {
+   
         public static void validacaoDeCampos( Cliente cliente ) {
 
             
@@ -30,7 +32,7 @@ namespace WindowsFormsAppStart
                 mensagemErro += " O campo Sexo deve ser preenchido! \n \n";
                 
             }
-            if (!cadastro.txt_telefone.MaskCompleted) {
+            if (cliente.telefone.Length < 15) {
                 mensagemErro += " O campo Telefone deve ser preenchido! \n \n";
                 cadastro.txt_telefone.BackColor = Color.LightGreen;
             }
@@ -44,7 +46,9 @@ namespace WindowsFormsAppStart
             if (mensagemErro.Length > 1)
             {
                 throw new MensagensDeErros(mensagemErro);
+
             }
+            
         }
     }
 }

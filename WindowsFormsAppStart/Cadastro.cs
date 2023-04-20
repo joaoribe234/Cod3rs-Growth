@@ -17,6 +17,7 @@ namespace WindowsFormsAppStart
         
         public Cliente cliente = new Cliente();
         
+        
         public Cadastro()
         {
             InitializeComponent();
@@ -25,6 +26,7 @@ namespace WindowsFormsAppStart
         private void BotaoSalvarDadosFormulario(object sender, EventArgs e)
 
         {
+            
                 cliente.nome = txt_Nome.Text;
                 cliente.dataNascimento = Convert.ToDateTime(txtDataNascimento.Text);
                 cliente.sexo = txt_sexo.Text;
@@ -32,18 +34,19 @@ namespace WindowsFormsAppStart
                 
                 try
                 {
-               
-                ValidarFormulario.validacaoDeCampos(cliente);
-                  
-                }
+                 
+                 ValidarFormulario.validacaoDeCampos(cliente);
+                DialogResult = DialogResult.OK;
+
+            }
                 catch (MensagensDeErros ex)
                 {
-
+                 
                 MessageBox.Show(ex.Message);
-
-                }
                 
-                DialogResult = DialogResult.OK;
+            }
+                
+                
             
         }
 
