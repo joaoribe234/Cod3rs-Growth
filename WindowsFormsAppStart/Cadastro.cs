@@ -14,11 +14,16 @@ namespace WindowsFormsAppStart
     public partial class Cadastro : Form
     {
         public Cliente cliente = new Cliente();
+        private Cliente _clienteAtual ; 
         
-        public Cadastro()
+        public Cadastro(Cliente cliente = null)
         {
+            
             InitializeComponent();
+            _clienteAtual = cliente;
         }
+
+
         
         private void BotaoSalvarDadosFormulario(object sender, EventArgs e)
 
