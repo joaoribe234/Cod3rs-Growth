@@ -32,7 +32,7 @@ namespace WindowsFormsAppStart
                 mensagemErro += " A idade não pode ser maior que 140 anos!\n \n";
             }
             if (cliente.dataNascimento > DateTime.Now) {
-                mensagemErro += " A data de Nascimento não ser futura!\n \n";
+                mensagemErro += " A data de Nascimento não pode ser futura!\n \n";
             }
             if (mensagemErro.Length > 1)
             {
