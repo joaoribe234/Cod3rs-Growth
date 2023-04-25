@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+
 
 namespace WindowsFormsAppStart
 {
@@ -28,19 +20,17 @@ namespace WindowsFormsAppStart
                 txt_telefone.Text = _clienteAtual.telefone;
             }
         }
-
         private void BotaoSalvarDadosFormulario(object sender, EventArgs e)
 
         {
-
             if (_clienteAtual != null)
 
             {
-
                 _clienteAtual.nome = txt_Nome.Text;
                 _clienteAtual.dataNascimento = Convert.ToDateTime(txtDataNascimento.Text);
                 _clienteAtual.sexo = txt_sexo.Text;
                 _clienteAtual.telefone = txt_telefone.Text;
+
                 try
                 {
                     ValidarFormulario.validacaoDeCampos(_clienteAtual);
@@ -51,7 +41,8 @@ namespace WindowsFormsAppStart
                     MessageBox.Show(ex.Message);
                 }
             }
-            else { 
+            else
+            { 
                 cliente.nome = txt_Nome.Text;
                 cliente.dataNascimento = Convert.ToDateTime(txtDataNascimento.Text);
                 cliente.sexo = txt_sexo.Text;
@@ -59,8 +50,7 @@ namespace WindowsFormsAppStart
                 
                 try
                 {
-                 
-                 ValidarFormulario.validacaoDeCampos(cliente);
+                ValidarFormulario.validacaoDeCampos(cliente);
                 DialogResult = DialogResult.OK;
 
                 }
@@ -76,7 +66,5 @@ namespace WindowsFormsAppStart
         {
             this.Close();
         }
-      
-       
     }
 }

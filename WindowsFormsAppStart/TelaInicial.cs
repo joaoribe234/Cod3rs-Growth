@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+
 
 namespace WindowsFormsAppStart
 {
@@ -70,7 +63,7 @@ namespace WindowsFormsAppStart
             var id = (int)dataGridVieww.SelectedRows[0].Cells[0].Value;
             var clienteParaRemover = listaClientes.Find(x => x.id == id);
             listaClientes.Remove(clienteParaRemover);
-              MessageBox.Show("Cliente removido com sucesso!");
+            MessageBox.Show("Cliente removido com sucesso!");
 
             AtualizarLista();
         }
