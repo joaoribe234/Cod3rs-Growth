@@ -83,5 +83,10 @@ namespace WindowsFormsAppStart
         {   
             return ++_Id;
         }
+
+        private void dataGridVieww_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

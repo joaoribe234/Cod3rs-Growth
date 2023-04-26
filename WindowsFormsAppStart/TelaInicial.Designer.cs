@@ -135,6 +135,7 @@
             this.dataGridVieww.Name = "dataGridVieww";
             this.dataGridVieww.Size = new System.Drawing.Size(578, 279);
             this.dataGridVieww.TabIndex = 11;
+            this.dataGridVieww.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridVieww_CellContentClick);
             // 
             // TelaInicial
             // 

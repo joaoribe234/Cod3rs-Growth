@@ -66,5 +66,10 @@ namespace WindowsFormsAppStart
         {
             this.Close();
         }
+
+        private void Cadastro_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
