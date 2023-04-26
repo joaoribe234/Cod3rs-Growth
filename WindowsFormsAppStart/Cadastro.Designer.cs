@@ -116,7 +116,7 @@
             this.button2.TabIndex = 12;
             this.button2.Text = "Cancelar";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.botaoAoClicarCancelarRetornaTelaInicial);
+            this.button2.Click += new System.EventHandler(this.botaoAoClicarCancelar);
             // 
             // txtDataNascimento
             // 
@@ -199,7 +199,6 @@
             this.Controls.Add(this.label1);
             this.Name = "Cadastro";
             this.Text = "Cadastro_Clientes";
-            this.Load += new System.EventHandler(this.Cadastro_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

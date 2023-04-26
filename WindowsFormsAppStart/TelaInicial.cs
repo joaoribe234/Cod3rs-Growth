@@ -22,7 +22,7 @@ namespace WindowsFormsAppStart
             Cadastro cadastro = new Cadastro();
             cadastro.ShowDialog();
 
-            if((cadastro.DialogResult == DialogResult.OK ))
+            if(cadastro.DialogResult == DialogResult.OK )
             {
                 MessageBox.Show("Cliente adicionado com sucesso!");
                 cadastro.cliente.id = ObterProximoId();
@@ -62,10 +62,14 @@ namespace WindowsFormsAppStart
             }
             var id = (int)dataGridVieww.SelectedRows[0].Cells[0].Value;
             var clienteParaRemover = listaClientes.Find(x => x.id == id);
-            listaClientes.Remove(clienteParaRemover);
-            MessageBox.Show("Cliente removido com sucesso!");
 
-            AtualizarLista();
+            DialogResult result = MessageBox.Show("Deseja remover o cliente ? ", "Atenção ", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes) {
+                listaClientes.Remove(clienteParaRemover);
+                MessageBox.Show("Cliente removido com sucesso!");
+                AtualizarLista();
+            }
+
         }
 
         private void AtualizarLista()
@@ -82,11 +86,6 @@ namespace WindowsFormsAppStart
         private int ObterProximoId()
         {   
             return ++_Id;
-        }
-
-        private void dataGridVieww_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }
