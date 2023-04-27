@@ -11,24 +11,16 @@ namespace WindowsFormsAppStart
         {
             InitializeComponent();
             _clienteAtual = cliente;
-          //  if (_clienteAtual != null)
-          //  {
-              //  carregarDados();   
-         //   }
+            if (_clienteAtual != null)
+            {
+                PreencherCamposCliente();   
+            }
         }
         private void BotaoSalvarDadosFormulario(object sender, EventArgs e)
         {
             try
-            {
-                if (_clienteAtual != null)
-                {
-                    carregarDados();
-                    editarCliente();
-                }
-                else
-                {
-                    cadastrarCliente();
-                }
+            {    
+                SalvarCliente();
                 DialogResult = DialogResult.OK;
             }
             catch (MensagensDeErros ex)
@@ -40,29 +32,21 @@ namespace WindowsFormsAppStart
         {
             this.Close();
         }
-        void carregarDados()
+        void PreencherCamposCliente()
         {
             txt_Nome.Text = _clienteAtual.nome;
             txtDataNascimento.Text = _clienteAtual.dataNascimento.ToString();
             txt_sexo.Text = _clienteAtual.sexo;
             txt_telefone.Text = _clienteAtual.telefone;
         }
-        void cadastrarCliente()
+        void SalvarCliente()
         {
-            cliente.nome = txt_Nome.Text;
-            cliente.dataNascimento = Convert.ToDateTime(txtDataNascimento.Text);
-            cliente.sexo = txt_sexo.Text;
-            cliente.telefone = txt_telefone.Text;
-            ValidarFormulario.validacaoDeCampos(cliente);
-        }
-        void editarCliente()
-        {
-            _clienteAtual.nome = txt_Nome.Text;
-            _clienteAtual.dataNascimento = Convert.ToDateTime(txtDataNascimento.Text);
-            _clienteAtual.sexo = txt_sexo.Text;
-            _clienteAtual.telefone = txt_telefone.Text;
-            ValidarFormulario.validacaoDeCampos(_clienteAtual);
-        }
-        
+            Cliente clienteASalvar = (_clienteAtual != null) ? _clienteAtual : cliente;
+            clienteASalvar.nome = txt_Nome.Text;
+            clienteASalvar.dataNascimento = Convert.ToDateTime(txtDataNascimento.Text);
+            clienteASalvar.sexo = txt_sexo.Text;
+            clienteASalvar.telefone = txt_telefone.Text;
+            ValidarFormulario.validacaoDeCampos(clienteASalvar);
+        }      
     }
 }

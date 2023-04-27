@@ -38,7 +38,6 @@ namespace WindowsFormsAppStart
                 return;
             }         
             var idSelecionado= (int)dataGridVieww.SelectedRows[0].Cells[0].Value;
-
             var clienteSelecioandoPorId = listaClientes.Find(x => x.id == idSelecionado);
 
             Cadastro cadastro = new Cadastro(clienteSelecioandoPorId);
@@ -46,13 +45,10 @@ namespace WindowsFormsAppStart
 
             if ((cadastro.DialogResult == DialogResult.OK))
             {
-                MessageBox.Show("Cliente editado com sucesso!");
-                
+                MessageBox.Show("Cliente editado com sucesso!");            
             }
-
             AtualizarLista();
         }
-
         private void botaonDeletarCliente(object sender, EventArgs e)
         {
             if (dataGridVieww.SelectedRows.Count == 0)
@@ -69,10 +65,8 @@ namespace WindowsFormsAppStart
                 MessageBox.Show("Cliente removido com sucesso!");
                 AtualizarLista();
             }
-
         }
-
-        private void AtualizarLista()
+        public void AtualizarLista()
         {
             this.dataGridVieww.DataSource = listaClientes.Select(x => new {
             x.id  ,
@@ -82,7 +76,6 @@ namespace WindowsFormsAppStart
             x.telefone
             }).ToList();
         }
-
         private int ObterProximoId()
         {   
             return ++_Id;
