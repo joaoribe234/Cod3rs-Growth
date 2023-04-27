@@ -42,11 +42,12 @@ namespace WindowsFormsAppStart
         void SalvarCliente()
         {
             Cliente clienteASalvar = (_clienteAtual != null) ? _clienteAtual : cliente;
+            ValidarFormulario.validacaoDeCampos(clienteASalvar);
             clienteASalvar.nome = txt_Nome.Text;
             clienteASalvar.dataNascimento = Convert.ToDateTime(txtDataNascimento.Text);
             clienteASalvar.sexo = txt_sexo.Text;
             clienteASalvar.telefone = txt_telefone.Text;
-            ValidarFormulario.validacaoDeCampos(clienteASalvar);
+            
         }      
     }
 }

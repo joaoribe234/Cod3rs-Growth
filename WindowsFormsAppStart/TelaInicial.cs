@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
-
 namespace WindowsFormsAppStart
 {
     public partial class TelaInicial : Form
