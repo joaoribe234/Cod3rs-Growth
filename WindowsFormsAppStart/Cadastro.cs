@@ -37,7 +37,7 @@ namespace WindowsFormsAppStart
     }
         private void botaoAoClicarCancelar(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Deseja Cancelar? Você pode perder esses dados", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Deseja Cancelar? Você pode perder esses dados", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 this.Close();
             }
@@ -62,9 +62,10 @@ namespace WindowsFormsAppStart
         private void cadastrarCliente()
         {
             var cliente = obterDadosFormulario();
+            ValidarFormulario.validacaoDeCampos(cliente);
             cliente.id = ObterProximoId();
             clienteParaCadastrar = cliente;
-            ValidarFormulario.validacaoDeCampos(clienteParaCadastrar);
+            
         }
         private void atualizarCliente(Cliente clienteASerAtualizado)
         {

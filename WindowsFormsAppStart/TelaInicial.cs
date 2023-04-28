@@ -27,7 +27,6 @@ namespace WindowsFormsAppStart
                 if (cadastro.DialogResult == DialogResult.OK)
                 {
                     MessageBox.Show("Cliente adicionado com sucesso!");
-                    //  cadastro.clienteParaCadastrar.id = ObterProximoId();
                     listaClientes.Add(cadastro.clienteParaCadastrar);
                 }
                 AtualizarLista();
