@@ -5,22 +5,29 @@ namespace WindowsFormsAppStart
 {
     public partial class Cadastro : Form
     {
-        public Cliente cliente = new Cliente();
-        private Cliente _clienteAtual ;
+        public Cliente clienteParaCadastrar = new Cliente();
+        public Cliente clienteParaAtualizar ;
+        private static int _Id;
         public Cadastro(Cliente cliente = null)
         {
             InitializeComponent();
-            _clienteAtual = cliente;
-            if (_clienteAtual != null)
-            {
-                PreencherCamposCliente();   
+            clienteParaAtualizar = cliente;
+            if (clienteParaAtualizar != null){
+                PreencherCamposCliente(cliente);   
             }
         }
         private void BotaoSalvarDadosFormulario(object sender, EventArgs e)
         {
             try
-            {    
-                SalvarCliente();
+            {
+                if (clienteParaAtualizar != null)
+                {
+                    atualizarCliente(clienteParaAtualizar);
+                }
+                else
+                {
+                    cadastrarCliente();
+                }
                 DialogResult = DialogResult.OK;
             }
             catch (MensagensDeErros ex)
@@ -30,24 +37,49 @@ namespace WindowsFormsAppStart
     }
         private void botaoAoClicarCancelar(object sender, EventArgs e)
         {
-            this.Close();
+            if (MessageBox.Show("Deseja Cancelar? Você pode perder esses dados", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
-        void PreencherCamposCliente()
+       private void PreencherCamposCliente(Cliente cliente)           
         {
-            txt_Nome.Text = _clienteAtual.nome;
-            txtDataNascimento.Text = _clienteAtual.dataNascimento.ToString();
-            txt_sexo.Text = _clienteAtual.sexo;
-            txt_telefone.Text = _clienteAtual.telefone;
+            txt_Nome.Text = cliente?.nome;
+            txtDataNascimento.Text = cliente?.dataNascimento.ToString();
+            txt_sexo.Text = cliente?.sexo;
+            txt_telefone.Text = cliente?.telefone;
         }
-        void SalvarCliente()
+        private Cliente obterDadosFormulario() {
+            var cliente = new Cliente()
+            {
+                nome = txt_Nome.Text,
+                dataNascimento = Convert.ToDateTime(txtDataNascimento.Text),
+                telefone = txt_telefone.Text,
+                sexo = txt_sexo.Text
+            }; 
+                return cliente;
+        }
+        private void cadastrarCliente()
         {
-            Cliente clienteASalvar = (_clienteAtual != null) ? _clienteAtual : cliente;
-            ValidarFormulario.validacaoDeCampos(clienteASalvar);
-            clienteASalvar.nome = txt_Nome.Text;
-            clienteASalvar.dataNascimento = Convert.ToDateTime(txtDataNascimento.Text);
-            clienteASalvar.sexo = txt_sexo.Text;
-            clienteASalvar.telefone = txt_telefone.Text;
-            
-        }      
+            var cliente = obterDadosFormulario();
+            cliente.id = ObterProximoId();
+            clienteParaCadastrar = cliente;
+            ValidarFormulario.validacaoDeCampos(clienteParaCadastrar);
+        }
+        private void atualizarCliente(Cliente clienteASerAtualizado)
+        {
+            var clienteAtualizado = obterDadosFormulario();
+            clienteParaCadastrar = clienteAtualizado;
+            clienteAtualizado.id = clienteASerAtualizado.id;
+            ValidarFormulario.validacaoDeCampos(clienteAtualizado);
+        }
+        public Cliente ObterClienteParaCadastrar()
+        {
+            return clienteParaCadastrar;
+        }
+        private int ObterProximoId()
+        {
+            return ++_Id;
+        }
     }
 }

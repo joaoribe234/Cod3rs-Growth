@@ -87,7 +87,7 @@
             this.txt_Nome.Location = new System.Drawing.Point(38, 68);
             this.txt_Nome.Name = "txt_Nome";
             this.txt_Nome.Size = new System.Drawing.Size(264, 20);
-            this.txt_Nome.TabIndex = 6;
+            this.txt_Nome.TabIndex = 1;
             // 
             // label6
             // 
@@ -103,8 +103,8 @@
             this.button1.Location = new System.Drawing.Point(503, 356);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(92, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Adcionar Cliente";
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Salvar Cliente";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.BotaoSalvarDadosFormulario);
             // 
@@ -113,7 +113,7 @@
             this.button2.Location = new System.Drawing.Point(636, 356);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 12;
+            this.button2.TabIndex = 6;
             this.button2.Text = "Cancelar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.botaoAoClicarCancelar);
@@ -123,14 +123,14 @@
             this.txtDataNascimento.Location = new System.Drawing.Point(38, 149);
             this.txtDataNascimento.Name = "txtDataNascimento";
             this.txtDataNascimento.Size = new System.Drawing.Size(264, 20);
-            this.txtDataNascimento.TabIndex = 13;
+            this.txtDataNascimento.TabIndex = 2;
             // 
             // txt_sexo
             // 
             this.txt_sexo.Location = new System.Drawing.Point(38, 245);
             this.txt_sexo.Name = "txt_sexo";
             this.txt_sexo.Size = new System.Drawing.Size(264, 20);
-            this.txt_sexo.TabIndex = 21;
+            this.txt_sexo.TabIndex = 3;
             // 
             // labelNome
             // 
@@ -174,7 +174,7 @@
             this.txt_telefone.Mask = "(99) 00000-0000";
             this.txt_telefone.Name = "txt_telefone";
             this.txt_telefone.Size = new System.Drawing.Size(264, 20);
-            this.txt_telefone.TabIndex = 26;
+            this.txt_telefone.TabIndex = 4;
             // 
             // Cadastro
             // 

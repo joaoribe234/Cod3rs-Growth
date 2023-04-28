@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -18,51 +19,72 @@ namespace WindowsFormsAppStart
         }
         private void botaoCadastrarCliente(object sender, EventArgs e)
         {
-            Cadastro cadastro = new Cadastro();
-            cadastro.ShowDialog();
-
-            if(cadastro.DialogResult == DialogResult.OK )
+            try
             {
-                MessageBox.Show("Cliente adicionado com sucesso!");
-                cadastro.cliente.id = ObterProximoId();
-                listaClientes.Add(cadastro.cliente);
+                Cadastro cadastro = new Cadastro();
+                cadastro.ShowDialog();
+
+                if (cadastro.DialogResult == DialogResult.OK)
+                {
+                    MessageBox.Show("Cliente adicionado com sucesso!");
+                    //  cadastro.clienteParaCadastrar.id = ObterProximoId();
+                    listaClientes.Add(cadastro.clienteParaCadastrar);
+                }
+                AtualizarLista();
             }
-            AtualizarLista();
+            catch (Exception) {
+                throw;
+            }
         }
         private void botaoEditarCliente(object sender, EventArgs e )
-        {   
-            if (dataGridVieww.SelectedRows.Count == 0)
+        {
+                if (dataGridVieww.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Selecione um cliente para editar.");
                 return;
-            }         
-            var idSelecionado= (int)dataGridVieww.SelectedRows[0].Cells[0].Value;
-            var clienteSelecioandoPorId = listaClientes.Find(x => x.id == idSelecionado);
-
-            Cadastro cadastro = new Cadastro(clienteSelecioandoPorId);
-            cadastro.ShowDialog();
-
-            if ((cadastro.DialogResult == DialogResult.OK))
-            {
-                MessageBox.Show("Cliente editado com sucesso!");            
             }
-            AtualizarLista();
+            try
+            {
+                var idSelecionado = (int)dataGridVieww.SelectedRows[0].Cells[0].Value;
+                var clienteSelecioandoPorId = listaClientes.Find(x => x.id == idSelecionado);
+
+                Cadastro cadastro = new Cadastro(clienteSelecioandoPorId);
+                cadastro.ShowDialog();
+                if ((cadastro.DialogResult == DialogResult.OK))
+                {
+                    Cliente clienteEditado = listaClientes.Find(x => x.id == cadastro.clienteParaAtualizar.id);
+                    listaClientes[listaClientes.IndexOf(clienteEditado)] = cadastro.ObterClienteParaCadastrar();
+                    MessageBox.Show("Cliente editado com sucesso!");
+                }
+                AtualizarLista();
+            }
+            catch (Exception) {
+                throw;
+            }
         }
         private void botaonDeletarCliente(object sender, EventArgs e)
         {
-            if (dataGridVieww.SelectedRows.Count == 0)
+            try
             {
-                MessageBox.Show("Selecione um cliente para deletar.");
-                return;
-            }
-            var id = (int)dataGridVieww.SelectedRows[0].Cells[0].Value;
-            var clienteParaRemover = listaClientes.Find(x => x.id == id);
+                if (dataGridVieww.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Selecione um cliente para deletar.");
+                    return;
+                }
+                var id = (int)dataGridVieww.SelectedRows[0].Cells[0].Value;
+                var clienteParaRemover = listaClientes.Find(x => x.id == id);
 
-            DialogResult result = MessageBox.Show("Deseja remover o cliente ? ", "Atenção ", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes) {
-                listaClientes.Remove(clienteParaRemover);
-                MessageBox.Show("Cliente removido com sucesso!");
-                AtualizarLista();
+                DialogResult result = MessageBox.Show("Deseja remover o cliente ? ", "Atenção ", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    listaClientes.Remove(clienteParaRemover);
+                    MessageBox.Show("Cliente removido com sucesso!");
+                    AtualizarLista();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
         public void AtualizarLista()
@@ -75,9 +97,6 @@ namespace WindowsFormsAppStart
             x.telefone
             }).ToList();
         }
-        private int ObterProximoId()
-        {   
-            return ++_Id;
-        }
+        
     }
 }
