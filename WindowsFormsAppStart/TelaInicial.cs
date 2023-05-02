@@ -8,8 +8,8 @@ namespace WindowsFormsAppStart
 {
     public partial class TelaInicial : Form
     {
-        public List<Cliente> listaClientes = new List<Cliente>();
-        public int _Id;
+        public List<Cliente> listaClientes = Singleton.ObterInstancia();
+
         public TelaInicial()
         {
             InitializeComponent();
@@ -30,13 +30,14 @@ namespace WindowsFormsAppStart
                 }
                 AtualizarLista();
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 throw;
             }
         }
-        private void botaoEditarCliente(object sender, EventArgs e )
+        private void botaoEditarCliente(object sender, EventArgs e)
         {
-                if (dataGridVieww.SelectedRows.Count == 0)
+            if (dataGridVieww.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Selecione um cliente para editar.");
                 return;
@@ -56,7 +57,8 @@ namespace WindowsFormsAppStart
                 }
                 AtualizarLista();
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 throw;
             }
         }
@@ -88,13 +90,12 @@ namespace WindowsFormsAppStart
         public void AtualizarLista()
         {
             this.dataGridVieww.DataSource = listaClientes.Select(x => new {
-            x.id  ,
-            x.nome,
-            x.dataNascimento,
-            x.sexo,
-            x.telefone
+                x.id,
+                x.nome,
+                x.dataNascimento,
+                x.sexo,
+                x.telefone
             }).ToList();
         }
-        
     }
 }
