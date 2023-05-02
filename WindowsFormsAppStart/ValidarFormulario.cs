@@ -31,8 +31,7 @@ namespace WindowsFormsAppStart
             if (mensagemErro.Length > 1)
             {
                 throw new MensagensDeErros(mensagemErro);
-            }
-            
+            } 
         }
     }
 }
