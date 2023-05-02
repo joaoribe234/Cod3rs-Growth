@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 
-
 namespace WindowsFormsAppStart
 {
-
     public sealed class Singleton
     {
         private static List<Cliente> instancia;
