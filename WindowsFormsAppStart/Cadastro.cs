@@ -7,7 +7,6 @@ namespace WindowsFormsAppStart
     {
         public Cliente clienteParaCadastrar = new Cliente();
         public Cliente clienteParaAtualizar ;
-        private static int _Id;
         public Cadastro(Cliente cliente = null)
         {
             InitializeComponent();
@@ -63,26 +62,19 @@ namespace WindowsFormsAppStart
         {
             var cliente = obterDadosFormulario();
             ValidarFormulario.validacaoDeCampos(cliente);
-            cliente.id = ObterProximoId();
-            clienteParaCadastrar = cliente;
-            
+            cliente.id = Singleton.ObterProximoId();
+            clienteParaCadastrar = cliente; 
         }
         private void atualizarCliente(Cliente clienteASerAtualizado)
         {
             var clienteAtualizado = obterDadosFormulario();
             ValidarFormulario.validacaoDeCampos(clienteAtualizado);
             clienteAtualizado.id = clienteASerAtualizado.id;
-            clienteParaCadastrar = clienteAtualizado;
-           
-            
+            clienteParaCadastrar = clienteAtualizado;    
         }
         public Cliente ObterClienteParaCadastrar()
         {
             return clienteParaCadastrar;
-        }
-        private int ObterProximoId()
-        {
-            return ++_Id;
         }
     }
 }
