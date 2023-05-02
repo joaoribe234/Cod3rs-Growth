@@ -70,9 +70,11 @@ namespace WindowsFormsAppStart
         private void atualizarCliente(Cliente clienteASerAtualizado)
         {
             var clienteAtualizado = obterDadosFormulario();
-            clienteParaCadastrar = clienteAtualizado;
-            clienteAtualizado.id = clienteASerAtualizado.id;
             ValidarFormulario.validacaoDeCampos(clienteAtualizado);
+            clienteAtualizado.id = clienteASerAtualizado.id;
+            clienteParaCadastrar = clienteAtualizado;
+           
+            
         }
         public Cliente ObterClienteParaCadastrar()
         {
