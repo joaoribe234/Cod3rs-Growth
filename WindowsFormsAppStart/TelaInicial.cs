@@ -8,8 +8,9 @@ namespace WindowsFormsAppStart
 {
     public partial class TelaInicial : Form
     {
-        public List<Cliente> listaClientes = new List<Cliente>();
-        public int _Id;
+        //public List<Cliente> listaClientes = new List<Cliente>();
+        public List<Cliente> listaClientes = Singleton.ObterInstancia();
+
         public TelaInicial()
         {
             InitializeComponent();
@@ -95,6 +96,5 @@ namespace WindowsFormsAppStart
             x.telefone
             }).ToList();
         }
-        
     }
 }
