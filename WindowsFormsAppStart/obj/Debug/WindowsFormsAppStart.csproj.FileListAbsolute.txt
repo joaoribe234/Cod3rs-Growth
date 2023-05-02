@@ -10,3 +10,15 @@ C:\Users\Usuario\source\repos\WindowsFormsAppStart\WindowsFormsAppStart\obj\Debu
 C:\Users\Usuario\source\repos\WindowsFormsAppStart\WindowsFormsAppStart\obj\Debug\WindowsFormsAppStart.csproj.CoreCompileInputs.cache
 C:\Users\Usuario\source\repos\WindowsFormsAppStart\WindowsFormsAppStart\obj\Debug\WindowsFormsAppStart.exe
 C:\Users\Usuario\source\repos\WindowsFormsAppStart\WindowsFormsAppStart\obj\Debug\WindowsFormsAppStart.pdb
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\WindowsFormsAppStart\bin\Debug\WindowsFormsAppStart.exe.config
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\WindowsFormsAppStart\bin\Debug\WindowsFormsAppStart.exe
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\WindowsFormsAppStart\bin\Debug\WindowsFormsAppStart.pdb
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\WindowsFormsAppStart\obj\Debug\WindowsFormsAppStart.csproj.AssemblyReference.cache
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\WindowsFormsAppStart\obj\Debug\WindowsFormsAppStart.csproj.SuggestedBindingRedirects.cache
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\WindowsFormsAppStart\obj\Debug\WindowsFormsAppStart.Cadastro.resources
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\WindowsFormsAppStart\obj\Debug\WindowsFormsAppStart.TelaInicial.resources
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\WindowsFormsAppStart\obj\Debug\WindowsFormsAppStart.Properties.Resources.resources
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\WindowsFormsAppStart\obj\Debug\WindowsFormsAppStart.csproj.GenerateResource.cache
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\WindowsFormsAppStart\obj\Debug\WindowsFormsAppStart.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\WindowsFormsAppStart\obj\Debug\WindowsFormsAppStart.exe
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\WindowsFormsAppStart\obj\Debug\WindowsFormsAppStart.pdb

@@ -1,79 +1,88 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsAppStart
 {
     public partial class Cadastro : Form
     {
-        public Cadastro()
+        public Cliente clienteParaCadastrar = new Cliente();
+        public Cliente clienteParaAtualizar ;
+        private static int _Id;
+        public Cadastro(Cliente cliente = null)
         {
             InitializeComponent();
+            clienteParaAtualizar = cliente;
+            if (clienteParaAtualizar != null){
+                PreencherCamposCliente(cliente);   
+            }
         }
-
-        private void labelNome(object sender, EventArgs e)
+        private void BotaoSalvarDadosFormulario(object sender, EventArgs e)
         {
-
+            try
+            {
+                if (clienteParaAtualizar != null)
+                {
+                    atualizarCliente(clienteParaAtualizar);
+                }
+                else
+                {
+                    cadastrarCliente();
+                }
+                DialogResult = DialogResult.OK;
+            }
+            catch (MensagensDeErros ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+    }
+        private void botaoAoClicarCancelar(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Deseja Cancelar? Você pode perder esses dados", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
-
-        private void Cadastro_Load(object sender, EventArgs e)
+       private void PreencherCamposCliente(Cliente cliente)           
         {
-
+            txt_Nome.Text = cliente?.nome;
+            txtDataNascimento.Text = cliente?.dataNascimento.ToString();
+            txt_sexo.Text = cliente?.sexo;
+            txt_telefone.Text = cliente?.telefone;
         }
-
-        private void ButtonSalvar(object sender, EventArgs e)
-        {
-
+        private Cliente obterDadosFormulario() {
+            var cliente = new Cliente()
+            {
+                nome = txt_Nome.Text,
+                dataNascimento = Convert.ToDateTime(txtDataNascimento.Text),
+                telefone = txt_telefone.Text,
+                sexo = txt_sexo.Text
+            }; 
+                return cliente;
         }
-
-        private void ButtonCancelar(object sender, EventArgs e)
+        private void cadastrarCliente()
         {
-
+            var cliente = obterDadosFormulario();
+            ValidarFormulario.validacaoDeCampos(cliente);
+            cliente.id = ObterProximoId();
+            clienteParaCadastrar = cliente;
+            
         }
-
-        private void textBoxDataNascimento(object sender, EventArgs e)
+        private void atualizarCliente(Cliente clienteASerAtualizado)
         {
-
+            var clienteAtualizado = obterDadosFormulario();
+            ValidarFormulario.validacaoDeCampos(clienteAtualizado);
+            clienteAtualizado.id = clienteASerAtualizado.id;
+            clienteParaCadastrar = clienteAtualizado;
+           
+            
         }
-
-        private void labelDataNascimento(object sender, EventArgs e)
+        public Cliente ObterClienteParaCadastrar()
         {
-
+            return clienteParaCadastrar;
         }
-
-        private void labelTelefone(object sender, EventArgs e)
+        private int ObterProximoId()
         {
-
-        }
-
-        private void labelSexo(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxNome(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxTelefone(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxSexo(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateTimePickerDataNascimento(object sender, EventArgs e)
-        {
+            return ++_Id;
         }
     }
 }

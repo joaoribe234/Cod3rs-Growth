@@ -44,33 +44,33 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(490, 30);
+            this.button1.Location = new System.Drawing.Point(328, 304);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 23);
             this.button1.TabIndex = 0;
             this.button1.Text = "CADASTRAR";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.buttonCadastrar);
+            this.button1.Click += new System.EventHandler(this.botaoCadastrarCliente);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(490, 147);
+            this.button2.Location = new System.Drawing.Point(417, 304);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(83, 23);
             this.button2.TabIndex = 1;
             this.button2.Text = "EDITAR";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.buttonEditar);
+            this.button2.Click += new System.EventHandler(this.botaoEditarCliente);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(490, 294);
+            this.button3.Location = new System.Drawing.Point(506, 304);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 2;
             this.button3.Text = "DELETAR";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.buttonDeletar);
+            this.button3.Click += new System.EventHandler(this.botaonDeletarCliente);
             // 
             // label8
             // 
@@ -106,12 +106,10 @@
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(378, 30);
+            this.label12.Location = new System.Drawing.Point(0, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(0, 13);
-            this.label12.TabIndex = 7;
-            this.label12.Click += new System.EventHandler(this.label12_Click);
+            this.label12.Size = new System.Drawing.Size(100, 23);
+            this.label12.TabIndex = 12;
             // 
             // label13
             // 
@@ -133,11 +131,10 @@
             // dataGridVieww
             // 
             this.dataGridVieww.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridVieww.Location = new System.Drawing.Point(24, 30);
+            this.dataGridVieww.Location = new System.Drawing.Point(3, 9);
             this.dataGridVieww.Name = "dataGridVieww";
-            this.dataGridVieww.Size = new System.Drawing.Size(460, 287);
+            this.dataGridVieww.Size = new System.Drawing.Size(578, 279);
             this.dataGridVieww.TabIndex = 11;
-            this.dataGridVieww.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridVieww_CellContentClick);
             // 
             // TelaInicial
             // 
@@ -154,6 +151,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "TelaInicial";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVieww)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
