@@ -22,4 +22,8 @@ namespace WindowsFormsAppStart
             return ++_Id;
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> lista_padrão_repository_sem_injecao_dependência
