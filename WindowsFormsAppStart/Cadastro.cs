@@ -6,11 +6,7 @@ namespace WindowsFormsAppStart
     public partial class Cadastro : Form
     {
         public Cliente clienteParaCadastrar = new Cliente();
-<<<<<<< HEAD
-        public Cliente clienteParaAtualizar ;
-=======
         public Cliente clienteParaAtualizar;
->>>>>>> lista_padrão_repository_sem_injecao_dependência
         public Cadastro(Cliente cliente = null)
         {
             InitializeComponent();
@@ -69,22 +65,14 @@ namespace WindowsFormsAppStart
             var cliente = obterDadosFormulario();
             ValidarFormulario.validacaoDeCampos(cliente);
             cliente.id = Singleton.ObterProximoId();
-<<<<<<< HEAD
-            clienteParaCadastrar = cliente; 
-=======
             clienteParaCadastrar = cliente;
->>>>>>> lista_padrão_repository_sem_injecao_dependência
         }
         private void atualizarCliente(Cliente clienteASerAtualizado)
         {
             var clienteAtualizado = obterDadosFormulario();
             ValidarFormulario.validacaoDeCampos(clienteAtualizado);
             clienteAtualizado.id = clienteASerAtualizado.id;
-<<<<<<< HEAD
-            clienteParaCadastrar = clienteAtualizado;    
-=======
             clienteParaCadastrar = clienteAtualizado;
->>>>>>> lista_padrão_repository_sem_injecao_dependência
         }
         public Cliente ObterClienteParaCadastrar()
         {

@@ -46,11 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-=======
-    <Compile Include="IRepository.cs" />
-    <Compile Include="Repositorio.cs" />
->>>>>>> lista_padrão_repository_sem_injecao_dependência
+    <Compile Include="IRepoository.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="Singleton.cs" />
     <Compile Include="MensagensDeErros.cs" />
     <Compile Include="Cliente.cs" />
