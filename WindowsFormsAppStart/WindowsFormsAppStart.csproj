@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRepoository.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="Singleton.cs" />
     <Compile Include="MensagensDeErros.cs" />
