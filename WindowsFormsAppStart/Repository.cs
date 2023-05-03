@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace WindowsFormsAppStart
 {
-    class Repositorio : IRepository
+    class Repository : IRepository
     {
-        protected List<Cliente> listaDeClientes = Singleton.ObterInstancia();
+        public List<Cliente> listaDeClientes = Singleton.ObterInstancia();
 
         public List<Cliente> ObterTodosClientes()
         {
@@ -23,7 +23,6 @@ namespace WindowsFormsAppStart
         }
         public void CriarCliente(Cliente cliente)
         {
-            cliente.id = Singleton.ObterProximoId();
             listaDeClientes.Add(cliente);
         }
         public void AtualizarCliente(Cliente clienteEditado)
@@ -34,6 +33,7 @@ namespace WindowsFormsAppStart
         }
         public void RemoverCliente(Cliente cliente)
         {
+            
             listaDeClientes.Remove(cliente);
         }
     }

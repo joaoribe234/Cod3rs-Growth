@@ -8,12 +8,12 @@ namespace WindowsFormsAppStart
 {
     public partial class TelaInicial : Form
     {
-        public List<Cliente> listaClientes = Singleton.ObterInstancia();
+        Repository _repositorio = new Repository(); 
 
         public TelaInicial()
         {
             InitializeComponent();
-            listaClientes = new List<Cliente>();
+            _repositorio.listaDeClientes = new List<Cliente>();
             AtualizarLista();
         }
         private void botaoCadastrarCliente(object sender, EventArgs e)
@@ -26,7 +26,7 @@ namespace WindowsFormsAppStart
                 if (cadastro.DialogResult == DialogResult.OK)
                 {
                     MessageBox.Show("Cliente adicionado com sucesso!");
-                    listaClientes.Add(cadastro.clienteParaCadastrar);
+                    _repositorio.CriarCliente(cadastro.clienteParaCadastrar);
                 }
                 AtualizarLista();
             }
@@ -35,7 +35,7 @@ namespace WindowsFormsAppStart
                 throw;
             }
         }
-        private void botaoEditarCliente(object sender, EventArgs e)
+        private void BotaoAtualizarCliente(object sender, EventArgs e)
         {
             if (dataGridVieww.SelectedRows.Count == 0)
             {
@@ -45,14 +45,13 @@ namespace WindowsFormsAppStart
             try
             {
                 var idSelecionado = (int)dataGridVieww.SelectedRows[0].Cells[0].Value;
-                var clienteSelecioandoPorId = listaClientes.Find(x => x.id == idSelecionado);
-
+                var clienteSelecioandoPorId = _repositorio.ObterClientePorId(idSelecionado);
                 Cadastro cadastro = new Cadastro(clienteSelecioandoPorId);
                 cadastro.ShowDialog();
                 if ((cadastro.DialogResult == DialogResult.OK))
                 {
-                    Cliente clienteEditado = listaClientes.Find(x => x.id == cadastro.clienteParaAtualizar.id);
-                    listaClientes[listaClientes.IndexOf(clienteEditado)] = cadastro.ObterClienteParaCadastrar();
+                    Cliente clienteEditado = _repositorio.ObterClientePorId(cadastro.clienteParaAtualizar.id);
+                    _repositorio.AtualizarCliente(cadastro.ObterClienteParaCadastrar());
                     MessageBox.Show("Cliente editado com sucesso!");
                 }
                 AtualizarLista();
@@ -62,7 +61,7 @@ namespace WindowsFormsAppStart
                 throw;
             }
         }
-        private void botaonDeletarCliente(object sender, EventArgs e)
+        private void BotaonDeletarCliente(object sender, EventArgs e)
         {
             try
             {
@@ -72,12 +71,12 @@ namespace WindowsFormsAppStart
                     return;
                 }
                 var id = (int)dataGridVieww.SelectedRows[0].Cells[0].Value;
-                var clienteParaRemover = listaClientes.Find(x => x.id == id);
+                var clienteParaRemover = _repositorio.ObterClientePorId(id);
 
                 DialogResult result = MessageBox.Show("Deseja remover o cliente ? ", "Atenção ", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    listaClientes.Remove(clienteParaRemover);
+                    _repositorio.RemoverCliente(clienteParaRemover);
                     MessageBox.Show("Cliente removido com sucesso!");
                     AtualizarLista();
                 }
@@ -89,7 +88,7 @@ namespace WindowsFormsAppStart
         }
         public void AtualizarLista()
         {
-            this.dataGridVieww.DataSource = listaClientes.Select(x => new {
+            this.dataGridVieww.DataSource = _repositorio.listaDeClientes.Select(x => new {
                 x.id,
                 x.nome,
                 x.dataNascimento,
