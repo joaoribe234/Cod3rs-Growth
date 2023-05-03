@@ -2,15 +2,12 @@
 
 namespace WindowsFormsAppStart
 {
-    interface IRepository
+    public interface IRepository
     {
-        interface IRepository
-        {
-            public List<Cliente> PegarListaDeClientes();
-            public Cliente PegarClientePeloId(int id);
-            public void CriarCliente(Cliente cliente);
-            public void RemoverPCliente(Cliente cliente);
-            public void EditarCliente(Cliente clienteEditado);
-        }
+        List<Cliente> ObterTodosClientes();
+        Cliente ObterClientePorId(int id);
+        void CriarCliente(Cliente cliente);
+        void AtualizarCliente(Cliente clienteEditado);
+        void RemoverCliente(Cliente cliente);
     }
 }

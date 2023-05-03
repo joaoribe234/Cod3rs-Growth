@@ -1,46 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WindowsFormsAppStart
 {
-    class Repositorio
+    class Repositorio : IRepository
     {
-        public List<Cliente> listaDeClientes = Singleton.ObterInstancia();
+        protected List<Cliente> listaDeClientes = Singleton.ObterInstancia();
 
-        public void AdicionarCLiente(Cliente cliente)
+        public List<Cliente> ObterTodosClientes()
+        {
+            return listaDeClientes;
+        }
+        public Cliente ObterClientePorId(int id)
+        {
+            Cliente cliente = listaDeClientes.FirstOrDefault(i => i.id == id);
+
+            if (cliente == null)
+            {
+                return null;
+            }
+            return cliente;
+        }
+        public void CriarCliente(Cliente cliente)
         {
             cliente.id = Singleton.ObterProximoId();
             listaDeClientes.Add(cliente);
         }
-
-        public void EditarCliente(Cliente clienteEditado)
+        public void AtualizarCliente(Cliente clienteEditado)
         {
-            Cliente clienteAtual = PegarPetPeloId(clienteEditado.id);
+            Cliente clienteAtual = ObterClientePorId(clienteEditado.id);
             int indice = listaDeClientes.IndexOf(clienteAtual);
             listaDeClientes[indice] = clienteEditado;
         }
-
-        public List<Cliente> PegarListaDePets()
-        {
-            return listaDeClientes;
-        }
-
-        public Cliente PegarPetPeloId(int id)
-        {
-           Cliente cliente = listaDeClientes.FirstOrDefault(i => i.id == id);
-
-            if (cliente == null)
-           {
-                return null;
-           }
-
-           return cliente;
-        }
-
         public void RemoverCliente(Cliente cliente)
         {
             listaDeClientes.Remove(cliente);
