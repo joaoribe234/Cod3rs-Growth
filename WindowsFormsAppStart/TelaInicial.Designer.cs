@@ -60,7 +60,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "EDITAR";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.botaoEditarCliente);
+            this.button2.Click += new System.EventHandler(this.BotaoAtualizarCliente);
             // 
             // button3
             // 
@@ -70,7 +70,7 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "DELETAR";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.botaonDeletarCliente);
+            this.button3.Click += new System.EventHandler(this.BotaonDeletarCliente);
             // 
             // label8
             // 
@@ -135,6 +135,7 @@
             this.dataGridVieww.Name = "dataGridVieww";
             this.dataGridVieww.Size = new System.Drawing.Size(578, 279);
             this.dataGridVieww.TabIndex = 11;
+            this.dataGridVieww.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridVieww_CellContentClick);
             // 
             // TelaInicial
             // 
