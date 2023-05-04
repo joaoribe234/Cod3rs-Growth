@@ -96,10 +96,5 @@ namespace WindowsFormsAppStart
                 x.telefone
             }).ToList();
         }
-
-        private void dataGridVieww_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }
