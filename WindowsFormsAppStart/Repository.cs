@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace WindowsFormsAppStart
@@ -31,9 +32,9 @@ namespace WindowsFormsAppStart
             int indice = listaDeClientes.IndexOf(clienteAtual);
             listaDeClientes[indice] = clienteEditado;
         }
-        public void RemoverCliente(Cliente cliente)
+        public void RemoverCliente(int id)
         {
-            
+            Cliente cliente = ObterClientePorId(id);
             listaDeClientes.Remove(cliente);
         }
     }

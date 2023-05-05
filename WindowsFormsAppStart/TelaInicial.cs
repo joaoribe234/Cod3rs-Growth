@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -8,13 +7,13 @@ namespace WindowsFormsAppStart
 {
     public partial class TelaInicial : Form
     {
-        Repository _repositorio = new Repository(); 
+        RepositoryBD _repositorio = new RepositoryBD(); 
 
         public TelaInicial()
         {
             InitializeComponent();
             _repositorio.listaDeClientes = new List<Cliente>();
-            AtualizarLista();
+            AtualizarDados();
         }
         private void botaoCadastrarCliente(object sender, EventArgs e)
         {
@@ -28,7 +27,7 @@ namespace WindowsFormsAppStart
                     MessageBox.Show("Cliente adicionado com sucesso!");
                     _repositorio.CriarCliente(cadastro.clienteParaCadastrar);
                 }
-                AtualizarLista();
+                AtualizarDados();
             }
             catch (Exception)
             {
@@ -54,7 +53,7 @@ namespace WindowsFormsAppStart
                     _repositorio.AtualizarCliente(cadastro.ObterClienteParaCadastrar());
                     MessageBox.Show("Cliente editado com sucesso!");
                 }
-                AtualizarLista();
+                AtualizarDados();
             }
             catch (Exception)
             {
@@ -72,13 +71,14 @@ namespace WindowsFormsAppStart
                 }
                 var id = (int)dataGridVieww.SelectedRows[0].Cells[0].Value;
                 var clienteParaRemover = _repositorio.ObterClientePorId(id);
+                int idClienteParaRemover = clienteParaRemover.id;
 
                 DialogResult result = MessageBox.Show("Deseja remover o cliente ? ", "Atenção ", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    _repositorio.RemoverCliente(clienteParaRemover);
+                    _repositorio.RemoverCliente(idClienteParaRemover);
                     MessageBox.Show("Cliente removido com sucesso!");
-                    AtualizarLista();
+                    AtualizarDados();
                 }
             }
             catch (Exception)
@@ -86,15 +86,16 @@ namespace WindowsFormsAppStart
                 throw;
             }
         }
-        public void AtualizarLista()
+        public void AtualizarDados()
         {
-            this.dataGridVieww.DataSource = _repositorio.listaDeClientes.Select(x => new {
-                x.id,
-                x.nome,
-                x.dataNascimento,
-                x.sexo,
-                x.telefone
-            }).ToList();
-        }
+            dataGridVieww.DataSource = null;
+            this.dataGridVieww.DataSource = _repositorio.ObterTodosClientes().Select(x => new {
+                        x.id,
+                        x.nome,
+                        x.dataDeNascimento,
+                        x.sexo,
+                        x.telefone
+                   }).ToList();
+            }
     }
 }
