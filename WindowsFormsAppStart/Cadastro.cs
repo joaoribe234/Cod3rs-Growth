@@ -78,10 +78,5 @@ namespace WindowsFormsAppStart
         {
             return clienteParaCadastrar;
         }
-
-        private void Cadastro_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
