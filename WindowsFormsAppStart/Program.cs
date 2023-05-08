@@ -8,7 +8,7 @@ namespace WindowsFormsAppStart
 {
     internal static class Program
     {
-        private static string conectionString = ConfigurationManager.ConnectionStrings["BancoClientes"].ConnectionString;
+        private static string connectionString = ConfigurationManager.ConnectionStrings["BancoClientes"].ConnectionString;
 
         [STAThread]
         static void Main()
@@ -43,7 +43,7 @@ namespace WindowsFormsAppStart
                         
                         .AddSqlServer()
                         
-                          .WithGlobalConnectionString(conectionString)
+                          .WithGlobalConnectionString(connectionString)
                         
                         .ScanIn(typeof(Migracao).Assembly).For.Migrations())
                     

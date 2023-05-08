@@ -45,7 +45,7 @@ namespace WindowsFormsAppStart
         private void PreencherCamposCliente(Cliente cliente)
         {
             txt_Nome.Text = cliente?.nome;
-            txtDataNascimento.Text = cliente?.dataNascimento.ToString();
+            txtDataNascimento.Text = cliente?.dataDeNascimento.ToString();
             txt_sexo.Text = cliente?.sexo;
             txt_telefone.Text = cliente?.telefone;
         }
@@ -54,7 +54,7 @@ namespace WindowsFormsAppStart
             var cliente = new Cliente()
             {
                 nome = txt_Nome.Text,
-                dataNascimento = Convert.ToDateTime(txtDataNascimento.Text),
+                dataDeNascimento = Convert.ToDateTime(txtDataNascimento.Text),
                 telefone = txt_telefone.Text,
                 sexo = txt_sexo.Text
             };
@@ -77,11 +77,6 @@ namespace WindowsFormsAppStart
         public Cliente ObterClienteParaCadastrar()
         {
             return clienteParaCadastrar;
-        }
-
-        private void Cadastro_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

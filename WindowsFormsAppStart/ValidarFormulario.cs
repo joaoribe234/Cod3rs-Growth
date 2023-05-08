@@ -7,7 +7,7 @@ namespace WindowsFormsAppStart
         public static void validacaoDeCampos( Cliente cliente ) {
 
             int dataAtual = DateTime.Now.Year;
-            int nascimento = cliente.dataNascimento.Year;
+            int nascimento = cliente.dataDeNascimento.Year;
             int idade = dataAtual - nascimento;
 
             string mensagemErro = "";
@@ -25,7 +25,7 @@ namespace WindowsFormsAppStart
             if (idade > 140) {
                 mensagemErro += " A idade não pode ser maior que 140 anos!\n \n";
             }
-            if (cliente.dataNascimento > DateTime.Now) {
+            if (cliente.dataDeNascimento > DateTime.Now) {
                 mensagemErro += " A data de Nascimento não pode ser futura!\n \n";
             }
             if (mensagemErro.Length > 1)
