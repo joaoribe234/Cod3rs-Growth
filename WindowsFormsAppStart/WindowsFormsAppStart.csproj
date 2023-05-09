@@ -266,10 +266,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RepositoryBD.cs" />
+    <Compile Include="ConversaoDeDados.cs" />
+    <Compile Include="ExcecoesBD.cs" />
+    <Compile Include="RepositorioBD.cs" />
     <Compile Include="Migracao.cs" />
-    <Compile Include="IRepository.cs" />
-    <Compile Include="Repository.cs" />
+    <Compile Include="IRepositorio.cs" />
+    <Compile Include="Repositorio.cs" />
     <Compile Include="Singleton.cs" />
     <Compile Include="MensagensDeErros.cs" />
     <Compile Include="Cliente.cs" />
