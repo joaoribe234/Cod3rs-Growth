@@ -7,12 +7,15 @@ namespace WindowsFormsAppStart
 {
     public partial class TelaInicial : Form
     {
-        RepositorioBD _repositorio = new RepositorioBD(); 
+       // RepositorioBD _repositorio = new RepositorioBD();
+        IRepositorio _repositorio;
 
-        public TelaInicial()
+        public TelaInicial(IRepositorio repositorio)
         {
             InitializeComponent();
-            _repositorio.listaDeClientes = new List<Cliente>();
+            _repositorio = repositorio;
+            _repositorio.ObterTodosClientes();
+           // _repositorio.listaDeClientes = new List<Cliente>();
             AtualizarDados();
         }
         private void botaoCadastrarCliente(object sender, EventArgs e)
@@ -89,6 +92,7 @@ namespace WindowsFormsAppStart
         public void AtualizarDados()
         {
             dataGridVieww.DataSource = null;
+
             this.dataGridVieww.DataSource = _repositorio.ObterTodosClientes().Select(x => new {
                         x.id,
                         x.nome,
@@ -96,6 +100,6 @@ namespace WindowsFormsAppStart
                         x.sexo,
                         x.telefone
                    }).ToList();
-            }
+        }
     }
 }

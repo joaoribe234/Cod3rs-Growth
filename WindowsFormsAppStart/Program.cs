@@ -17,7 +17,7 @@ namespace WindowsFormsAppStart
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new TelaInicial());
+            Application.Run(new TelaInicial(new RepositorioBD()));
 
             using (var serviceProvider = CreateServices())
             using (var scope = serviceProvider.CreateScope())
