@@ -7,7 +7,7 @@ namespace WindowsFormsAppStart
 {
     public partial class TelaInicial : Form
     {
-        RepositoryBD _repositorio = new RepositoryBD(); 
+        RepositorioBD _repositorio = new RepositorioBD(); 
 
         public TelaInicial()
         {

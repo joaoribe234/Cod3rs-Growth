@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 
 namespace WindowsFormsAppStart
 {
-    class Repository : IRepository
+    class Repositorio : IRepositorio
     {
         public List<Cliente> listaDeClientes = Singleton.ObterInstancia();
 
