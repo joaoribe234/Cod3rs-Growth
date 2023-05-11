@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -7,7 +6,6 @@ namespace WindowsFormsAppStart
 {
     public partial class TelaInicial : Form
     {
-       // RepositorioBD _repositorio = new RepositorioBD();
         IRepositorio _repositorio;
 
         public TelaInicial(IRepositorio repositorio)
@@ -15,7 +13,6 @@ namespace WindowsFormsAppStart
             InitializeComponent();
             _repositorio = repositorio;
             _repositorio.ObterTodosClientes();
-           // _repositorio.listaDeClientes = new List<Cliente>();
             AtualizarDados();
         }
         private void botaoCadastrarCliente(object sender, EventArgs e)
