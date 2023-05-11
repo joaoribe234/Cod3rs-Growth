@@ -268,6 +268,7 @@
   <ItemGroup>
     <Compile Include="ConversaoDeDados.cs" />
     <Compile Include="ExcecoesBD.cs" />
+    <Compile Include="MigracaoServico.cs" />
     <Compile Include="RepositorioBD.cs" />
     <Compile Include="Migracao.cs" />
     <Compile Include="IRepositorio.cs" />
