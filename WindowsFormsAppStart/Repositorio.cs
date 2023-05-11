@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace WindowsFormsAppStart
 {
-    class Repository : IRepository
+    class Repositorio : IRepositorio
     {
         public List<Cliente> listaDeClientes = Singleton.ObterInstancia();
 
@@ -31,9 +31,9 @@ namespace WindowsFormsAppStart
             int indice = listaDeClientes.IndexOf(clienteAtual);
             listaDeClientes[indice] = clienteEditado;
         }
-        public void RemoverCliente(Cliente cliente)
+        public void RemoverCliente(int id)
         {
-            
+            Cliente cliente = ObterClientePorId(id);
             listaDeClientes.Remove(cliente);
         }
     }

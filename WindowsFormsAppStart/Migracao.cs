@@ -14,13 +14,10 @@ namespace WindowsFormsAppStart
                     .WithColumn("dataDeNascimento").AsDateTime().NotNullable()
                     .WithColumn("sexo").AsString(20).NotNullable()
                     .WithColumn("telefone").AsString(20).NotNullable();
-         
-          
         }
         public override void Down()
     {
         Delete.Table("Clientes");
     }
     }
-
 }
