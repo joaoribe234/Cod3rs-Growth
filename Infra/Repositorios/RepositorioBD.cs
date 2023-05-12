@@ -23,7 +23,7 @@ namespace WindowsFormsAppStart
                     return listaClientes;
                     
                 }
-                catch (MensagensDeErros ex)
+                catch (MensagensDeErros)
                 {
                     throw new MensagensDeErros(ExcecoesBD.FALHA_OBTER_TODOS_CLIENTES);
                 }
@@ -42,7 +42,7 @@ namespace WindowsFormsAppStart
                     clienteObtidoPorId = conversaoDeDados.ConversaoClientePorID(leitor);
                     return clienteObtidoPorId;
                 }
-                catch (MensagensDeErros ex)
+                catch (MensagensDeErros)
                 {
                     throw new MensagensDeErros(ExcecoesBD.FALHA_OBTER_CLIENTE_PELO_ID);
                 }
@@ -61,7 +61,7 @@ namespace WindowsFormsAppStart
                     comando.Parameters.AddWithValue("telefone", cliente.telefone);
                     comando.ExecuteNonQuery();
                 }
-                catch (MensagensDeErros ex)
+                catch (MensagensDeErros)
                 {
                     throw new MensagensDeErros(ExcecoesBD.FALHA_CRIACAO_NOVO_CLIENTE);
                 }
@@ -80,7 +80,7 @@ namespace WindowsFormsAppStart
                     comando.Parameters.AddWithValue("@telefone", clienteEditado.telefone);
                     comando.ExecuteNonQuery();
                 }
-                catch (MensagensDeErros ex)
+                catch (MensagensDeErros)
                 {
                     throw new MensagensDeErros(ExcecoesBD.FALHA_ATUALIZACAO_CLIENTE);
                 }
@@ -97,7 +97,7 @@ namespace WindowsFormsAppStart
                     SqlCommand comando = new SqlCommand(instrucaoSQL, conexao);
                     comando.ExecuteNonQuery();
                 }
-                catch (MensagensDeErros ex)
+                catch (MensagensDeErros)
                 {
                     throw new MensagensDeErros(ExcecoesBD.FALHA_REMOCAO_CLIENTE);
                 }
@@ -112,7 +112,7 @@ namespace WindowsFormsAppStart
                 conexao.Open();
                 return conexao;
             }
-            catch(MensagensDeErros ex) {
+            catch(MensagensDeErros) {
                throw new MensagensDeErros(ExcecoesBD.FALHA_CRIACAO_CONEXAO);
             }
         }
