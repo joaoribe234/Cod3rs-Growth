@@ -1,0 +1,15 @@
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\Infra\obj\Debug\net7.0\Infra.csproj.AssemblyReference.cache
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\Infra\obj\Debug\net7.0\Infra.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\Infra\obj\Debug\net7.0\Infra.AssemblyInfoInputs.cache
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\Infra\obj\Debug\net7.0\Infra.AssemblyInfo.cs
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\Infra\obj\Debug\net7.0\Infra.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\Infra\bin\Debug\net7.0\Infra.deps.json
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\Infra\bin\Debug\net7.0\Infra.dll
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\Infra\bin\Debug\net7.0\Infra.pdb
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\Infra\bin\Debug\net7.0\Dominio.dll
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\Infra\bin\Debug\net7.0\Dominio.pdb
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\Infra\obj\Debug\net7.0\Infra.csproj.CopyComplete
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\Infra\obj\Debug\net7.0\Infra.dll
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\Infra\obj\Debug\net7.0\refint\Infra.dll
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\Infra\obj\Debug\net7.0\Infra.pdb
+C:\Users\Usuario\Documents\projeto-crud\Cod3rs-Growth\Infra\obj\Debug\net7.0\ref\Infra.dll
