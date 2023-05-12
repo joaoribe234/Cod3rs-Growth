@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WindowsFormsAppStart
+﻿namespace WindowsFormsAppStart
 {
     public class MensagensDeErros : Exception
     {

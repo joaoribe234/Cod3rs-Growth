@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace WindowsFormsAppStart
+﻿namespace WindowsFormsAppStart
 {
     public partial class Cadastro : Form
     {
