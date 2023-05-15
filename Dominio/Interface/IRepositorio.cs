@@ -2,10 +2,10 @@
 {
     public interface IRepositorio
     {
-        List<Cliente> ObterTodosClientes();
-        Cliente ObterClientePorId(int id);
-        void CriarCliente(Cliente cliente);
-        void AtualizarCliente(Cliente clienteEditado);
+        List<Clientes> ObterTodosClientes();
+        Clientes ObterClientePorId(int id);
+        void CriarCliente(Clientes cliente);
+        void AtualizarCliente(Clientes clienteEditado);
         void RemoverCliente(int id);
     }
 }

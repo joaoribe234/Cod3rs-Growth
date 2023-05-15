@@ -45,7 +45,7 @@
                 cadastro.ShowDialog();
                 if ((cadastro.DialogResult == DialogResult.OK))
                 {
-                    Cliente clienteEditado = _repositorio.ObterClientePorId(cadastro.clienteParaAtualizar.id);
+                    Clientes clienteEditado = _repositorio.ObterClientePorId(cadastro.clienteParaAtualizar.Id);
                     _repositorio.AtualizarCliente(cadastro.ObterClienteParaCadastrar());
                     MessageBox.Show("Cliente editado com sucesso!");
                 }
@@ -67,7 +67,7 @@
                 }
                 var id = (int)dataGridVieww.SelectedRows[0].Cells[0].Value;
                 var clienteParaRemover = _repositorio.ObterClientePorId(id);
-                int idClienteParaRemover = clienteParaRemover.id;
+                int idClienteParaRemover = clienteParaRemover.Id;
 
                 DialogResult result = MessageBox.Show("Deseja remover o cliente ? ", "Atenção ", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
@@ -85,14 +85,7 @@
         public void AtualizarDados()
         {
             dataGridVieww.DataSource = null;
-
-            this.dataGridVieww.DataSource = _repositorio.ObterTodosClientes().Select(x => new {
-                        x.id,
-                        x.nome,
-                        x.dataDeNascimento,
-                        x.sexo,
-                        x.telefone
-                   }).ToList();
+            this.dataGridVieww.DataSource = _repositorio.ObterTodosClientes().ToList();
         }
     }
 }

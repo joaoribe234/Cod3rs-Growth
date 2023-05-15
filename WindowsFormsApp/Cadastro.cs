@@ -2,9 +2,9 @@
 {
     public partial class Cadastro : Form
     {
-        public Cliente clienteParaCadastrar = new Cliente();
-        public Cliente clienteParaAtualizar;
-        public Cadastro(Cliente cliente = null)
+        public Clientes clienteParaCadastrar = new Clientes();
+        public Clientes clienteParaAtualizar;
+        public Cadastro(Clientes cliente = null)
         {
             InitializeComponent();
             clienteParaAtualizar = cliente;
@@ -39,21 +39,21 @@
                 this.Close();
             }
         }
-        private void PreencherCamposCliente(Cliente cliente)
+        private void PreencherCamposCliente(Clientes cliente)
         {
-            txt_Nome.Text = cliente?.nome;
-            txtDataNascimento.Text = cliente?.dataDeNascimento.ToString();
-            txt_sexo.Text = cliente?.sexo;
-            txt_telefone.Text = cliente?.telefone;
+            txt_Nome.Text = cliente?.Nome;
+            txtDataNascimento.Text = cliente?.DataDeNascimento.ToString();
+            txt_sexo.Text = cliente?.Sexo;
+            txt_telefone.Text = cliente?.Telefone;
         }
-        private Cliente obterDadosFormulario()
+        private Clientes obterDadosFormulario()
         {
-            var cliente = new Cliente()
+            var cliente = new Clientes()
             {
-                nome = txt_Nome.Text,
-                dataDeNascimento = Convert.ToDateTime(txtDataNascimento.Text),
-                telefone = txt_telefone.Text,
-                sexo = txt_sexo.Text
+                Nome = txt_Nome.Text,
+                DataDeNascimento = Convert.ToDateTime(txtDataNascimento.Text),
+                Telefone = txt_telefone.Text,
+                Sexo = txt_sexo.Text
             };
             return cliente;
         }
@@ -61,17 +61,17 @@
         {
             var cliente = obterDadosFormulario();
             ValidarFormulario.validacaoDeCampos(cliente);
-            cliente.id = Singleton.ObterProximoId();
+            cliente.Id = Singleton.ObterProximoId();
             clienteParaCadastrar = cliente;
         }
-        private void atualizarCliente(Cliente clienteASerAtualizado)
+        private void atualizarCliente(Clientes clienteASerAtualizado)
         {
             var clienteAtualizado = obterDadosFormulario();
             ValidarFormulario.validacaoDeCampos(clienteAtualizado);
-            clienteAtualizado.id = clienteASerAtualizado.id;
+            clienteAtualizado.Id = clienteASerAtualizado.Id;
             clienteParaCadastrar = clienteAtualizado;
         }
-        public Cliente ObterClienteParaCadastrar()
+        public Clientes ObterClienteParaCadastrar()
         {
             return clienteParaCadastrar;
         }
