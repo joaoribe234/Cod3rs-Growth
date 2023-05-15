@@ -1,16 +1,16 @@
 ﻿namespace WindowsFormsAppStart
 {
-    class Repositorio : IRepositorio
+    public class Repositorio : IRepositorio
     {
-        public List<Cliente> listaDeClientes = Singleton.ObterInstancia();
+        public List<Clientes> listaDeClientes = Singleton.ObterInstancia();
 
-        public List<Cliente> ObterTodosClientes()
+        public List<Clientes> ObterTodosClientes()
         {
             return listaDeClientes;
         }
-        public Cliente ObterClientePorId(int id)
+        public Clientes ObterClientePorId(int id)
         {
-            Cliente cliente = listaDeClientes.FirstOrDefault(i => i.id == id);
+            Clientes cliente = listaDeClientes.FirstOrDefault(i => i.Id == id);
 
             if (cliente == null)
             {
@@ -18,19 +18,19 @@
             }
             return cliente;
         }
-        public void CriarCliente(Cliente cliente)
+        public void CriarCliente(Clientes cliente)
         {
             listaDeClientes.Add(cliente);
         }
-        public void AtualizarCliente(Cliente clienteEditado)
+        public void AtualizarCliente(Clientes clienteEditado)
         {
-            Cliente clienteAtual = ObterClientePorId(clienteEditado.id);
+            Clientes clienteAtual = ObterClientePorId(clienteEditado.Id);
             int indice = listaDeClientes.IndexOf(clienteAtual);
             listaDeClientes[indice] = clienteEditado;
         }
         public void RemoverCliente(int id)
         {
-            Cliente cliente = ObterClientePorId(id);
+            Clientes cliente = ObterClientePorId(id);
             listaDeClientes.Remove(cliente);
         }
     }

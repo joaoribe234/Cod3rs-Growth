@@ -1,4 +1,6 @@
-﻿namespace WindowsFormsAppStart
+﻿using Infra.Repositorios;
+
+namespace WindowsFormsAppStart
 {
     internal static class Program
     {

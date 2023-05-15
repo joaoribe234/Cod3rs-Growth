@@ -4,33 +4,33 @@ namespace WindowsFormsAppStart
 {
     class ConversaoDeDados
     {
-        public List<Cliente> ConversaoClientes(SqlDataReader leitor)
+        public List<Clientes> ConversaoClientes(SqlDataReader leitor)
         {
-           List<Cliente> clientes = new List<Cliente>();
+           List<Clientes> clientes = new List<Clientes>();
             while (leitor.Read())
             {
-                Cliente cliente = new Cliente()
+                Clientes cliente = new Clientes()
                 {
-                    id = (int)leitor.GetInt64(0),
-                    nome = leitor.GetString(1),
-                    dataDeNascimento = leitor.GetDateTime(2),
-                    sexo = leitor.GetString(3),
-                    telefone = leitor.GetString(4)
+                    Id = (int)leitor.GetInt64(0),
+                    Nome = leitor.GetString(1),
+                    DataDeNascimento = leitor.GetDateTime(2),
+                    Sexo = leitor.GetString(3),
+                    Telefone = leitor.GetString(4)
                 };
                 clientes.Add(cliente);
             }
             return clientes;
         }
-        public Cliente ConversaoClientePorID(SqlDataReader leitor) {
+        public Clientes ConversaoClientePorID(SqlDataReader leitor) {
             if (leitor.Read())
             {
-                Cliente cliente = new Cliente()
+                Clientes cliente = new Clientes()
                 {
-                    id = (int)leitor.GetInt64(0),
-                    nome = leitor.GetString(1),
-                    dataDeNascimento = leitor.GetDateTime(2),
-                    sexo = leitor.GetString(3),
-                    telefone = leitor.GetString(4)
+                    Id = (int)leitor.GetInt64(0),
+                    Nome = leitor.GetString(1),
+                    DataDeNascimento = leitor.GetDateTime(2),
+                    Sexo = leitor.GetString(3),
+                    Telefone = leitor.GetString(4)
                 };
                 return cliente;
             }

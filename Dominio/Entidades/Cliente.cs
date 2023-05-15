@@ -1,12 +1,23 @@
-﻿namespace WindowsFormsAppStart
+﻿using LinqToDB.Mapping;
+
+namespace WindowsFormsAppStart
 {
-    public class Cliente
+    public class Clientes
     {
-        public int id;
-        public string nome ;
-        public DateTime dataDeNascimento;
-        public string sexo;
-        public string telefone;
+        [PrimaryKey, Identity]
+        public int Id { get; set; }
+
+        [NotNull]
+        public string Nome { get; set; }
+
+        [NotNull]
+        public DateTime DataDeNascimento { get; set; }
+
+        [NotNull]
+        public string Sexo { get; set; }
+
+        [NotNull]
+        public string Telefone { get; set; }
 
     }
 }

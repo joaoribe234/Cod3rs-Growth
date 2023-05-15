@@ -2,14 +2,14 @@
 {
     public sealed class Singleton
     {
-        private static List<Cliente> instancia;
+        private static List<Clientes> instancia;
         private static int _Id;
-        public static List<Cliente> ObterInstancia()
+        public static List<Clientes> ObterInstancia()
         {
             {
                 if (instancia == null)
                 {
-                    instancia = new List<Cliente>();
+                    instancia = new List<Clientes>();
                 }
                 return instancia;
             }

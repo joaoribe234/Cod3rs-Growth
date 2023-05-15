@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "EA8kd2zjig0Y+PJLX7dDE4rHUtpWdv/WKkrrhxUCp6MINgUlUd5ueOEfvIrQPA8BOVXjLUZj0Sy3DUOOB2kTOg==",
+  "dgSpecHash": "Zlkulnh6KUfjAlQ3mJNs310pZSbFLbAM14qgTuPdu5IcCVue6tBKdNEyasmsVDzTIowO4qZXumRuMKq1Oi7k7A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Usuario\\Documents\\projeto-crud\\Cod3rs-Growth\\Dominio\\Dominio.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Usuario\\.nuget\\packages\\linq2db\\5.2.0\\linq2db.5.2.0.nupkg.sha512"
+  ],
   "logs": []
 }
