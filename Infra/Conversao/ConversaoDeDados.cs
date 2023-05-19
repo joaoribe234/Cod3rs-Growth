@@ -1,12 +1,13 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Dominio.Entidades;
+using Microsoft.Data.SqlClient;
 
-namespace WindowsFormsAppStart
+namespace Infra.Conversao
 {
     class ConversaoDeDados
     {
         public List<Clientes> ConversaoClientes(SqlDataReader leitor)
         {
-           List<Clientes> clientes = new List<Clientes>();
+            List<Clientes> clientes = new List<Clientes>();
             while (leitor.Read())
             {
                 Clientes cliente = new Clientes()
@@ -21,7 +22,8 @@ namespace WindowsFormsAppStart
             }
             return clientes;
         }
-        public Clientes ConversaoClientePorID(SqlDataReader leitor) {
+        public Clientes ConversaoClientePorID(SqlDataReader leitor)
+        {
             if (leitor.Read())
             {
                 Clientes cliente = new Clientes()

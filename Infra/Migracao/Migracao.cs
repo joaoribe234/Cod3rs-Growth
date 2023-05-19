@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace WindowsFormsAppStart
+namespace Infra.Migracao
 {
     [Migration(20230504113600)]
     public class Migracao : Migration
@@ -15,8 +15,8 @@ namespace WindowsFormsAppStart
                     .WithColumn("telefone").AsString(20).NotNullable();
         }
         public override void Down()
-    {
-        Delete.Table("Clientes");
-    }
+        {
+            Delete.Table("Clientes");
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsAppStart
+﻿namespace Dominio.Mensagens
 {
     public class MensagensDeErros : Exception
     {

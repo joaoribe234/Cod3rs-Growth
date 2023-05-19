@@ -1,4 +1,7 @@
-﻿namespace WindowsFormsAppStart
+﻿using Dominio.Entidades;
+using Dominio.Interface;
+
+namespace Infra.Repositorios
 {
     public class Repositorio : IRepositorio
     {
