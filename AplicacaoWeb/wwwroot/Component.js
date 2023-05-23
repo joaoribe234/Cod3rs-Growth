@@ -5,7 +5,7 @@
     ],
     function (UIComponent, ResourceModel) {
         "use strict";
-        return UIComponent.extend("sap.ui.petmais.Component", {
+        return UIComponent.extend("sap.ui.InterfaceUsuario.Component", {
             metadata: {
                 interfaces: ["sap.ui.core.IAsyncContentCreation"],
                 manifest: "json",
