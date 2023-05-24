@@ -1,25 +1,41 @@
-var builder = WebApplication.CreateBuilder(args);
+using Dominio.Interface;
+using Infra.Repositorios;
+using Microsoft.AspNetCore.StaticFiles;
+using System.Text.Json.Serialization;
 
-// Add services to the container.
+var construtor = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+construtor.Services.AddControllers();
+construtor.Services.AddEndpointsApiExplorer();
+construtor.Services.AddSwaggerGen();
+construtor.Services.AddScoped<IRepositorio, Link2DB_Repositorio>();
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+construtor.Services.AddControllers().AddJsonOptions(opcao =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    opcao.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+
+var aplicacaoWeb = construtor.Build();
+
+if (aplicacaoWeb.Environment.IsDevelopment())
+{
+    aplicacaoWeb.UseSwagger();
+    aplicacaoWeb.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+aplicacaoWeb.UseHttpsRedirection();
 
-app.UseAuthorization();
+aplicacaoWeb.UseStaticFiles(new StaticFileOptions
+{
+    ServeUnknownFileTypes = true,
+    DefaultContentType = "text/plain;charset=utf-8",
+    ContentTypeProvider = new FileExtensionContentTypeProvider(new Dictionary<string, string>
+                {
+                    {".properties", "text/plain;charset=utf-8" }
+                })
+});
 
-app.MapControllers();
+aplicacaoWeb.MapDefaultControllerRoute();
+aplicacaoWeb.Run();
 
-app.Run();
+
