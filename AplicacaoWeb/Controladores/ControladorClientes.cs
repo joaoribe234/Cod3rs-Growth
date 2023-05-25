@@ -19,61 +19,96 @@ namespace AplicacaoWeb.Controllers
         [HttpGet]
         public IActionResult ObterTodosClientes() 
         {
-            var obterTodosClientes = _repositorio.ObterTodosClientes();
-            return Ok(obterTodosClientes);
+            try
+            {
+                var obterTodosClientes = _repositorio.ObterTodosClientes();
+                return Ok(obterTodosClientes);
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id}")]
         public IActionResult ObterClientePorId(int id ) 
         {
-            var obterClientePorId = _repositorio.ObterClientePorId(id);
-            if (obterClientePorId == null)
+            try
             {
-                return NotFound();
+                var obterClientePorId = _repositorio.ObterClientePorId(id);
+                if (obterClientePorId == null)
+                {
+                    return NotFound();
+                }
+                return Ok(obterClientePorId);
             }
-            return Ok(obterClientePorId);
+            catch (Exception)
+            {
+                throw new Exception();
+            }
         }
 
         [HttpPost]
         public IActionResult CriarCliente([FromBody] Clientes clienteASerCriado) 
         {
-            if(clienteASerCriado == null)
+            try
             {
-                return BadRequest();
+                if (clienteASerCriado == null)
+                {
+                    return BadRequest();
+                }
+                ValidarFormulario.validacaoDeCampos(clienteASerCriado);
+                _repositorio.CriarCliente(clienteASerCriado);
+                return CreatedAtAction(nameof(ObterClientePorId), new { id = clienteASerCriado.Id }, clienteASerCriado);
             }
-            ValidarFormulario.validacaoDeCampos(clienteASerCriado);
-            _repositorio.CriarCliente(clienteASerCriado); 
-            return CreatedAtAction(nameof(ObterClientePorId), new { id = clienteASerCriado.Id }, clienteASerCriado);
+            catch(Exception)
+            {
+                throw new Exception();
+            }
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("{id}")]
         public IActionResult AtualizarCliente(int id, [FromBody] Clientes clienteASerEditado)
         {
-            var clienteObtidoPorId = _repositorio.ObterClientePorId(id);
-            if(clienteObtidoPorId == null) 
+            try
             {
-                return NotFound();
+                var clienteObtidoPorId = _repositorio.ObterClientePorId(id);
+                if (clienteObtidoPorId == null)
+                {
+                    return NotFound();
+                }
+                if (clienteASerEditado == null)
+                {
+                    return BadRequest();
+                }
+                ValidarFormulario.validacaoDeCampos(clienteASerEditado);
+                clienteObtidoPorId.Id = clienteASerEditado.Id;
+                _repositorio.AtualizarCliente(clienteASerEditado);
+                return Ok(clienteASerEditado);
             }
-            if(clienteASerEditado == null)
-            {
-                return BadRequest();
+            catch(Exception)
+            { 
+              throw new Exception();
             }
-            ValidarFormulario.validacaoDeCampos(clienteASerEditado);
-            clienteObtidoPorId.Id = clienteASerEditado.Id;
-            _repositorio.AtualizarCliente(clienteASerEditado);
-            return Ok(clienteASerEditado);
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{id}")]
         public IActionResult RemoverCliente(int id)
         {
-            var clienteASerRemovido = _repositorio.ObterClientePorId(id);
-            if (clienteASerRemovido == null) 
-            { 
-                 return NotFound();
+            try
+            {
+                var clienteASerRemovido = _repositorio.ObterClientePorId(id);
+                if (clienteASerRemovido == null)
+                {
+                    return NotFound();
+                }
+                _repositorio.RemoverCliente(clienteASerRemovido.Id);
+                return Ok(clienteASerRemovido);
             }
-            _repositorio.RemoverCliente(clienteASerRemovido.Id);
-            return Ok(clienteASerRemovido);
+            catch(Exception) 
+            {  
+              throw new Exception();
+            }
         }
     }
 }
