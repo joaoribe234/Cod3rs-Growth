@@ -1,7 +1,7 @@
 ﻿{
   "_version": "1.21.0",
   "sap.app": {
-    "id": "sap.ui.InterfaceUsuario",
+    "id": "sap.ui.AplicacaoWeb",
     "type": "application",
     "i18n": {
       "bundleUrl": "i18n/i18n.properties",
@@ -26,7 +26,7 @@
   },
   "sap.ui5": {
     "rootView": {
-      "viewName": "sap.ui.InterfaceUsuario.view.App",
+      "viewName": "sap.ui.AplicacaoWeb.TelaVisualizacao.App",
       "type": "XML",
       "id": "app"
     },
@@ -41,7 +41,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "sap.ui.InterfaceUsuario.i18n.i18n",
+          "bundleName": "sap.ui.AplicacaoWeb.i18n.i18n",
           "supportedLocales": [
             ""
           ],

@@ -4,7 +4,7 @@
     ],
     function (Controller) {
         "use strict";
-        return Controller.extend("sap.ui.InterfaceUsuario.App", {
+        return Controller.extend("sap.ui.AplicacaoWeb.App", {
         });
     }
 );

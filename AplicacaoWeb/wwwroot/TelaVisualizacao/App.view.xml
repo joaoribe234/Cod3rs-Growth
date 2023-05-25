@@ -1,16 +1,16 @@
 ﻿<mvc:View 
-  controllerName="sap.ui.InterfaceUsuario.controller.App"
+  controllerName="sap.ui.AplicacaoWeb.controlador.App"
   xmlns="sap.m"
   xmlns:mvc="sap.ui.core.mvc"
   displayBlock="true">
 	<Shell>
 		<App class="myAppDemoWT">
 			<pages>
-				<Page title="{i18n>tituloPaginaInicial}">
+				<Page title="{i18n> Pagina Inicial}">
 					<content>
-						<Panel headerText="{i18n>TituloPaginaInicial}" class="sapUiResponsiveMargin" width="auto">
+						<Panel headerText="{i18n>Primeira Tela Pagina Inicial}" class="sapUiResponsiveMargin" width="auto">
 							<content>
-								<FormattedText htmlText="Ola {i18n>tituloPaginaInicial}" />
+								<FormattedText htmlText="Olá {i18n>João Vitor}" />
 							</content>
 						</Panel>
 					</content>
