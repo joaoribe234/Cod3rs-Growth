@@ -1,8 +1,10 @@
-﻿using LinqToDB;
+﻿using Dominio.Entidades;
+using Dominio.Interface;
+using Dominio.Mensagens;
+using LinqToDB;
 using LinqToDB.Data;
 using LinqToDB.DataProvider.SqlServer;
 using System.Configuration;
-using WindowsFormsAppStart;
 
 namespace Infra.Repositorios
 {
