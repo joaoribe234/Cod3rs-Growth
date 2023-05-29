@@ -1,22 +1,43 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html>
-
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Cliente</title>
+    <title>Listagem de dados cadastrados</title>
     <script id="sap-ui-bootstrap"
             src="https://sdk.openui5.org/resources/sap-ui-core.js"
             data-sap-ui-theme="sap_fiori_3"
+            data-sap-ui-libs="sap.m"
             data-sap-ui-compatVersion="edge"
             data-sap-ui-async="true"
-            data-sap-ui-onInit="module:sap/ui/core/ComponentSupport"
+            data-sap-ui-oninit="onUI5Init"
             data-sap-ui-resourceroots='{
-			"sap.ui.AplicacaoWeb": "./"
+			"sap.ui.InterfaceUsuario": "./"
 		}'>
+    </script>
+    <script>
+        function onUI5Init() {
+            sap.ui.require([
+                "sap/ui/core/ComponentContainer"
+            ], function (ComponentContainer) {
+                new ComponentContainer({
+                    name: "sap.ui.InterfaceUsuario",
+                    settings: {
+                        id: "app"
+                    },
+                    async: true
+                }).placeAt("content");
+            });
+        }
     </script>
 </head>
 
 <body class="sapUiBody" id="content">
-    <div data-sap-ui-component data-name="sap.ui.AplicacaoWeb" data-id="container" data-settings='{"id" : "AplicacaoWeb"}'></div>
 </body>
 </html>
+
+
+
+
+
