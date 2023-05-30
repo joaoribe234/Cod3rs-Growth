@@ -14,8 +14,14 @@
             dadosClientesApi: function () {
                 var modeloDeClientes = new JSONModel();
                 fetch("api/clientes")
-                modeloDeClientes.loadData("api/clientes");
-                this.getView().setModel(modeloDeClientes)
+                    .then(resposta => resposta.json())
+                    .then(dados => {
+                        modeloDeClientes.setData(dados);
+                    })
+                    .catch(erro => {
+                        console.error("Ocorreu algum erro ao obter os clientes cadastrados!", erro);
+                    });
+                this.getView().setModel(modeloDeClientes);
             },
             buscarCliente: function (oEvent) {
                 var arrayFiltro = [];

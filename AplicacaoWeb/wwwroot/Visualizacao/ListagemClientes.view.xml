@@ -7,7 +7,7 @@
   >
 	<Shell>
 		<App>
-			<Page title="{i18n>Clientes Cadastradoss}">
+			<Page title="{i18n>Clientes Cadastrados}">
 				<content>
 					<Table id="idTabelaCliente" items="{/clientes}" mode="SingleSelectMaster" selectionChange="onRowClick">
 						<columns>
@@ -24,7 +24,7 @@
 								<Text text="{i18n>Telefone}" />
 							</Column>
 							<Column>
-								<Text text="{i18n>Data de Nascimento}" />
+								<Text text="{i18n>dataDeNascimento}" />
 							</Column>
 						</columns>
 						<items>

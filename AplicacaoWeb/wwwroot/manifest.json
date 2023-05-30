@@ -10,7 +10,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "api/clientes",
+        "uri": "https://localhost:7258/api/clientes",
         "type": "JSON"
       }
     }
