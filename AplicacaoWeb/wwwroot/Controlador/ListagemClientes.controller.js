@@ -12,30 +12,30 @@
                 this.dadosClientesApi();
             },
             dadosClientesApi: function () {
+                const mensagemDeErro = "Ocorreu algum erro ao obter os clientes cadastrados!";
                 var modeloDeClientes = new JSONModel();
-                fetch("api/clientes")
-                    .then(resposta => resposta.json())
-                    .then(dados => {
-                        modeloDeClientes.setData(dados);
-                    })
-                    .catch(erro => {
-                        console.error("Ocorreu algum erro ao obter os clientes cadastrados!", erro);
-                    });
-                this.getView().setModel(modeloDeClientes);
-            },
-            buscarCliente: function (oEvent) {
-                var arrayFiltro = [];
-                var valorDigitadoUsuario = oEvent.getParameter("query");
-                if (valorDigitadoUsuario) {
-                    arrayFiltro.push(
-                        new Filter("nome", FilterOperator.Contains, valorDigitadoUsuario)
-                    );
-                }
-                var obterIdTabela = this.byId("idTabelaCliente");
-                var bindngClienteTabela = obterIdTabela.getBinding("items");
-                bindngClienteTabela.filter(arrayFiltro);
-            },
 
+                fetch("https://localhost:7258/api/clientes")
+                    .then(dados => dados.json())
+                    .then(dados => modeloDeClientes.setData({ clientes: dados }))
+                    .catch(erro => console.error(mensagemDeErro, erro));
+                this.getView().setModel(modeloDeClientes)
+            },
+         
+            buscarCliente: function (oEvent) {
+                const idTabelaCliente = "idTabelaCliente";
+                const consulta = "query";
+                const items = "items";
+
+                var arrayFiltro = [];
+                var valorDigitadoUsuario = oEvent.getParameter(consulta);
+                if (valorDigitadoUsuario) {
+                    arrayFiltro.push(new Filter("nome", FilterOperator.Contains, valorDigitadoUsuario));
+                }
+                var obterIdTabela = this.byId(idTabelaCliente);
+                var bindingClienteTabela = obterIdTabela.getBinding(items);
+                bindingClienteTabela.filter(arrayFiltro);
+            },
         });
     }
 );
