@@ -13,10 +13,15 @@
             init: function () {
                 UIComponent.prototype.init.apply(this, arguments);
                 var i18nModel = new ResourceModel({
-                    bundleName: "sap.ui.IntetrfaceUsiario.i18n.i18n",
+                    bundleName: "sap.ui.InterfaceUsuario.i18n.i18n"
                 });
                 this.setModel(i18nModel, "i18n");
             },
         });
     }
 );
+
+
+
+
+
