@@ -19,7 +19,7 @@
                     .then(dados => dados.json())
                     .then(dados => modeloDeClientes.setData({ clientes: dados }))
                     .catch(erro => console.error(mensagemDeErro, erro));
-                this.getView().setModel(modeloDeClientes)
+                this.getView().setModel(modeloDeClientes);
             },
          
             buscarCliente: function (oEvent) {
