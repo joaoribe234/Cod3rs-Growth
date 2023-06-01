@@ -26,11 +26,12 @@
                 const idTabelaCliente = "idTabelaCliente";
                 const consulta = "query";
                 const items = "items";
+                const nomeCliente = "nome";
 
                 var arrayFiltro = [];
                 var valorDigitadoUsuario = oEvent.getParameter(consulta);
                 if (valorDigitadoUsuario) {
-                    arrayFiltro.push(new Filter("nome", FilterOperator.Contains, valorDigitadoUsuario));
+                    arrayFiltro.push(new Filter(nomeCliente, FilterOperator.Contains, valorDigitadoUsuario));
                 }
                 var obterIdTabela = this.byId(idTabelaCliente);
                 var bindingClienteTabela = obterIdTabela.getBinding(items);
