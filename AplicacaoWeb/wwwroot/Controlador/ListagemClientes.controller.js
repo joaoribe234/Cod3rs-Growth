@@ -37,6 +37,12 @@
                 var bindingClienteTabela = obterIdTabela.getBinding(items);
                 bindingClienteTabela.filter(arrayFiltro);
             },
+            aoclicarCliente: function (oEvent) {
+                const detalhes = "detalhes";
+                var idObtido = oEvent.getSource().getBindingContext().getProperty("id");
+                var instanciaRota = this.getOwnerComponent().getRouter();
+                instanciaRota.navTo(detalhes, { id: idObtido });
+            },
         });
     }
 );

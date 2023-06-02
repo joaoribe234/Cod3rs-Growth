@@ -6,7 +6,7 @@
   xmlns:core="sap.ui.core"
   >
 	<Shell>
-		<App>
+		<App id="app">
 			<Page title="{i18n>tituloPaginaListagem}">
 				<content>
 						<Table id="idTabelaCliente" items="{/clientes}">
@@ -35,7 +35,7 @@
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem>
+								<ColumnListItem type="Navigation" press=".aoclicarCliente">
 									<cells>
 										<ObjectIdentifier title="{id}" />
 										<Text text="{nome}" />

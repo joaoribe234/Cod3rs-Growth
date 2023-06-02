@@ -45,47 +45,28 @@
         "path": "sap.ui.InterfaceUsuario.Visualizacao",
         "controlId": "app",
         "controlAggregation": "pages",
-        "async": true,
-        "viewPath": "sap.ui.InterfaceUsuario.Visualizacao"
+        "async": true
       },
       "routes": [
         {
           "pattern": "",
           "name": "listagemClientes",
-          "target": "listagemClientes",
-          "targetControl": "app",
-          "targetAggregation": "pages"
+          "target": "listagemClientes"
         },
         {
           "pattern": "detalhes/{id}",
           "name": "detalhes",
-          "target": "detalhes",
-          "targetControl": "app",
-          "targetAggregation": "pages"
+          "target": "detalhes"
         }
       ],
       "targets": {
         "listagemClientes": {
           "id": "listagemClientes",
-          "name": "ListagemClientes",
-          "viewName": "sap.ui.InterfaceUsuario.Visualizacao.ListagemClientes",
-          "viewLevel": 1,
-          "viewId": "listagemClientes",
-          "viewPath": "sap.ui.InterfaceUsuario.Visualizacao",
-          "viewType": "XML",
-          "controlAggregation": "pages",
-          "controlId": "app"
+          "name": "ListagemClientes"
         },
         "detalhes": {
           "id": "detalhes",
-          "name": "Detalhes",
-          "viewName": "sap.ui.InterfaceUsuario.Visualizacao.Detalhes",
-          "viewLevel": 2,
-          "viewId": "detalhesClientes",
-          "viewPath": "sap.ui.InterfaceUsuario.Visualizacao",
-          "viewType": "XML",
-          "controlAggregation": "pages",
-          "controlId": "app"
+          "name": "Detalhes"
         }
       }
     }
