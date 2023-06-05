@@ -7,7 +7,7 @@
   >
 	<Shell>
 		<App id="app">
-			<Page title="{i18n>tituloPaginaListagem}">
+			<Page title="{i18n>tituloPaginaListagem}" titleAlignment="Center">
 				<content>
 						<Table id="idTabelaCliente" items="{/clientes}">
 					     <headerToolbar>
