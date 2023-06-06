@@ -6,10 +6,10 @@
   xmlns:core="sap.ui.core"
   >
 	<Shell>
-		<App>
-			<Page title="{i18n>ClientesCadastrados}">
+		<App id="app">
+			<Page title="{i18n>tituloPaginaListagem}" titleAlignment="Center">
 				<content>
-						<Table id="idTabelaCliente" items="{/clientes}" mode="SingleSelectMaster" selectionChange="onRowClick" >
+						<Table id="idTabelaCliente" items="{/clientes}">
 					     <headerToolbar>
 							  <Toolbar>
 								  <SearchField placeholder="Pesquisar Cliente" search="buscarCliente" />
@@ -35,7 +35,7 @@
 								</Column>
 							</columns>
 							<items>
-								<ColumnListItem>
+								<ColumnListItem type="Navigation" press=".aoclicarCliente">
 									<cells>
 										<ObjectIdentifier title="{id}" />
 										<Text text="{nome}" />

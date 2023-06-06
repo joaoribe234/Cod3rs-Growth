@@ -19,7 +19,7 @@
                     .then(dados => dados.json())
                     .then(dados => modeloDeClientes.setData({ clientes: dados }))
                     .catch(erro => console.error(mensagemDeErro, erro));
-                this.getView().setModel(modeloDeClientes)
+                this.getView().setModel(modeloDeClientes);
             },
          
             buscarCliente: function (oEvent) {
@@ -36,6 +36,12 @@
                 var obterIdTabela = this.byId(idTabelaCliente);
                 var bindingClienteTabela = obterIdTabela.getBinding(items);
                 bindingClienteTabela.filter(arrayFiltro);
+            },
+            aoclicarCliente: function (oEvent) {
+                const detalhes = "detalhes";
+                var idObtido = oEvent.getSource().getBindingContext().getProperty("id");
+                var instanciaRota = this.getOwnerComponent().getRouter();
+                instanciaRota.navTo(detalhes, { id: idObtido });
             },
         });
     }
