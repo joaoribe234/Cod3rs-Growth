@@ -8,8 +8,9 @@
         "use strict";
         return Controller.extend("sap.ui.InterfaceUsuario.Detalhes", {
             onInit: function () {
+                const rotaDetalhes = "detalhes";
                 var instanciaRota = this.getOwnerComponent().getRouter();
-                instanciaRota.getRoute("detalhes").attachMatched(this.rotaCorrespondida, this);
+                instanciaRota.getRoute(rotaDetalhes).attachMatched(this.rotaCorrespondida, this);
             },
             rotaCorrespondida: function (oEvent) {
                 var parametro = oEvent.getParameters();
@@ -26,6 +27,7 @@
                 this.getView().setModel(modeloDeClientes);
             },
             cliqueVoltar: function () {
+                const viewListagem = "listagemClientes";
                 var historicoNavegacao = History.getInstance();
                 var obterHashAnterior = historicoNavegacao.getPreviousHash();
 
@@ -33,7 +35,7 @@
                     window.history.go(-1);
                 } else {
                     var instanciaRota = this.getOwnerComponent().getRouter();
-                    instanciaRota.navTo("listagemClientes", {}, true);
+                    instanciaRota.navTo(viewListagem, {}, true);
                 }
             }
         });
