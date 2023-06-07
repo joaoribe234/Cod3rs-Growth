@@ -1,0 +1,28 @@
+﻿<mvc:View	controllerName="sap.ui.InterfaceUsuario.Controlador.Cadastro"
+	        xmlns="sap.m"
+	        xmlns:mvc="sap.ui.core.mvc"
+	        displayBlock="true"
+	        xmlns:core="sap.ui.core"
+>
+	<Page title="{i18n>tituloPaginaCadastro}"
+		  titleAlignment="Center"
+          showNavButton="true"
+          navButtonPress=".cliqueVoltar"
+>
+		<headerContent>
+			<Button icon="sap-icon://save" text="Salvar Cliente" press="cliqueSalvarCliente"/>
+			<Button icon="sap-icon://decline" text="Cancelar" press="cliqueCancelar"/>
+		</headerContent>
+		<content>
+			<Label text="{i18n>Nome}"/>
+			<Input type="text"/>
+			<Label text="{i18n>dataDeNascimento}"/>
+			<Input type="text"/>
+			<Label text="{i18n>telefone}"/>
+			<Input type="text"/>
+			<Label text="{i18n>sexo}"/>
+			<Input type="text"/>
+		</content>
+	</Page>
+	
+</mvc:View>
