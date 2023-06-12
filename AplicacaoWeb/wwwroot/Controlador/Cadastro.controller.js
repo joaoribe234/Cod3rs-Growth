@@ -20,79 +20,68 @@
                     "telefone": ""
                 };
                 var objetoModeloDeClientes = new JSONModel(objetoDeDadosCliente);
-                this.getView().setModel(objetoModeloDeClientes);
+                this.getView().setModel(objetoModeloDeClientes, "dados");
             },
             cliqueVoltar: function () {
-                const viewListagem = "listagemClientes";
+                const paginaListagem = "listagemClientes";
                 var historicoNavegacao = History.getInstance();
                 var obterHashAnterior = historicoNavegacao.getPreviousHash();
-
                 if (obterHashAnterior !== undefined) {
                     window.history.go(-1);
                 } else {
                     var instanciaRota = this.getOwnerComponent().getRouter();
-                    instanciaRota.navTo(viewListagem, {}, true);
+                    instanciaRota.navTo(paginaListagem, {}, true);
                 }
             },
             cliqueSalvarCliente: function () {
-                const viewListagem = "listagemClientes";
+                const paginaDetalhes = "detalhes";
                 const mensagemDeErro = "Erro ao cadastrar cliente";
-                const metodoAdicionar = "POST";
-                const aplicacaoJson = "application/json";
-                var modeloDeCliente = this.getView();
+                var modeloDeCliente = this.getView().getModel("dados");
                 var dadosDoNovoCliente = modeloDeCliente.getData();
-
                 var novoCliente = {
                     nome: dadosDoNovoCliente.nome,
                     dataDeNascimento: dadosDoNovoCliente.dataDeNascimento,
                     sexo: dadosDoNovoCliente.sexo,
                     telefone: dadosDoNovoCliente.telefone
-
                 };
                 console.log(novoCliente);
-
                 fetch("https://localhost:7258/api/clientes", {
-                    method: metodoAdicionar,
+                    method: "POST",
                     headers: {
-                        "Content-Type": aplicacaoJson,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(novoCliente),
+                    body: JSON.stringify(novoCliente)
                 })
                     .then((resposta) => {
                         if (!resposta.ok) {
                             throw new Error(mensagemDeErro);
                         }
                         return resposta.json();
+                        this.limparInputsFormulario();
                     })
                     .then((dados) => {
                         var instanciaRota = this.getOwnerComponent().getRouter();
-                        instanciaRota.navTo(viewListagem, {}, true);
+                        instanciaRota.navTo(paginaDetalhes, { id: dados.id }, true);
                     })
-                    .catch((erro) => console.error(mensagemDeErro, erro));
-                this.limparInputsFormulario();
+                    .catch((erro) => {
+                        console.error(mensagemDeErro, erro);
+                        console.log(erro.message); 
+                    });
             },
             limparInputsFormulario: function () {
-                const idNome = "Nome";
-                const idDataDeNascimento = "dataDeNascimento";
-                const idSexo = "Sexo";
-                const idTelefone = "Telefone";
-
-                var nomeInput = this.byId(idNome);
-                nomeInput.setValue("");
-                var dataDeNascimentoInput = this.byId(idDataDeNascimento);
-                dataDeNascimentoInput.setValue("");
-                var sexoInput = this.byId(idSexo);
-                sexoInput.setValue("");
-                var telefoneInput = this.byId(idTelefone);
-                telefoneInput.setValue("");
+                var dadosInput = this.getView().getModel("dados");
+                dadosInput.setProperty("/nome", "");
+                dadosInput.setProperty("/dataDeNascimento", "");
+                dadosInput.setProperty("/sexo", "");
+                dadosInput.setProperty("/telefone", "");
             },
             cliqueCancelar: function () {
-                const viewListagem = "listagemClientes";
+                const paginaListagem = "listagemClientes";
                 var instanciaRota = this.getOwnerComponent().getRouter();
-                instanciaRota.navTo(viewListagem, {}, true);
+                instanciaRota.navTo(paginaListagem, {}, true);
                 this.limparInputsFormulario();
             }
         });
     }
 );
-

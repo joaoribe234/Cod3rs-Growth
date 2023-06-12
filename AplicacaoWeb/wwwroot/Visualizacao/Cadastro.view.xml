@@ -1,4 +1,4 @@
-﻿<mvc:View	controllerName="sap.ui.InterfaceUsuario.Controlador.Cadastro"
+﻿<mvc:View	controllerName="sap.ui.InterfaceUsuario.COntrolador.Cadastro"
 	        xmlns="sap.m"
 	        xmlns:mvc="sap.ui.core.mvc"
 	        displayBlock="true"
@@ -15,14 +15,19 @@
 		</headerContent>
 		<content>
 			<Label text="{i18n>Nome}"/>
-			<Input type="text"/>
+			<Input value="{dados>/nome}" placeholder="Nome"/>
 			<Label text="{i18n>dataDeNascimento}"/>
-			<Input type="text"/>
-			<Label text="{i18n>telefone}"/>
-			<Input type="text"/>
-			<Label text="{i18n>sexo}"/>
-			<Input type="text"/>
+			<DatePicker value="{dados>/dataDeNascimento}" placeholder="Dia/Mês/Ano" valueFormat="yyyy-MM-ddTHH:mm:ss.mmm'" displayFormat="dd/MM/yyyy"/>
+			<Label text="{i18n>Telefone}"/>
+			
+			<Input  value="{dados>/telefone}" placeholder="(99) 99999-9999" />
+
+			<Label text="{i18n>Sexo}" />
+			<Input  value="{dados>/sexo}" placeholder="Sexo"/>
 		</content>
 	</Page>
-	
 </mvc:View>
+
+
+
+
