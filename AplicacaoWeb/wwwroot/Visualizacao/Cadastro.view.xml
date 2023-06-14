@@ -19,7 +19,7 @@
 			<Label text="{i18n>dataDeNascimento}"/>
 			<DatePicker value="{dados>/dataDeNascimento}" placeholder="Dia/Mês/Ano" valueFormat="yyyy-MM-ddTHH:mm:ss.mmm'" displayFormat="dd/MM/yyyy"/>
 			<Label text="{i18n>Telefone}"/>
-			
+
 			<Input  value="{dados>/telefone}" placeholder="(99) 99999-9999" />
 
 			<Label text="{i18n>Sexo}" />
@@ -27,7 +27,6 @@
 		</content>
 	</Page>
 </mvc:View>
-
 
 
 

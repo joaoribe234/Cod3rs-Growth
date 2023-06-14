@@ -9,18 +9,13 @@
         return Controller.extend("sap.ui.InterfaceUsuario.Cadastro", {
             onInit: function () {
                 const rotaCadastro = "cadastro";
-                var instanciaRota = this.getOwnerComponent().getRouter();
-                instanciaRota.getRoute(rotaCadastro).attachMatched(this.rotaCorrespondida, this);
+                this.instanciaRota = this.getOwnerComponent().getRouter();
+                this.instanciaRota.getRoute(rotaCadastro).attachMatched(this.rotaCorrespondida, this);
             },
-            rotaCorrespondida: function (oEvent) {
-                var objetoDeDadosCliente = {
-                    "nome": "",
-                    "dataDeNascimento": "",
-                    "sexo": "",
-                    "telefone": ""
-                };
-                var objetoModeloDeClientes = new JSONModel(objetoDeDadosCliente);
-                this.getView().setModel(objetoModeloDeClientes, "dados");
+            rotaCorrespondida: function () {
+                const dados = "dados";
+                var objetoDeDadosCliente = new JSONModel({});
+                this.getView().setModel(objetoDeDadosCliente, dados);
             },
             cliqueVoltar: function () {
                 const paginaListagem = "listagemClientes";
@@ -33,11 +28,11 @@
                     instanciaRota.navTo(paginaListagem, {}, true);
                 }
             },
-            cliqueSalvarCliente: function () {
-                const paginaDetalhes = "detalhes";
+            cliqueSalvarCliente: async function () {
                 const mensagemDeErro = "Erro ao cadastrar cliente";
-                var modeloDeCliente = this.getView().getModel("dados");
-                var dadosDoNovoCliente = modeloDeCliente.getData();
+                const dados = "dados";
+                var modeloDeClientes = this.getView().getModel(dados);
+                var dadosDoNovoCliente = modeloDeClientes.getData();
                 var novoCliente = {
                     nome: dadosDoNovoCliente.nome,
                     dataDeNascimento: dadosDoNovoCliente.dataDeNascimento,
@@ -48,25 +43,22 @@
                 fetch("https://localhost:7258/api/clientes", {
                     method: "POST",
                     headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(novoCliente)
+                    body: JSON.stringify(novoCliente),
                 })
                     .then((resposta) => {
                         if (!resposta.ok) {
                             throw new Error(mensagemDeErro);
                         }
                         return resposta.json();
-                        this.limparInputsFormulario();
                     })
                     .then((dados) => {
-                        var instanciaRota = this.getOwnerComponent().getRouter();
-                        instanciaRota.navTo(paginaDetalhes, { id: dados.id }, true);
+                        this.navegarPaginaDetalhes(dados.id);
                     })
                     .catch((erro) => {
                         console.error(mensagemDeErro, erro);
-                        console.log(erro.message); 
+                        console.log(erro.message);
                     });
             },
             limparInputsFormulario: function () {
@@ -81,6 +73,11 @@
                 var instanciaRota = this.getOwnerComponent().getRouter();
                 instanciaRota.navTo(paginaListagem, {}, true);
                 this.limparInputsFormulario();
+            },
+            navegarPaginaDetalhes: function (idCliente) {
+                const paginaDeDetalhes = "detalhes";
+                var instanciaRota = this.getOwnerComponent().getRouter();
+                instanciaRota.navTo(paginaDeDetalhes, {id: idCliente });
             }
         });
     }
