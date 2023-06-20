@@ -6,7 +6,7 @@ namespace Dominio.Interface
     {
         List<Clientes> ObterTodosClientes();
         Clientes ObterClientePorId(int id);
-        void CriarCliente(Clientes cliente);
+        int CriarCliente(Clientes cliente);
         void AtualizarCliente(Clientes clienteEditado);
         void RemoverCliente(int id);
     }

@@ -53,7 +53,7 @@ namespace Infra.Repositorios
                 }
             }
         }
-        public void CriarCliente(Clientes cliente)
+        public int CriarCliente(Clientes cliente)
         {
             using (var conexao = CriarConexao())
             {
@@ -71,6 +71,7 @@ namespace Infra.Repositorios
                 {
                     throw new MensagensDeErros(ExcecoesBD.FALHA_CRIACAO_NOVO_CLIENTE);
                 }
+                return cliente.Id;
             }
         }
         public void AtualizarCliente(Clientes clienteEditado)

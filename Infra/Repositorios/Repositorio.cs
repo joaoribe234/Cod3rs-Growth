@@ -21,9 +21,10 @@ namespace Infra.Repositorios
             }
             return cliente;
         }
-        public void CriarCliente(Clientes cliente)
+        public int CriarCliente(Clientes cliente)
         {
             listaDeClientes.Add(cliente);
+            return cliente.Id;
         }
         public void AtualizarCliente(Clientes clienteEditado)
         {

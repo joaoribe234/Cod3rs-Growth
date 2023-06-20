@@ -2,8 +2,8 @@
     [
         "sap/ui/core/mvc/Controller",
         "sap/ui/model/json/JSONModel",
-       "sap/ui/model/Filter",
-       "sap/ui/model/FilterOperator"
+        "sap/ui/model/Filter",
+        "sap/ui/model/FilterOperator"
     ],
     function (Controller, JSONModel, Filter, FilterOperator) {
         "use strict";
@@ -21,7 +21,7 @@
                     .catch(erro => console.error(mensagemDeErro, erro));
                 this.getView().setModel(modeloDeClientes);
             },
-         
+
             buscarCliente: function (oEvent) {
                 const idTabelaCliente = "idTabelaCliente";
                 const consulta = "query";
@@ -38,15 +38,18 @@
                 bindingClienteTabela.filter(arrayFiltro);
             },
             cliqueAdicionarCliente: function () {
-                var oRota = this.getOwnerComponent().getRouter();
-                oRota.navTo("cadastro");
+                const paginaDeCadastro = "cadastro";
+                var instanciaRota = this.getOwnerComponent().getRouter();
+                instanciaRota.navTo(paginaDeCadastro);
             },
             aoclicarCliente: function (oEvent) {
                 const detalhes = "detalhes";
                 var idObtido = oEvent.getSource().getBindingContext().getProperty("id");
-                var instanciaRota = this.getOwnerComponent().getRouter();
+                 var instanciaRota = this.getOwnerComponent().getRouter();
                 instanciaRota.navTo(detalhes, { id: idObtido });
             },
         });
     }
 );
+
+

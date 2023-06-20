@@ -15,15 +15,14 @@
             rotaCorrespondida: function (oEvent) {
                 var parametro = oEvent.getParameters();
                 var idCliente = parametro.arguments.id;
+                console.log("ID do Cliente:", idCliente);
                 this.dadosClientesApi(idCliente)
             },
             dadosClientesApi: function (id) {
-                const mensagemDeErro = "Ocorreu algum erro ao obter o cliente por ID!";
                 var modeloDeClientes = new JSONModel();
                 fetch(`https://localhost:7258/api/clientes/${id}`)
                     .then(dados => dados.json())
-                    .then(dados => modeloDeClientes.setData({ dados }))
-                    .catch(erro => console.error(mensagemDeErro, erro))
+                    .then(dados => modeloDeClientes.setData({ cliente: dados }))
                 this.getView().setModel(modeloDeClientes);
             },
             cliqueVoltar: function () {
@@ -41,5 +40,3 @@
         });
     }
 )
-
-

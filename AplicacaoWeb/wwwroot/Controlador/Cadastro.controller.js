@@ -28,16 +28,15 @@
                     instanciaRota.navTo(paginaListagem, {}, true);
                 }
             },
-            cliqueSalvarCliente: async function () {
+            cliqueSalvarCliente: function () {
                 const mensagemDeErro = "Erro ao cadastrar cliente";
                 const dados = "dados";
-                var modeloDeClientes = this.getView().getModel(dados);
-                var dadosDoNovoCliente = modeloDeClientes.getData();
+                var modeloDeClientes = this.getView().getModel(dados).getData();
                 var novoCliente = {
-                    nome: dadosDoNovoCliente.nome,
-                    dataDeNascimento: dadosDoNovoCliente.dataDeNascimento,
-                    sexo: dadosDoNovoCliente.sexo,
-                    telefone: dadosDoNovoCliente.telefone
+                    nome: modeloDeClientes.nome,
+                    dataDeNascimento: modeloDeClientes.dataDeNascimento,
+                    sexo: modeloDeClientes.sexo,
+                    telefone: modeloDeClientes.telefone,
                 };
                 console.log(novoCliente);
                 fetch("https://localhost:7258/api/clientes", {
@@ -61,23 +60,20 @@
                         console.log(erro.message);
                     });
             },
-            limparInputsFormulario: function () {
-                var dadosInput = this.getView().getModel("dados");
-                dadosInput.setProperty("/nome", "");
-                dadosInput.setProperty("/dataDeNascimento", "");
-                dadosInput.setProperty("/sexo", "");
-                dadosInput.setProperty("/telefone", "");
-            },
             cliqueCancelar: function () {
                 const paginaListagem = "listagemClientes";
                 var instanciaRota = this.getOwnerComponent().getRouter();
                 instanciaRota.navTo(paginaListagem, {}, true);
-                this.limparInputsFormulario();
             },
-            navegarPaginaDetalhes: function (idCliente) {
+            navegarPaginaDetalhes: function (novoId) {
+                const mensagemErro = "ID do cliente inválido, está recebendo undefined";
                 const paginaDeDetalhes = "detalhes";
-                var instanciaRota = this.getOwnerComponent().getRouter();
-                instanciaRota.navTo(paginaDeDetalhes, {id: idCliente });
+                if (novoId === 0) {
+                    console.error(mensagemErro);
+                    return;
+                }
+                this.instanciaRota = this.getOwnerComponent().getRouter();
+                this.instanciaRota.navTo(paginaDeDetalhes, { id: novoId });
             }
         });
     }

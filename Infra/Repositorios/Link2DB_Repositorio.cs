@@ -5,6 +5,7 @@ using LinqToDB;
 using LinqToDB.Data;
 using LinqToDB.DataProvider.SqlServer;
 using System.Configuration;
+using System.Drawing;
 
 namespace Infra.Repositorios
 {
@@ -41,12 +42,13 @@ namespace Infra.Repositorios
             }
         }
 
-        public void CriarCliente(Clientes cliente) {
+        public int CriarCliente(Clientes cliente) {
 
             using (var conexaoLinq2DB = CriarConexao()) {
                 try
                 {
-                    conexaoLinq2DB.Insert(cliente);
+                    var id = conexaoLinq2DB.InsertWithInt32Identity(cliente);
+                    return id;
                 }
                 catch (MensagensDeErros)
                 {
@@ -55,7 +57,7 @@ namespace Infra.Repositorios
             }
         }
 
-        public void AtualizarCliente(Clientes cliente) {
+public void AtualizarCliente(Clientes cliente) {
 
             using (var conexaoLinq2DB = CriarConexao()) {
                 try
@@ -83,7 +85,6 @@ namespace Infra.Repositorios
                 }
             }
         }
-
         private DataConnection CriarConexao()
         {
             try
