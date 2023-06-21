@@ -14,7 +14,7 @@
 							<Toolbar>
 								<SearchField placeholder="Pesquisar Cliente" search="buscarCliente" />
 								<ToolbarSpacer />
-								<Button icon="sap-icon://add" press="cliqueAdicionarCliente" />
+								<Button icon="sap-icon://add" press="aoClicarEmAdicionar" />
 							</Toolbar>
 						</headerToolbar>
 						<columns>

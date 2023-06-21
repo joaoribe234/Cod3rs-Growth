@@ -15,7 +15,6 @@
             rotaCorrespondida: function (oEvent) {
                 var parametro = oEvent.getParameters();
                 var idCliente = parametro.arguments.id;
-                console.log("ID do Cliente:", idCliente);
                 this.dadosClientesApi(idCliente)
             },
             dadosClientesApi: function (id) {
@@ -25,7 +24,7 @@
                     .then(dados => modeloDeClientes.setData({ cliente: dados }))
                 this.getView().setModel(modeloDeClientes);
             },
-            cliqueVoltar: function () {
+            aoClicarEmVoltar: function () {
                 const paginaListagem = "listagemClientes";
                 var historicoNavegacao = History.getInstance();
                 var obterHashAnterior = historicoNavegacao.getPreviousHash();

@@ -37,7 +37,7 @@
                 var bindingClienteTabela = obterIdTabela.getBinding(items);
                 bindingClienteTabela.filter(arrayFiltro);
             },
-            cliqueAdicionarCliente: function () {
+            aoClicarEmAdicionar: function () {
                 const paginaDeCadastro = "cadastro";
                 var instanciaRota = this.getOwnerComponent().getRouter();
                 instanciaRota.navTo(paginaDeCadastro);

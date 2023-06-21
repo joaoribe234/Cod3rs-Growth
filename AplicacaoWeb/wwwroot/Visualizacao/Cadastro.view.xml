@@ -7,11 +7,11 @@
 	<Page title="{i18n>tituloPaginaCadastro}"
 		  titleAlignment="Center"
           showNavButton="true"
-          navButtonPress=".cliqueVoltar"
+          navButtonPress=".aoClicarEmVoltar"
 >
 		<headerContent>
-			<Button icon="sap-icon://save" text="Salvar Cliente" press="cliqueSalvarCliente"/>
-			<Button icon="sap-icon://decline" text="Cancelar" press="cliqueCancelar"/>
+			<Button icon="sap-icon://save" text="Salvar Cliente" press="aoClicarEmSalvar"/>
+			<Button icon="sap-icon://decline" text="Cancelar" press="aoClicarEmCancelar"/>
 		</headerContent>
 		<content>
 			<Label text="{i18n>Nome}"/>

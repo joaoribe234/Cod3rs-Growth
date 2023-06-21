@@ -17,7 +17,7 @@
                 var objetoDeDadosCliente = new JSONModel({});
                 this.getView().setModel(objetoDeDadosCliente, dados);
             },
-            cliqueVoltar: function () {
+            aoClicarEmVoltar: function () {
                 const paginaListagem = "listagemClientes";
                 var historicoNavegacao = History.getInstance();
                 var obterHashAnterior = historicoNavegacao.getPreviousHash();
@@ -28,7 +28,7 @@
                     instanciaRota.navTo(paginaListagem, {}, true);
                 }
             },
-            cliqueSalvarCliente: function () {
+            aoClicarEmSalvar: function () {
                 const mensagemDeErro = "Erro ao cadastrar cliente";
                 const dados = "dados";
                 var modeloDeClientes = this.getView().getModel(dados).getData();
@@ -60,7 +60,7 @@
                         console.log(erro.message);
                     });
             },
-            cliqueCancelar: function () {
+            aoClicarEmCancelar: function () {
                 const paginaListagem = "listagemClientes";
                 var instanciaRota = this.getOwnerComponent().getRouter();
                 instanciaRota.navTo(paginaListagem, {}, true);
