@@ -51,23 +51,24 @@ namespace AplicacaoWeb.Controllers
         [HttpPost]
         public IActionResult CriarCliente([FromBody] Clientes clienteASerCriado) 
         {
+
+            if (clienteASerCriado == null)
+            {
+                return BadRequest();
+            }
             try
             {
-                if (clienteASerCriado == null)
-                {
-                    return BadRequest();
-                }
                 ValidarFormulario.validacaoDeCampos(clienteASerCriado);
-                _repositorio.CriarCliente(clienteASerCriado);
-                return CreatedAtAction(nameof(ObterClientePorId), new { id = clienteASerCriado.Id }, clienteASerCriado);
+                var idCliente = _repositorio.CriarCliente(clienteASerCriado);
+                clienteASerCriado.Id = idCliente;
+                return CreatedAtAction(nameof(ObterClientePorId), new { id = idCliente }, clienteASerCriado);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                throw new Exception();
+                return BadRequest(ex.Message);
             }
         }
-
-        [HttpPut("{id}")]
+[HttpPut("{id}")]
         public IActionResult AtualizarCliente(int id, [FromBody] Clientes clienteASerEditado)
         {
             try

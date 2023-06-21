@@ -4,20 +4,21 @@
           displayBlock="true"
           xmlns:core="sap.ui.core"
 >
-            <Page binding="{/cliente}"
-				  title="{i18n>tituloPaginaDetalhes}"
-				  titleAlignment="Center"
-                  showNavButton="true"
-                  navButtonPress=".cliqueVoltar"
+	<Page binding="{/cliente}"
+		  title="{i18n>tituloPaginaDetalhes}"
+		  titleAlignment="Center"
+		  showNavButton="true"
+		  navButtonPress=".aoClicarEmVoltar"
             >
-				<headerContent>
-					<Button icon="sap-icon://edit" text="Editar"/>
-					<Button icon="sap-icon://delete" text="Remover"/>
-				</headerContent>	
-                <content>
-                    <ObjectHeader title="{nome}">
-                        <ObjectAttribute text="O nome do Cliente(a) é {path: 'nome'}!" />
-                        <ObjectAttribute text="Sua Data de Nascimento ocorreu na data {path: 'dataDeNascimento',
+		<headerContent>
+			<Button icon="sap-icon://edit" text="Editar"/>
+			<Button icon="sap-icon://delete" text="Remover"/>
+		</headerContent>
+		<content>
+			<ObjectHeader title="{nome}">
+				<ObjectAttribute text=" ID: {id}!" />
+				<ObjectAttribute text="Nome: {nome}!" />
+				<ObjectAttribute text="Data de Nascimento: {path: 'dataDeNascimento',
                                                     type: 'sap.ui.model.type.Date',
                                                     formatOptions: {
                                                         style: 'short',
@@ -26,12 +27,16 @@
                                                         }
                                                     }
                                                   }!" />
-                        <ObjectAttribute text="Seu Telefone atual é {telefone}!" />
-                        <ObjectAttribute text="Seu Sexo é {sexo}!" />
-                    </ObjectHeader>
-                </content>
-            </Page>
+				<ObjectAttribute text="Telefone: {telefone}!" />
+				<ObjectAttribute text="Sexo: {sexo}!" />
+			</ObjectHeader>
+		</content>
+	</Page>
 </mvc:View>
+
+
+
+
 
 
 

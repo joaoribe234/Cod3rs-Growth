@@ -9,53 +9,46 @@
 		<App id="app">
 			<Page title="{i18n>tituloPaginaListagem}" titleAlignment="Center">
 				<content>
-						<Table id="idTabelaCliente" items="{/clientes}">
-					     <headerToolbar>
-							  <Toolbar>
-								  <SearchField placeholder="Pesquisar Cliente" search="buscarCliente" />
-								  <ToolbarSpacer />
-								  <Button icon="sap-icon://add" press="adicionarCliente" />
-							  </Toolbar>
-					     </headerToolbar>
-							<columns>
-								<Column>
-									<Text text="{i18n>Id}" />
-								</Column>
-								<Column>
-									<Text text="{i18n>Nome}" />
-								</Column>
-								<Column>
-									<Text text="{i18n>Sexo}" />
-								</Column>
-								<Column>
-									<Text text="{i18n>Telefone}" />
-								</Column>
-								<Column>
-									<Text text="{i18n>dataDeNascimento}" />
-								</Column>
-							</columns>
-							<items>
-								<ColumnListItem type="Navigation" press=".aoclicarCliente">
-									<cells>
-										<ObjectIdentifier title="{id}" />
-										<Text text="{nome}" />
-										<Text text="{sexo}" />
-										<Text text="{telefone}" />
-										<Text text="{path: 'dataDeNascimento',
+					<Table id="idTabelaCliente" items="{/clientes}">
+						<headerToolbar>
+							<Toolbar>
+								<SearchField placeholder="Pesquisar Cliente" search="buscarCliente" />
+								<ToolbarSpacer />
+								<Button icon="sap-icon://add" press="aoClicarEmAdicionar" />
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column>
+								<Text text="{i18n>Nome}" />
+							</Column>
+							<Column>
+								<Text text="{i18n>Sexo}" />
+							</Column>
+							<Column>
+								<Text text="{i18n>Telefone}" />
+							</Column>
+							<Column>
+								<Text text="{i18n>dataDeNascimento}" />
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem type="Navigation" press=".aoclicarCliente">
+								<cells>
+									<Text text="{nome}" />
+									<Text text="{sexo}" />
+									<Text text="{telefone}" />
+									<Text text="{path: 'dataDeNascimento',
 												 type: 'sap.ui.model.type.Date',
 												 formatOptions: {
 												 style: 'short',
 												 source: {
 												 pattern: 'yyyy-MM-ddTHH:mm:ss.mmm' }}}"/>
-									</cells>
-								</ColumnListItem>
-							</items>
-						</Table>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
 				</content>
 			</Page>
 		</App>
 	</Shell>
 </mvc:View>
-
-
-
