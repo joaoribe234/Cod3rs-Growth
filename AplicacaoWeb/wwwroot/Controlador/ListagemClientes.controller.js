@@ -43,10 +43,10 @@
                 instanciaRota.navTo(paginaDeCadastro);
             },
             aoclicarCliente: function (oEvent) {
-                const detalhes = "detalhes";
+                const paginaDedetalhes = "detalhes";
                 var idObtido = oEvent.getSource().getBindingContext().getProperty("id");
                  var instanciaRota = this.getOwnerComponent().getRouter();
-                instanciaRota.navTo(detalhes, { id: idObtido });
+                instanciaRota.navTo(paginaDedetalhes, { id: idObtido });
             },
         });
     }

@@ -25,7 +25,7 @@
                 this.getView().setModel(modeloDeClientes);
             },
             aoClicarEmVoltar: function () {
-                const paginaListagem = "listagemClientes";
+                const paginaDeListagem = "listagemClientes";
                 var historicoNavegacao = History.getInstance();
                 var obterHashAnterior = historicoNavegacao.getPreviousHash();
 
@@ -33,7 +33,7 @@
                     window.history.go(-1);
                 } else {
                     var instanciaRota = this.getOwnerComponent().getRouter();
-                    instanciaRota.navTo(paginaListagem, {}, true);
+                    instanciaRota.navTo(paginaDeListagem, {}, true);
                 }
             }
         });

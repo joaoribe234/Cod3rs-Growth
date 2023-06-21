@@ -15,15 +15,15 @@
 		</headerContent>
 		<content>
 			<Label text="{i18n>Nome}"/>
-			<Input value="{dados>/nome}" placeholder="Nome"/>
+			<Input value="{dados>/nome}" placeholder="Nome" id="campoNome"/>
 			<Label text="{i18n>dataDeNascimento}"/>
-			<DatePicker value="{dados>/dataDeNascimento}" placeholder="Dia/Mês/Ano" valueFormat="yyyy-MM-ddTHH:mm:ss.mmm'" displayFormat="dd/MM/yyyy"/>
+			<DatePicker value="{dados>/dataDeNascimento}" placeholder="Dia/Mês/Ano" valueFormat="yyyy-MM-ddTHH:mm:ss.mmm'" displayFormat="dd/MM/yyyy" id="campoData"/>
 			<Label text="{i18n>Telefone}"/>
 
-			<Input  value="{dados>/telefone}" placeholder="(99) 99999-9999" />
+			<Input  value="{dados>/telefone}" placeholder="(99) 99999-9999" id="campoTelefone" />
 
 			<Label text="{i18n>Sexo}" />
-			<Input  value="{dados>/sexo}" placeholder="Sexo"/>
+			<Input  value="{dados>/sexo}" placeholder="Sexo" id="campoSexo"/>
 		</content>
 	</Page>
 </mvc:View>

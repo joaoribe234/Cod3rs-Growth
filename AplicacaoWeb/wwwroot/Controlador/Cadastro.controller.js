@@ -2,9 +2,10 @@
     [
         "sap/ui/core/mvc/Controller",
         "sap/ui/core/routing/History",
-        "sap/ui/model/json/JSONModel"
+        "sap/ui/model/json/JSONModel",
+        "../Servico/ValidacoesCadastro"
     ],
-    function (Controller, History, JSONModel) {
+    function (Controller, History, JSONModel, ValidacoesCadastro) {
         "use strict";
         return Controller.extend("sap.ui.InterfaceUsuario.Cadastro", {
             onInit: function () {
@@ -18,14 +19,14 @@
                 this.getView().setModel(objetoDeDadosCliente, dados);
             },
             aoClicarEmVoltar: function () {
-                const paginaListagem = "listagemClientes";
+                const paginaDeListagem = "listagemClientes";
                 var historicoNavegacao = History.getInstance();
                 var obterHashAnterior = historicoNavegacao.getPreviousHash();
                 if (obterHashAnterior !== undefined) {
                     window.history.go(-1);
                 } else {
                     var instanciaRota = this.getOwnerComponent().getRouter();
-                    instanciaRota.navTo(paginaListagem, {}, true);
+                    instanciaRota.navTo(paginaDeListagem, {}, true);
                 }
             },
             aoClicarEmSalvar: function () {
@@ -38,6 +39,18 @@
                     sexo: modeloDeClientes.sexo,
                     telefone: modeloDeClientes.telefone,
                 };
+                if (!ValidacoesCadastro.validarNome(this.getView().byId("campoNome"))) {
+                    return;
+                }
+                if (!ValidacoesCadastro.validarDataDeNascimento(this.getView().byId("campoData"))) {
+                    return;
+                }
+                if (!ValidacoesCadastro.validarTelefone(this.getView().byId("campoTelefone"))) {
+                    return;
+                }
+                if (!ValidacoesCadastro.validarSexo(this.getView().byId("campoSexo"))) {
+                    return;
+                }
                 console.log(novoCliente);
                 fetch("https://localhost:7258/api/clientes", {
                     method: "POST",
@@ -61,9 +74,9 @@
                     });
             },
             aoClicarEmCancelar: function () {
-                const paginaListagem = "listagemClientes";
+                const paginaDeListagem = "listagemClientes";
                 var instanciaRota = this.getOwnerComponent().getRouter();
-                instanciaRota.navTo(paginaListagem, {}, true);
+                instanciaRota.navTo(paginaDeListagem, {}, true);
             },
             navegarPaginaDetalhes: function (novoId) {
                 const mensagemErro = "ID do cliente inválido, está recebendo undefined";
