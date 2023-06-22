@@ -3,9 +3,10 @@
         "sap/ui/core/mvc/Controller",
         "sap/ui/core/routing/History",
         "sap/ui/model/json/JSONModel",
-        "../Servico/ValidacoesCadastro"
+        "../Servico/ValidacoesCadastro",
+        "sap/m/MessageBox"
     ],
-    function (Controller, History, JSONModel, ValidacoesCadastro) {
+    function (Controller, History, JSONModel, ValidacoesCadastro, MessageBox) {
         "use strict";
         return Controller.extend("sap.ui.InterfaceUsuario.Cadastro", {
             onInit: function () {
@@ -51,27 +52,35 @@
                 if (!ValidacoesCadastro.validarSexo(this.getView().byId("campoSexo"))) {
                     return;
                 }
-                console.log(novoCliente);
-                fetch("https://localhost:7258/api/clientes", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(novoCliente),
-                })
-                    .then((resposta) => {
-                        if (!resposta.ok) {
-                            throw new Error(mensagemDeErro);
+                MessageBox.confirm("Deseja realmente criar esse novo cliente?", {
+                    title: "Confirmação",
+                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    onClose: function (decisaoCriarCliente) {
+                        if (decisaoCriarCliente === MessageBox.Action.YES) {
+                            console.log(novoCliente);
+                            fetch("https://localhost:7258/api/clientes", {
+                                method: "POST",
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(novoCliente),
+                            })
+                                .then((resposta) => {
+                                    if (!resposta.ok) {
+                                        throw new Error(mensagemDeErro);
+                                    }
+                                    return resposta.json();
+                                })
+                                .then((dados) => {
+                                    this.navegarPaginaDetalhes(dados.id);
+                                })
+                                .catch((erro) => {
+                                    console.error(mensagemDeErro, erro);
+                                    console.log(erro.message);
+                                });
                         }
-                        return resposta.json();
-                    })
-                    .then((dados) => {
-                        this.navegarPaginaDetalhes(dados.id);
-                    })
-                    .catch((erro) => {
-                        console.error(mensagemDeErro, erro);
-                        console.log(erro.message);
-                    });
+                    }.bind(this)
+                });
             },
             aoClicarEmCancelar: function () {
                 const paginaDeListagem = "listagemClientes";

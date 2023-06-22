@@ -12,16 +12,20 @@
     return {
         validarNome: function (valorInserido) {
             const nome = valorInserido.getValue();
+            const mensagemCampoVazio = "CampoVazio";
+            const mensagemValidacaoNome = "ValidacaoDoNome";
+            const mensagemTamanhoMinimoNome = "ValidarTamanhoMinimo";
+
             if (!nome) {
-                this.mostrarMensagemDeErro(valorInserido, i18n.getText("CampoVazio"));
+                this.mostrarMensagemDeErro(valorInserido, i18n.getText(mensagemCampoVazio));
                 return false;
             }
             if (!this.validarNomeCaracteres(nome)) {
-                this.mostrarMensagemDeErro(valorInserido, i18n.getText("ValidacaoDoNome"));
+                this.mostrarMensagemDeErro(valorInserido, i18n.getText(mensagemValidacaoNome));
                 return false;
             }
             if (!this.validarTamanhoMinimoNome(nome)) {
-                this.mostrarMensagemDeErro(valorInserido, i18n.getText("ValidarTamanhoMinimo"));
+                this.mostrarMensagemDeErro(valorInserido, i18n.getText(mensagemTamanhoMinimoNome));
                 return false;
             }
             this.removerMensagemDeErro(valorInserido);
@@ -29,26 +33,62 @@
         },
         validarDataDeNascimento: function (campoDeData) {
             const valorData = campoDeData.getValue();
-            if (!valorData) {
-                this.mostrarMensagemDeErro(campoDeData, i18n.getText("CampoVazio"));
+            const quantidadeDeCaracteres = 10;
+            const quaintidadeVazia = 0;
+            const idadeMaxima = 150;
+            const regex = /^\d{2}\/\d{2}\/\d{4}$/;
+            const mensagemCampoVazio = "CampoVazio";
+            const mensagemIdadeMaximaExcedida = "IdadeMaximaExcedida";
+            const mensagemDataFuturaInvalida = "DataFuturaInvalida";
+            const mensagemFormatoInvalido = "FormatoDataInvalido";
+            const mensagemFormatoInvalidoo = "FormatoDataInvalido2";
+            const mensagemFormatoInvalidooo = "FormatoDataInvalido3";
+
+            let dataInserida = new Date(valorData);
+            let dataDeHoje = new Date(Date.now());
+
+            if (valorData.length == quaintidadeVazia) {
+                this.mostrarMensagemDeErro(campoDeData, i18n.getText(mensagemCampoVazio));
                 return false;
             }
-            if (!this.validarDataDeNascimento(valorData)) {
-                this.mostrarMensagemDeErro(valorInserido, i18n.getText("TamanhoMinimoDataNascimento"));
+            if (dataDeHoje.getFullYear() - dataInserida.getFullYear() > idadeMaxima) {
+                this.mostrarMensagemDeErro(campoDeData, i18n.getText(mensagemIdadeMaximaExcedida));
+                return false;
+            }
+            if (dataInserida > dataDeHoje) {
+                this.mostrarMensagemDeErro(campoDeData, i18n.getText(mensagemDataFuturaInvalida));
+                return false;
+            }
+            if (valorData.length <= quantidadeDeCaracteres) {
+                this.mostrarMensagemDeErro(campoDeData, i18n.getText(mensagemFormatoInvalido));
+                return false;
+            }
+            //if (valorData.indexOf('/') !== 2 || valorData.lastIndexOf('/') !== 5) {
+            //    this.mostrarMensagemDeErro(campoDeData, i18n.getText(mensagemFormatoInvalidoo));
+            //    return false;
+            //}
+            //if (!regex.test(valorData)) {
+            //    this.mostrarMensagemDeErro(campoDeData, i18n.getText(mensagemFormatoInvalidoo));
+            //    return false;
+            //}
+            if (isNaN(dataInserida.getTime())) {
+                this.mostrarMensagemDeErro(campoDeData, i18n.getText(mensagemFormatoInvalido));
                 return false;
             }
             this.removerMensagemDeErro(campoDeData);
             return true;
         },
-
         validarTelefone: function (valorInserido) {
             const telefone = valorInserido.getValue();
+            const mensagemCampoVazio = "CampoVazio";
+            const mensagemmTamanhoMinimoTelefone = "TamanhoMininoTelefone";
+
             if (!telefone) {
-                this.mostrarMensagemDeErro(valorInserido, i18n.getText("CampoVazio"));
+                this.mostrarMensagemDeErro(valorInserido, i18n.getText(mensagemCampoVazio));
                 return false;
             }
             if (!this.validarTamanhoMinimoTelefone(telefone)) {
-                this.mostrarMensagemDeErro(valorInserido, i18n.getText("TamanhoMininoTelefone"));
+                this.mostrarMensagemDeErro(valorInserido, i18n.getText(mensagemmTamanhoMinimoTelefone));
                 return false;
             }
             this.removerMensagemDeErro(valorInserido);
@@ -56,12 +96,17 @@
 },
         validarSexo: function (valorInserido) {
             const sexo = valorInserido.getValue();
+            const mensagemCampoVazio = "CampoVazio";
+            const mensagemSexoEscolhido = "SexoEscolhido";
+            const sexoMasculino = "Masculino";
+            const sexoFeminino = "Feminino";
+
             if (!sexo) {
-                this.mostrarMensagemDeErro(valorInserido, i18n.getText("CampoVazio"));
+                this.mostrarMensagemDeErro(valorInserido, i18n.getText(mensagemCampoVazio));
                 return false;
             }
-            if (sexo !== "Masculino" && sexo !== "Feminino") {
-                this.mostrarMensagemDeErro(valorInserido, i18n.getText("SexoEscolhido"));
+            if (sexo !== sexoMasculino && sexo !== sexoFeminino) {
+                this.mostrarMensagemDeErro(valorInserido, i18n.getText(mensagemSexoEscolhido));
                 return false;
             }
             this.removerMensagemDeErro(valorInserido);
@@ -74,13 +119,19 @@
         },
 
         validarTamanhoMinimoNome: function (tamanhoNome) {
-            return tamanhoNome.length >= 2;
+            const tamanhoMinimoNome = 2;
+
+            return tamanhoNome.length >= tamanhoMinimoNome;
         },
-        validarTamanhoMinimoTelefone: function (tamanhotelefone) {
-            return tamanhotelefone.length > 14;
+        validarTamanhoMinimoTelefone: function (tamanhoTelefone) {
+            const tamanhoMininoTelefone = 14;
+
+            return tamanhoTelefone.length > tamanhoMininoTelefone;
         },
-        validarTamanhoMinimoDataDeNascimento: function (tamanhoDataDeNascimento) {
-            return tamanhoDataDeNascimento.length > 9;
+        validarFormatoData: function (valorData) {
+            const regex = /^\d{2}\/\d{2}\/\d{4}$/;
+
+            return regex.test(valorData);
         },
 
         mostrarMensagemDeErro: function (campo, mensagem) {

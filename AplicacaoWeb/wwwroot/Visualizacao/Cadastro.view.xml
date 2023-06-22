@@ -2,7 +2,8 @@
 	        xmlns="sap.m"
 	        xmlns:mvc="sap.ui.core.mvc"
 	        displayBlock="true"
-	        xmlns:core="sap.ui.core">
+	        xmlns:core="sap.ui.core"
+			xmlns:l="sap.ui.layout">
 	
 	<Page title="{i18n>tituloPaginaCadastro}"
 		  titleAlignment="Center"
@@ -15,7 +16,7 @@
 		</headerContent>
 		<content>
 			<Label text="{i18n>Nome}"/>
-			<Input value="{dados>/nome}" placeholder="Nome" id="campoNome"/>
+			<Input value="{dados>/nome}" placeholder="Nome" id="campoNome" />
 			<Label text="{i18n>dataDeNascimento}"/>
 			<DatePicker value="{dados>/dataDeNascimento}" placeholder="Dia/Mês/Ano" valueFormat="yyyy-MM-ddTHH:mm:ss.mmm'" displayFormat="dd/MM/yyyy" id="campoData"/>
 			<Label text="{i18n>Telefone}"/>
@@ -27,6 +28,7 @@
 		</content>
 	</Page>
 </mvc:View>
+
 
 
 
