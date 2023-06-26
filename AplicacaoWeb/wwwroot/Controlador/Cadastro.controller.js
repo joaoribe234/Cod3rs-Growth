@@ -4,18 +4,22 @@
         "sap/ui/core/routing/History",
         "sap/ui/model/json/JSONModel",
         "../Servico/ValidacoesCadastro",
-        "sap/m/MessageBox"
+        "sap/m/MessageBox",
+        "../Servico/Repositorio",
+        "sap/ui/model/resource/ResourceModel"
     ],
-    function (Controller, History, JSONModel, ValidacoesCadastro, MessageBox) {
+    function (Controller, History, JSONModel, ValidacoesCadastro, MessageBox, Repositorio, ResourceModel) {
         "use strict";
         return Controller.extend("sap.ui.InterfaceUsuario.Cadastro", {
             onInit: function () {
                 const rotaCadastro = "cadastro";
+
                 this.instanciaRota = this.getOwnerComponent().getRouter();
                 this.instanciaRota.getRoute(rotaCadastro).attachMatched(this.rotaCorrespondida, this);
             },
             rotaCorrespondida: function () {
                 const dados = "dados";
+
                 var objetoDeDadosCliente = new JSONModel({});
                 this.getView().setModel(objetoDeDadosCliente, dados);
             },
@@ -33,6 +37,7 @@
             aoClicarEmSalvar: function () {
                 const mensagemDeErro = "Erro ao cadastrar cliente";
                 const dados = "dados";
+
                 var modeloDeClientes = this.getView().getModel(dados).getData();
                 var novoCliente = {
                     nome: modeloDeClientes.nome,
@@ -40,56 +45,49 @@
                     sexo: modeloDeClientes.sexo,
                     telefone: modeloDeClientes.telefone,
                 };
-                if (!ValidacoesCadastro.validarNome(this.getView().byId("campoNome"))) {
+
+                if (!ValidacoesCadastro.validarCamposFormulario(this.getView())) {
                     return;
                 }
-                if (!ValidacoesCadastro.validarDataDeNascimento(this.getView().byId("campoData"))) {
-                    return;
-                }
-                if (!ValidacoesCadastro.validarTelefone(this.getView().byId("campoTelefone"))) {
-                    return;
-                }
-                if (!ValidacoesCadastro.validarSexo(this.getView().byId("campoSexo"))) {
-                    return;
-                }
-                MessageBox.confirm("Deseja realmente criar esse novo cliente?", {
-                    title: "Confirmação",
-                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-                    onClose: function (decisaoCriarCliente) {
-                        if (decisaoCriarCliente === MessageBox.Action.YES) {
-                            console.log(novoCliente);
-                            fetch("https://localhost:7258/api/clientes", {
-                                method: "POST",
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify(novoCliente),
-                            })
-                                .then((resposta) => {
-                                    if (!resposta.ok) {
-                                        throw new Error(mensagemDeErro);
-                                    }
-                                    return resposta.json();
-                                })
-                                .then((dados) => {
-                                    this.navegarPaginaDetalhes(dados.id);
-                                })
-                                .catch((erro) => {
-                                    console.error(mensagemDeErro, erro);
-                                    console.log(erro.message);
-                                });
-                        }
-                    }.bind(this)
+                this.confirmacaoCriacaoCliente(novoCliente, mensagemDeErro)
+                    .then((dados) => {
+                        this.navegarPaginaDetalhes(dados.id);
+                    })
+                    .catch((erro) => {
+                        console.error(mensagemDeErro, erro);
+                        console.log(erro.message);
+                    });
+            },
+
+            confirmacaoCriacaoCliente: function (novoCliente) {
+                const mensagemConfirmacao = "Deseja realmente criar esse novo cliente?";
+                const tituloMessageBox = "Confirmação";
+
+                return new Promise((resolve, reject) => {
+                    MessageBox.confirm(mensagemConfirmacao, {
+                        title: tituloMessageBox,
+                        actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                        onClose: function (decisaoCriarCliente) {
+                            if (decisaoCriarCliente === MessageBox.Action.YES) {
+                                console.log(novoCliente);
+                                Repositorio.criarCliente(novoCliente)
+                                    .then(resolve)
+                                    .catch(reject);
+                            }
+                        }.bind(this)
+                    });
                 });
             },
             aoClicarEmCancelar: function () {
                 const paginaDeListagem = "listagemClientes";
+
                 var instanciaRota = this.getOwnerComponent().getRouter();
                 instanciaRota.navTo(paginaDeListagem, {}, true);
             },
             navegarPaginaDetalhes: function (novoId) {
                 const mensagemErro = "ID do cliente inválido, está recebendo undefined";
                 const paginaDeDetalhes = "detalhes";
+
                 if (novoId === 0) {
                     console.error(mensagemErro);
                     return;

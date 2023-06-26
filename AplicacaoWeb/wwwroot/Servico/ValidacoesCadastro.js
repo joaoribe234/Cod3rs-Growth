@@ -36,13 +36,10 @@
             const quantidadeDeCaracteres = 10;
             const quaintidadeVazia = 0;
             const idadeMaxima = 150;
-            const regex = /^\d{2}\/\d{2}\/\d{4}$/;
             const mensagemCampoVazio = "CampoVazio";
             const mensagemIdadeMaximaExcedida = "IdadeMaximaExcedida";
             const mensagemDataFuturaInvalida = "DataFuturaInvalida";
             const mensagemFormatoInvalido = "FormatoDataInvalido";
-            const mensagemFormatoInvalidoo = "FormatoDataInvalido2";
-            const mensagemFormatoInvalidooo = "FormatoDataInvalido3";
 
             let dataInserida = new Date(valorData);
             let dataDeHoje = new Date(Date.now());
@@ -63,14 +60,6 @@
                 this.mostrarMensagemDeErro(campoDeData, i18n.getText(mensagemFormatoInvalido));
                 return false;
             }
-            //if (valorData.indexOf('/') !== 2 || valorData.lastIndexOf('/') !== 5) {
-            //    this.mostrarMensagemDeErro(campoDeData, i18n.getText(mensagemFormatoInvalidoo));
-            //    return false;
-            //}
-            //if (!regex.test(valorData)) {
-            //    this.mostrarMensagemDeErro(campoDeData, i18n.getText(mensagemFormatoInvalidoo));
-            //    return false;
-            //}
             if (isNaN(dataInserida.getTime())) {
                 this.mostrarMensagemDeErro(campoDeData, i18n.getText(mensagemFormatoInvalido));
                 return false;
@@ -135,12 +124,31 @@
         },
 
         mostrarMensagemDeErro: function (campo, mensagem) {
-            campo.setValueState(sap.ui.core.ValueState.Error);
             campo.setValueStateText(mensagem);
+            campo.setValueState(sap.ui.core.ValueState.Error);
         },
-
         removerMensagemDeErro: function (campo) {
             campo.setValueState(sap.ui.core.ValueState.None);
+        },
+        validarCamposFormulario: function (view) {
+            const campoNome = "campoNome";
+            const campoData = "campoData";
+            const campoTelefone = "campoTelefone";
+            const campoSexo = "campoSexo";
+
+            if (!this.validarNome(view.byId(campoNome))) {
+                return false;
+            }
+            if (!this.validarDataDeNascimento(view.byId(campoData))) {
+                return false;
+            }
+            if (!this.validarTelefone(view.byId(campoTelefone))) {
+                return false;
+            }
+            if (!this.validarSexo(view.byId(campoSexo))) {
+                return false;
+            }
+            return true;
         }
 
     };
