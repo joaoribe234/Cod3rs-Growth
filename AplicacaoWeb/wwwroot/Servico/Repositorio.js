@@ -17,7 +17,13 @@
             .then(response => response.json());
     };
 
-    Repositorio.criarCliente = function (novoCliente) {
+    Repositorio.criarCliente = function (modeloDeClientes) {
+        var novoCliente = {
+            nome: modeloDeClientes.nome,
+            dataDeNascimento: modeloDeClientes.dataDeNascimento,
+            sexo: modeloDeClientes.sexo,
+            telefone: modeloDeClientes.telefone,
+        };
         const url = "https://localhost:7258/api/clientes";
         return fetch(url, {
             method: "POST",
@@ -28,6 +34,5 @@
         })
             .then(response => response.json());
     };
-
     return Repositorio;
 });

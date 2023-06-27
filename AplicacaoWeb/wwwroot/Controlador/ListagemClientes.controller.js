@@ -10,9 +10,9 @@
         "use strict";
         return Controller.extend("sap.ui.InterfaceUsuario.ListagemClientes", {
             onInit: function () {
-                this.dadosClientesApi();
+                this.carregarDadosClientesApi();
             },
-            dadosClientesApi: function () {
+            carregarDadosClientesApi: function () {
                 const mensagemDeErro = "Ocorreu algum erro ao obter os clientes cadastrados!";
                 var modeloDeClientes = new JSONModel();
 
@@ -21,7 +21,7 @@
                     .catch(erro => console.error(mensagemDeErro, erro));
                 this.getView().setModel(modeloDeClientes);
             },
-            buscarCliente: function (oEvent) {
+            filtrarCliente: function (oEvent) {
                 const idTabelaCliente = "idTabelaCliente";
                 const consulta = "query";
                 const items = "items";
@@ -36,18 +36,15 @@
                 var bindingClienteTabela = obterIdTabela.getBinding(items);
                 bindingClienteTabela.filter(arrayFiltro);
             },
-            aoClicarEmAdicionar: function () {
+            navegarParaPaginaDeCadastro: function () {
                 const paginaDeCadastro = "cadastro";
-                var instanciaRota = this.getOwnerComponent().getRouter();
-                instanciaRota.navTo(paginaDeCadastro);
+                this.getOwnerComponent().getRouter().navTo(paginaDeCadastro);
             },
-            aoclicarCliente: function (oEvent) {
+            aoClicarNoCliente: function (oEvent) {
                 const paginaDedetalhes = "detalhes";
                 var idObtido = oEvent.getSource().getBindingContext().getProperty("id");
-                var instanciaRota = this.getOwnerComponent().getRouter();
-                instanciaRota.navTo(paginaDedetalhes, { id: idObtido });
+                this.getOwnerComponent().getRouter().navTo(paginaDedetalhes, { id: idObtido });
             },
         });
     }
 );
-

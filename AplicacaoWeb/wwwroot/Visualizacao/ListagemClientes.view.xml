@@ -12,9 +12,9 @@
 					<Table id="idTabelaCliente" items="{/clientes}">
 						<headerToolbar>
 							<Toolbar>
-								<SearchField placeholder="Pesquisar Cliente" search="buscarCliente" />
+								<SearchField placeholder="Pesquisar Cliente" search="filtrarCliente" />
 								<ToolbarSpacer />
-								<Button icon="sap-icon://add" press="aoClicarEmAdicionar" />
+								<Button icon="sap-icon://add" press="navegarParaPaginaDeCadastro" />
 							</Toolbar>
 						</headerToolbar>
 						<columns>
@@ -32,7 +32,7 @@
 							</Column>
 						</columns>
 						<items>
-							<ColumnListItem type="Navigation" press=".aoclicarCliente">
+							<ColumnListItem type="Navigation" press=".aoClicarNoCliente">
 								<cells>
 									<Text text="{nome}" />
 									<Text text="{sexo}" />

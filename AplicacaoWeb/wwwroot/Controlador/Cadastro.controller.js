@@ -1,68 +1,73 @@
 ﻿sap.ui.define(
     [
         "sap/ui/core/mvc/Controller",
-        "sap/ui/core/routing/History",
         "sap/ui/model/json/JSONModel",
         "../Servico/ValidacoesCadastro",
         "sap/m/MessageBox",
         "../Servico/Repositorio",
-        "sap/ui/model/resource/ResourceModel"
+        "sap/ui/model/resource/ResourceModel",
+        "../Servico/MessageBoxServico"
     ],
-    function (Controller, History, JSONModel, ValidacoesCadastro, MessageBox, Repositorio, ResourceModel) {
+    function (Controller, JSONModel, ValidacoesCadastro, MessageBox, Repositorio, ResourceModel, MessageBoxServico) {
         "use strict";
+
+        var i18nModel = new ResourceModel({
+            bundleName: "sap.ui.InterfaceUsuario.i18n.i18n",
+            bundleUrl: "../i18n/i18n.properties"
+        });
+        const i18n = i18nModel.getResourceBundle();
+
         return Controller.extend("sap.ui.InterfaceUsuario.Cadastro", {
             onInit: function () {
                 const rotaCadastro = "cadastro";
-
-                this.instanciaRota = this.getOwnerComponent().getRouter();
-                this.instanciaRota.getRoute(rotaCadastro).attachMatched(this.rotaCorrespondida, this);
+                this.getOwnerComponent().getRouter().getRoute(rotaCadastro).attachMatched(this.rotaCorrespondida, this);
             },
             rotaCorrespondida: function () {
                 const dados = "dados";
-
                 var objetoDeDadosCliente = new JSONModel({});
                 this.getView().setModel(objetoDeDadosCliente, dados);
             },
             aoClicarEmVoltar: function () {
                 const paginaDeListagem = "listagemClientes";
-                var historicoNavegacao = History.getInstance();
-                var obterHashAnterior = historicoNavegacao.getPreviousHash();
-                if (obterHashAnterior !== undefined) {
-                    window.history.go(-1);
-                } else {
-                    var instanciaRota = this.getOwnerComponent().getRouter();
-                    instanciaRota.navTo(paginaDeListagem, {}, true);
-                }
+                this.getOwnerComponent().getRouter().navTo(paginaDeListagem, {}, true);  
             },
             aoClicarEmSalvar: function () {
-                const mensagemDeErro = "Erro ao cadastrar cliente";
+                const mensagemErroCadastro = "mensagemDeErro";
+                const mensagemDeErro = i18n.getText(mensagemErroCadastro);
                 const dados = "dados";
-
-                var modeloDeClientes = this.getView().getModel(dados).getData();
-                var novoCliente = {
-                    nome: modeloDeClientes.nome,
-                    dataDeNascimento: modeloDeClientes.dataDeNascimento,
-                    sexo: modeloDeClientes.sexo,
-                    telefone: modeloDeClientes.telefone,
-                };
-
+                var modeloDeClientes = this.getView().getModel(dados).getData(); 
                 if (!ValidacoesCadastro.validarCamposFormulario(this.getView())) {
                     return;
                 }
-                this.confirmacaoCriacaoCliente(novoCliente, mensagemDeErro)
-                    .then((dados) => {
-                        this.navegarPaginaDetalhes(dados.id);
-                    })
-                    .catch((erro) => {
-                        console.error(mensagemDeErro, erro);
-                        console.log(erro.message);
-                    });
+                this.confirmacaoCriacaoCliente(modeloDeClientes, mensagemDeErro)
+                    .then(dados => this.navegarPaginaDetalhes(dados.id))
+                    .catch(erro => console.error(mensagemDeErro, erro))
             },
-
+            //aoClicarEmSalvar: function () {
+            //    const mensagemErroCadastro = "mensagemDeErro";
+            //    const mensagemDeErro = i18n.getText(mensagemErroCadastro);
+            //    const dados = "dados";
+            //    var modeloDeClientes = this.getView().getModel(dados).getData();
+            //    if (!ValidacoesCadastro.validarCamposFormulario(this.getView())) {
+            //        return;
+            //    }
+            //    MessageBoxService.mostrarMessageBoxSalvar(i18n.getText("mensagemConfirmacao"), function (confirmado) {
+            //        if (confirmado) {
+            //            console.log(modeloDeClientes);
+            //            Repositorio.criarCliente(modeloDeClientes)
+            //                .then(function (dados) {
+            //                    this.navegarPaginaDetalhes(dados.id);
+            //                }.bind(this))
+            //                .catch(function (erro) {
+            //                    console.error(mensagemDeErro, erro);
+            //                });
+            //        }
+            //    }.bind(this));
+            //},
             confirmacaoCriacaoCliente: function (novoCliente) {
-                const mensagemConfirmacao = "Deseja realmente criar esse novo cliente?";
+                const mensagemDeConfirmacao = "mensagemConfirmacao";
+                const mensagemConfirmacao = i18n.getText(mensagemDeConfirmacao);
                 const tituloMessageBox = "Confirmação";
-
                 return new Promise((resolve, reject) => {
                     MessageBox.confirm(mensagemConfirmacao, {
                         title: tituloMessageBox,
@@ -79,21 +84,40 @@
                 });
             },
             aoClicarEmCancelar: function () {
+                const mensagemDeCancelar = "mensagemAoCancelar";
+                const mensagemAoCancelar = i18n.getText(mensagemDeCancelar);
+                const tituloMessageBox = "Confirmação";
                 const paginaDeListagem = "listagemClientes";
-
-                var instanciaRota = this.getOwnerComponent().getRouter();
-                instanciaRota.navTo(paginaDeListagem, {}, true);
+                MessageBox.confirm(mensagemAoCancelar, {
+                    title: tituloMessageBox,
+                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    onClose: function (decisaoCancelar) {
+                        if (decisaoCancelar === MessageBox.Action.YES) {
+                            this.getOwnerComponent().getRouter().navTo(paginaDeListagem, {}, true);
+                        }
+                    }.bind(this)
+                });
             },
-            navegarPaginaDetalhes: function (novoId) {
-                const mensagemErro = "ID do cliente inválido, está recebendo undefined";
-                const paginaDeDetalhes = "detalhes";
+            //aoClicarEmCancelar: function () {
+            //    const mensagemDeCancelar = "mensagemAoCancelar";
+            //    const mensagemAoCancelar = i18n.getText(mensagemDeCancelar);
+            //    const paginaDeListagem = "listagemClientes";
+            //    MessageBoxService.mostrarMessageBoxCancelar(mensagemAoCancelar, function (confirmado) {
+            //        if (confirmado) {
+            //            this.getOwnerComponent().getRouter().navTo(paginaDeListagem, {}, true);
+            //        }
+            //    }.bind(this));
+            //},
 
+            navegarPaginaDetalhes: function (novoId) {
+                const mensagemDoIdInvalido = "mensagemIdInvalido";
+                const mensagemIdInvalido = i18n.getText(mensagemDoIdInvalido);
+                const paginaDeDetalhes = "detalhes";
                 if (novoId === 0) {
-                    console.error(mensagemErro);
+                    console.error(mensagemIdInvalido);
                     return;
                 }
-                this.instanciaRota = this.getOwnerComponent().getRouter();
-                this.instanciaRota.navTo(paginaDeDetalhes, { id: novoId });
+                this.getOwnerComponent().getRouter().navTo(paginaDeDetalhes, { id: novoId });
             }
         });
     }
