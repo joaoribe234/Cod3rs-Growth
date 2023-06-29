@@ -3,26 +3,25 @@
         "sap/ui/core/mvc/Controller",
         "sap/ui/model/json/JSONModel",
         "sap/ui/model/Filter",
-        "sap/ui/model/FilterOperator"
+        "sap/ui/model/FilterOperator",
+        "../Servico/Repositorio"
     ],
-    function (Controller, JSONModel, Filter, FilterOperator) {
+    function (Controller, JSONModel, Filter, FilterOperator, Repositorio) {
         "use strict";
         return Controller.extend("sap.ui.InterfaceUsuario.ListagemClientes", {
             onInit: function () {
-                this.dadosClientesApi();
+                this.carregarDadosClientesApi();
             },
-            dadosClientesApi: function () {
+            carregarDadosClientesApi: function () {
                 const mensagemDeErro = "Ocorreu algum erro ao obter os clientes cadastrados!";
                 var modeloDeClientes = new JSONModel();
 
-                fetch("https://localhost:7258/api/clientes")
-                    .then(dados => dados.json())
+                Repositorio.obterClientes()
                     .then(dados => modeloDeClientes.setData({ clientes: dados }))
                     .catch(erro => console.error(mensagemDeErro, erro));
                 this.getView().setModel(modeloDeClientes);
             },
-
-            buscarCliente: function (oEvent) {
+            filtrarCliente: function (oEvent) {
                 const idTabelaCliente = "idTabelaCliente";
                 const consulta = "query";
                 const items = "items";
@@ -37,19 +36,15 @@
                 var bindingClienteTabela = obterIdTabela.getBinding(items);
                 bindingClienteTabela.filter(arrayFiltro);
             },
-            aoClicarEmAdicionar: function () {
+            navegarParaPaginaDeCadastro: function () {
                 const paginaDeCadastro = "cadastro";
-                var instanciaRota = this.getOwnerComponent().getRouter();
-                instanciaRota.navTo(paginaDeCadastro);
+                this.getOwnerComponent().getRouter().navTo(paginaDeCadastro);
             },
-            aoclicarCliente: function (oEvent) {
-                const detalhes = "detalhes";
+            aoClicarNoCliente: function (oEvent) {
+                const paginaDedetalhes = "detalhes";
                 var idObtido = oEvent.getSource().getBindingContext().getProperty("id");
-                 var instanciaRota = this.getOwnerComponent().getRouter();
-                instanciaRota.navTo(detalhes, { id: idObtido });
+                this.getOwnerComponent().getRouter().navTo(paginaDedetalhes, { id: idObtido });
             },
         });
     }
 );
-
-

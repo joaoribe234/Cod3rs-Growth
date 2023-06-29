@@ -1,16 +1,25 @@
 ﻿sap.ui.define(
     [
         "sap/ui/core/mvc/Controller",
-        "sap/ui/core/routing/History",
-        "sap/ui/model/json/JSONModel"
+        "sap/ui/model/json/JSONModel",
+        "../Servico/ValidacoesCadastro",
+        "../Servico/Repositorio",
+        "sap/ui/model/resource/ResourceModel",
+        "../Servico/MessageBoxServico"
     ],
-    function (Controller, History, JSONModel) {
+    function (Controller, JSONModel, ValidacoesCadastro,  Repositorio, ResourceModel, MessageBoxServico) {
         "use strict";
+
+        var i18nModel = new ResourceModel({
+            bundleName: "sap.ui.InterfaceUsuario.i18n.i18n",
+            bundleUrl: "../i18n/i18n.properties"
+        });
+        const i18n = i18nModel.getResourceBundle();
+
         return Controller.extend("sap.ui.InterfaceUsuario.Cadastro", {
             onInit: function () {
                 const rotaCadastro = "cadastro";
-                this.instanciaRota = this.getOwnerComponent().getRouter();
-                this.instanciaRota.getRoute(rotaCadastro).attachMatched(this.rotaCorrespondida, this);
+                this.getOwnerComponent().getRouter().getRoute(rotaCadastro).attachMatched(this.rotaCorrespondida, this);
             },
             rotaCorrespondida: function () {
                 const dados = "dados";
@@ -18,63 +27,59 @@
                 this.getView().setModel(objetoDeDadosCliente, dados);
             },
             aoClicarEmVoltar: function () {
-                const paginaListagem = "listagemClientes";
-                var historicoNavegacao = History.getInstance();
-                var obterHashAnterior = historicoNavegacao.getPreviousHash();
-                if (obterHashAnterior !== undefined) {
-                    window.history.go(-1);
-                } else {
-                    var instanciaRota = this.getOwnerComponent().getRouter();
-                    instanciaRota.navTo(paginaListagem, {}, true);
-                }
+                const paginaDeListagem = "listagemClientes";
+                this.getOwnerComponent().getRouter().navTo(paginaDeListagem, {}, true);  
             },
-            aoClicarEmSalvar: function () {
-                const mensagemDeErro = "Erro ao cadastrar cliente";
+            aoClicarEmSalvar: async function () {
+                const mensagemErroCadastro = "mensagemDeErro";
+                const mensagemSucessoCadastro = "mensagemSucessoCadastro";
+                const mensagemConfirmacao = "mensagemConfirmacao";
+                const mensagemDeErro = i18n.getText(mensagemErroCadastro);
                 const dados = "dados";
                 var modeloDeClientes = this.getView().getModel(dados).getData();
-                var novoCliente = {
-                    nome: modeloDeClientes.nome,
-                    dataDeNascimento: modeloDeClientes.dataDeNascimento,
-                    sexo: modeloDeClientes.sexo,
-                    telefone: modeloDeClientes.telefone,
-                };
-                console.log(novoCliente);
-                fetch("https://localhost:7258/api/clientes", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(novoCliente),
-                })
-                    .then((resposta) => {
-                        if (!resposta.ok) {
-                            throw new Error(mensagemDeErro);
-                        }
-                        return resposta.json();
-                    })
-                    .then((dados) => {
-                        this.navegarPaginaDetalhes(dados.id);
-                    })
-                    .catch((erro) => {
-                        console.error(mensagemDeErro, erro);
-                        console.log(erro.message);
-                    });
-            },
-            aoClicarEmCancelar: function () {
-                const paginaListagem = "listagemClientes";
-                var instanciaRota = this.getOwnerComponent().getRouter();
-                instanciaRota.navTo(paginaListagem, {}, true);
-            },
-            navegarPaginaDetalhes: function (novoId) {
-                const mensagemErro = "ID do cliente inválido, está recebendo undefined";
-                const paginaDeDetalhes = "detalhes";
-                if (novoId === 0) {
-                    console.error(mensagemErro);
+                if (!ValidacoesCadastro.validarCamposFormulario(this.getView())) {
                     return;
                 }
-                this.instanciaRota = this.getOwnerComponent().getRouter();
-                this.instanciaRota.navTo(paginaDeDetalhes, { id: novoId });
-            }
+                const confirmado = await this.mostrarConfirmacao(i18n.getText(mensagemConfirmacao));
+                if (!confirmado) {
+                    return;
+                }
+                try {
+                    const dados = await Repositorio.criarCliente(modeloDeClientes);
+                    this.navegarPaginaDetalhes(dados.id);
+                    MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagemSucessoCadastro), 500);
+                } catch (erro) {
+                    console.error(mensagemDeErro, erro);
+                    MessageBoxServico.mostrarMensagemDeErro(mensagemDeErro);
+                }
+            },
+            aoClicarEmCancelar: function () {
+                const mensagemDeCancelar = "mensagemAoCancelar";
+                const mensagemAoCancelar = i18n.getText(mensagemDeCancelar);
+                const paginaDeListagem = "listagemClientes";
+                MessageBoxServico.mostrarMessageBox(mensagemAoCancelar, function (confirmado) {
+                    if (confirmado) {
+                        this.getOwnerComponent().getRouter().navTo(paginaDeListagem, {}, true);
+                    }
+                }.bind(this));
+            },
+            navegarPaginaDetalhes: function (novoId) {
+                const mensagemDoIdInvalido = "mensagemIdInvalido";
+                const mensagemIdInvalido = i18n.getText(mensagemDoIdInvalido);
+                const paginaDeDetalhes = "detalhes";
+                if (novoId === 0) {
+                    console.error(mensagemIdInvalido);
+                    return;
+                }
+                this.getOwnerComponent().getRouter().navTo(paginaDeDetalhes, { id: novoId });
+            },
+            mostrarConfirmacao: function (mensagem) {
+                return new Promise(function (resolve) {
+                    MessageBoxServico.mostrarMessageBox(mensagem, function (res) {
+                        resolve(res);
+                    });
+                });
+            },
         });
     }
 );
