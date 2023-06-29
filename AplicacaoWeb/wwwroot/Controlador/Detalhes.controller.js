@@ -18,7 +18,6 @@
             },
             carregarDadosCliente: function (id) {
             var modeloDeClientes = new JSONModel();
-
                 Repositorio.obterClientePorId(id)
                 .then(dados => modeloDeClientes.setData({ cliente: dados }));
             this.getView().setModel(modeloDeClientes);
@@ -26,7 +25,11 @@
             aoClicarEmVoltar: function () {
                 const paginaDeListagem = "listagemClientes";
                 this.getOwnerComponent().getRouter().navTo(paginaDeListagem, {}, true);
-            }
+            },
+            aoClicarNoBotaoDeEditar: function (oEvent) {
+                var idObtido = oEvent.getSource().getBindingContext().getProperty("id");
+                this.getOwnerComponent().getRouter().navTo("edicao", { id: idObtido });
+            },
         });
     }
 )

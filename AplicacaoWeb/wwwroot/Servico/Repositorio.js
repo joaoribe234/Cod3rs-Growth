@@ -34,5 +34,23 @@
         })
             .then(response => response.json());
     };
+    Repositorio.atualizarCliente = function (id, modeloDeClientes) {
+        var clienteAtualizado = {
+            nome: modeloDeClientes.nome,
+            dataDeNascimento: modeloDeClientes.dataDeNascimento,
+            sexo: modeloDeClientes.sexo,
+            telefone: modeloDeClientes.telefone,
+        };
+        const url = `https://localhost:7258/api/clientes/${id}`;
+        return fetch(url, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(clienteAtualizado),
+        })
+            .then(response => response.json());
+    };
+
     return Repositorio;
 });

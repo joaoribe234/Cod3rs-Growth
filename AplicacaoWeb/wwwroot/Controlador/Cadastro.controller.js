@@ -21,10 +21,17 @@
                 const rotaCadastro = "cadastro";
                 this.getOwnerComponent().getRouter().getRoute(rotaCadastro).attachMatched(this.rotaCorrespondida, this);
             },
-            rotaCorrespondida: function () {
+            rotaCorrespondida: function (oEvent) {
                 const dados = "dados";
-                var objetoDeDadosCliente = new JSONModel({});
-                this.getView().setModel(objetoDeDadosCliente, dados);
+                const idCliente = oEvent.getParameter("arguments").id;
+                var objetoDeDadosCliente;
+                if (idCliente) {
+                    objetoDeDadosCliente = new JSONModel({});
+                    this.carregarDadosCliente(idCliente, objetoDeDadosCliente);
+                } else {
+                    objetoDeDadosCliente = new JSONModel();
+                }
+                this.getView().setModel(objetoDeDadosCliente, "dados");
             },
             aoClicarEmVoltar: function () {
                 const paginaDeListagem = "listagemClientes";
@@ -33,10 +40,12 @@
             aoClicarEmSalvar: async function () {
                 const mensagemErroCadastro = "mensagemDeErro";
                 const mensagemSucessoCadastro = "mensagemSucessoCadastro";
+                const mensagemSucessoAtualizacao = "mensagemSucessoAtualizacao";
                 const mensagemConfirmacao = "mensagemConfirmacao";
                 const mensagemDeErro = i18n.getText(mensagemErroCadastro);
                 const dados = "dados";
-                var modeloDeClientes = this.getView().getModel(dados).getData();
+                var modeloDeClientes = this.getView().getModel("dados").getData();
+                const idDoCliente = this.getView().getModel(dados).getProperty("/id");
                 if (!ValidacoesCadastro.validarCamposFormulario(this.getView())) {
                     return;
                 }
@@ -45,9 +54,15 @@
                     return;
                 }
                 try {
-                    const dados = await Repositorio.criarCliente(modeloDeClientes);
-                    this.navegarPaginaDetalhes(dados.id);
-                    MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagemSucessoCadastro), 500);
+                    if (idDoCliente) {
+                        await Repositorio.atualizarCliente(idDoCliente, modeloDeClientes);
+                        this.navegarPaginaDetalhes(idDoCliente);
+                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagemSucessoAtualizacao), 500)
+                    } else {
+                        const dados = await Repositorio.criarCliente(modeloDeClientes);
+                        this.navegarPaginaDetalhes(dados.id);
+                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagemSucessoCadastro), 500);
+                    }
                 } catch (erro) {
                     console.error(mensagemDeErro, erro);
                     MessageBoxServico.mostrarMensagemDeErro(mensagemDeErro);
@@ -80,6 +95,10 @@
                     });
                 });
             },
+            carregarDadosCliente: function (id, modeloDeClientes) {
+                Repositorio.obterClientePorId(id)
+                    .then(dados => modeloDeClientes.setData(dados));
+            }
         });
     }
 );

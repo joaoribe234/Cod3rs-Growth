@@ -11,7 +11,7 @@
 		  navButtonPress=".aoClicarEmVoltar"
             >
 		<headerContent>
-			<Button icon="sap-icon://edit" text="Editar"/>
+			<Button icon="sap-icon://edit" text="Editar" press="aoClicarNoBotaoDeEditar"/>
 			<Button icon="sap-icon://delete" text="Remover"/>
 		</headerContent>
 		<content>
@@ -33,12 +33,5 @@
 		</content>
 	</Page>
 </mvc:View>
-
-
-
-
-
-
-
 
 
