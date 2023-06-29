@@ -30,29 +30,28 @@
                 const paginaDeListagem = "listagemClientes";
                 this.getOwnerComponent().getRouter().navTo(paginaDeListagem, {}, true);  
             },
-            aoClicarEmSalvar: function () {
+            aoClicarEmSalvar: async function () {
                 const mensagemErroCadastro = "mensagemDeErro";
+                const mensagemSucessoCadastro = "mensagemSucessoCadastro";
+                const mensagemConfirmacao = "mensagemConfirmacao";
                 const mensagemDeErro = i18n.getText(mensagemErroCadastro);
                 const dados = "dados";
                 var modeloDeClientes = this.getView().getModel(dados).getData();
                 if (!ValidacoesCadastro.validarCamposFormulario(this.getView())) {
                     return;
                 }
-                MessageBoxServico.mostrarMessageBox(i18n.getText("mensagemConfirmacao"), function (confirmado) {
-                    if (confirmado) {
-                        Repositorio.criarCliente(modeloDeClientes)
-                            .then(function (dados) {
-                                this.navegarPaginaDetalhes(dados.id);
-                                setTimeout(function () {
-                                    MessageBoxServico.mostrarMensagemDeSucesso(i18n.getText("mensagemSucessoCadastro"));
-                                }, 500);
-                            }.bind(this))
-                            .catch(function (erro) {
-                                console.error(mensagemDeErro, erro);
-                                MessageBoxServico.mostrarMensagemDeErro(mensagemDeErro);
-                            });
-                    }
-                }.bind(this));
+                const confirmado = await this.mostrarConfirmacao(i18n.getText(mensagemConfirmacao));
+                if (!confirmado) {
+                    return;
+                }
+                try {
+                    const dados = await Repositorio.criarCliente(modeloDeClientes);
+                    this.navegarPaginaDetalhes(dados.id);
+                    MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagemSucessoCadastro), 500);
+                } catch (erro) {
+                    console.error(mensagemDeErro, erro);
+                    MessageBoxServico.mostrarMensagemDeErro(mensagemDeErro);
+                }
             },
             aoClicarEmCancelar: function () {
                 const mensagemDeCancelar = "mensagemAoCancelar";
@@ -73,7 +72,14 @@
                     return;
                 }
                 this.getOwnerComponent().getRouter().navTo(paginaDeDetalhes, { id: novoId });
-            }
+            },
+            mostrarConfirmacao: function (mensagem) {
+                return new Promise(function (resolve) {
+                    MessageBoxServico.mostrarMessageBox(mensagem, function (res) {
+                        resolve(res);
+                    });
+                });
+            },
         });
     }
 );
