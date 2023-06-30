@@ -14,91 +14,97 @@
             bundleName: "sap.ui.InterfaceUsuario.i18n.i18n",
             bundleUrl: "../i18n/i18n.properties"
         });
+        const dados = "dados";
         const i18n = i18nModel.getResourceBundle();
+        const mensagens = {
+            erroCadastro: "mensagemDeErro",
+            sucessoCadastro: "mensagemSucessoCadastro",
+            sucessoAtualizacao: "mensagemSucessoAtualizacao",
+            confirmacaoAoCriar: "mensagemConfirmacao",
+            confirmacaoAoAtualizar: "mensagemConfirmacaoAtualizacao",
+            idInvalido: "mensagemIdInvalido",
+            aoCancelar: "mensagemAoCancelar"
+        };
+        const paginaDe = {
+            listagem: "listagemClientes",
+            detalhes: "detalhes",
+            cadastro: "cadastro",
+            edicao: "edicao"
 
+        }
         return Controller.extend("sap.ui.InterfaceUsuario.Cadastro", {
             onInit: function () {
-                const rotaCadastro = "cadastro";
-                this.getOwnerComponent().getRouter().getRoute(rotaCadastro).attachMatched(this.rotaCorrespondida, this);
+                this.getOwnerComponent().getRouter().getRoute(paginaDe.cadastro).attachMatched(this.rotaCorrespondida, this);
+                this.getOwnerComponent().getRouter().getRoute(paginaDe.edicao).attachMatched(this.rotaCorrespondida, this);
             },
             rotaCorrespondida: function (oEvent) {
-                const dados = "dados";
-                const idCliente = oEvent.getParameter("arguments").id;
-                var objetoDeDadosCliente;
-                if (idCliente) {
-                    objetoDeDadosCliente = new JSONModel({});
-                    this.carregarDadosCliente(idCliente, objetoDeDadosCliente);
-                } else {
-                    objetoDeDadosCliente = new JSONModel();
-                }
-                this.getView().setModel(objetoDeDadosCliente, "dados");
+                const argumentos = "arguments";
+                var objetoDeDadosCliente = new JSONModel({});
+                this.getView().setModel(objetoDeDadosCliente, dados);
+                var parametro = oEvent.getParameter(argumentos);
+                if (parametro && parametro.id) {
+                    Repositorio.obterClientePorId(parametro.id)
+                        .then(dadosCliente => objetoDeDadosCliente.setData(dadosCliente))
+                        .catch(error =>  console.error( error));
+                }        
             },
             aoClicarEmVoltar: function () {
-                const paginaDeListagem = "listagemClientes";
-                this.getOwnerComponent().getRouter().navTo(paginaDeListagem, {}, true);  
+                this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);  
             },
             aoClicarEmSalvar: async function () {
-                const mensagemErroCadastro = "mensagemDeErro";
-                const mensagemSucessoCadastro = "mensagemSucessoCadastro";
-                const mensagemSucessoAtualizacao = "mensagemSucessoAtualizacao";
-                const mensagemConfirmacao = "mensagemConfirmacao";
-                const mensagemDeErro = i18n.getText(mensagemErroCadastro);
-                const dados = "dados";
-                var modeloDeClientes = this.getView().getModel("dados").getData();
-                const idDoCliente = this.getView().getModel(dados).getProperty("/id");
+                var modeloDeClientes = this.getView().getModel(dados).getData();
                 if (!ValidacoesCadastro.validarCamposFormulario(this.getView())) {
                     return;
                 }
-                const confirmado = await this.mostrarConfirmacao(i18n.getText(mensagemConfirmacao));
-                if (!confirmado) {
-                    return;
-                }
                 try {
-                    if (idDoCliente) {
-                        await Repositorio.atualizarCliente(idDoCliente, modeloDeClientes);
-                        this.navegarPaginaDetalhes(idDoCliente);
-                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagemSucessoAtualizacao), 500)
+                    if (modeloDeClientes.id) {
+                        await this.atualizarCliente(modeloDeClientes);
                     } else {
-                        const dados = await Repositorio.criarCliente(modeloDeClientes);
-                        this.navegarPaginaDetalhes(dados.id);
-                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagemSucessoCadastro), 500);
+                        await this.criarCliente(modeloDeClientes);
                     }
                 } catch (erro) {
-                    console.error(mensagemDeErro, erro);
-                    MessageBoxServico.mostrarMensagemDeErro(mensagemDeErro);
+                    console.error(i18n.getText(mensagens.erroCadastro), erro);
+                    MessageBoxServico.mostrarMensagemDeErro(i18n.getText(mensagens.erroCadastro));
                 }
             },
             aoClicarEmCancelar: function () {
-                const mensagemDeCancelar = "mensagemAoCancelar";
-                const mensagemAoCancelar = i18n.getText(mensagemDeCancelar);
-                const paginaDeListagem = "listagemClientes";
-                MessageBoxServico.mostrarMessageBox(mensagemAoCancelar, function (confirmado) {
-                    if (confirmado) {
-                        this.getOwnerComponent().getRouter().navTo(paginaDeListagem, {}, true);
+                MessageBoxServico.mostrarMessageBox(i18n.getText(mensagens.aoCancelar), function (confirmacaoCancelar) {
+                    if (confirmacaoCancelar) {
+                        this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
                     }
                 }.bind(this));
             },
             navegarPaginaDetalhes: function (novoId) {
-                const mensagemDoIdInvalido = "mensagemIdInvalido";
-                const mensagemIdInvalido = i18n.getText(mensagemDoIdInvalido);
-                const paginaDeDetalhes = "detalhes";
                 if (novoId === 0) {
-                    console.error(mensagemIdInvalido);
+                    console.error(i18n.getText(mensagens.idInvalido));
                     return;
                 }
-                this.getOwnerComponent().getRouter().navTo(paginaDeDetalhes, { id: novoId });
+                this.getOwnerComponent().getRouter().navTo(paginaDe.detalhes, { id: novoId });
             },
             mostrarConfirmacao: function (mensagem) {
-                return new Promise(function (resolve) {
-                    MessageBoxServico.mostrarMessageBox(mensagem, function (res) {
-                        resolve(res);
-                    });
+                return new Promise(resolve => {
+                    MessageBoxServico.mostrarMessageBox(mensagem, res => resolve(res));
                 });
             },
-            carregarDadosCliente: function (id, modeloDeClientes) {
-                Repositorio.obterClientePorId(id)
-                    .then(dados => modeloDeClientes.setData(dados));
-            }
+            criarCliente: async function (modeloDeClientes) {
+                const confirmacaoCriar = await this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoCriar));
+                if (!confirmacaoCriar) {
+                    return;
+                }
+                const dados = await Repositorio.criarCliente(modeloDeClientes);
+                this.navegarPaginaDetalhes(dados.id);
+                MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoCadastro), 500);
+            },
+
+            atualizarCliente: async function (modeloDeClientes) {
+                const confirmacaoAtualizar = await this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoAtualizar));
+                if (!confirmacaoAtualizar) {
+                    return;
+                }
+                await Repositorio.atualizarCliente(modeloDeClientes.id, modeloDeClientes);
+                this.navegarPaginaDetalhes(modeloDeClientes.id);
+                MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoAtualizacao), 500);
+            },
         });
     }
 );

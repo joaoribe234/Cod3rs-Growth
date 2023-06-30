@@ -36,12 +36,13 @@
     };
     Repositorio.atualizarCliente = function (id, modeloDeClientes) {
         var clienteAtualizado = {
+            id: modeloDeClientes.id,
             nome: modeloDeClientes.nome,
             dataDeNascimento: modeloDeClientes.dataDeNascimento,
             sexo: modeloDeClientes.sexo,
             telefone: modeloDeClientes.telefone,
         };
-        const url = `https://localhost:7258/api/clientes/${id}`;
+        const url = `https://localhost:7258/api/clientes/${modeloDeClientes.id}`;
         return fetch(url, {
             method: "PUT",
             headers: {
@@ -51,6 +52,5 @@
         })
             .then(response => response.json());
     };
-
     return Repositorio;
 });
