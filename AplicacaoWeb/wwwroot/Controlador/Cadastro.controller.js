@@ -48,9 +48,11 @@
                         .catch(error =>  console.error( error));
                 }        
             },
+
             aoClicarEmVoltar: function () {
                 this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);  
             },
+
             aoClicarEmSalvar: async function () {
                 var modeloDeClientes = this.getView().getModel(dados).getData();
                 if (!ValidacoesCadastro.validarCamposFormulario(this.getView())) {
@@ -67,6 +69,7 @@
                     MessageBoxServico.mostrarMensagemDeErro(i18n.getText(mensagens.erroCadastro));
                 }
             },
+
             aoClicarEmCancelar: function () {
                 MessageBoxServico.mostrarMessageBox(i18n.getText(mensagens.aoCancelar), function (confirmacaoCancelar) {
                     if (confirmacaoCancelar) {
@@ -74,6 +77,7 @@
                     }
                 }.bind(this));
             },
+
             navegarPaginaDetalhes: function (novoId) {
                 if (novoId === 0) {
                     console.error(i18n.getText(mensagens.idInvalido));
@@ -81,11 +85,13 @@
                 }
                 this.getOwnerComponent().getRouter().navTo(paginaDe.detalhes, { id: novoId });
             },
+
             mostrarConfirmacao: function (mensagem) {
                 return new Promise(resolve => {
                     MessageBoxServico.mostrarMessageBox(mensagem, res => resolve(res));
                 });
             },
+            
             criarCliente: async function (modeloDeClientes) {
                 const confirmacaoCriar = await this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoCriar));
                 if (!confirmacaoCriar) {
@@ -104,7 +110,7 @@
                 await Repositorio.atualizarCliente(modeloDeClientes.id, modeloDeClientes);
                 this.navegarPaginaDetalhes(modeloDeClientes.id);
                 MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoAtualizacao), 500);
-            },
+            }
         });
     }
 );

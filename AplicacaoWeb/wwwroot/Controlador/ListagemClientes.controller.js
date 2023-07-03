@@ -12,6 +12,7 @@
             onInit: function () {
                 this.carregarDadosClientesApi();
             },
+
             carregarDadosClientesApi: function () {
                 const mensagemDeErro = "Ocorreu algum erro ao obter os clientes cadastrados!";
                 var modeloDeClientes = new JSONModel();
@@ -21,6 +22,7 @@
                     .catch(erro => console.error(mensagemDeErro, erro));
                 this.getView().setModel(modeloDeClientes);
             },
+
             filtrarCliente: function (oEvent) {
                 const idTabelaCliente = "idTabelaCliente";
                 const consulta = "query";
@@ -36,10 +38,12 @@
                 var bindingClienteTabela = obterIdTabela.getBinding(items);
                 bindingClienteTabela.filter(arrayFiltro);
             },
+
             navegarParaPaginaDeCadastro: function () {
                 const paginaDeCadastro = "cadastro";
                 this.getOwnerComponent().getRouter().navTo(paginaDeCadastro);
             },
+            
             aoClicarNoCliente: function (oEvent) {
                 const paginaDedetalhes = "detalhes";
                 var idObtido = oEvent.getSource().getBindingContext().getProperty("id");
