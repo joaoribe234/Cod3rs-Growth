@@ -52,5 +52,11 @@
         })
             .then(response => response.json());
     };
+    Repositorio.removerCliente = function (id) {
+        const url = `https://localhost:7258/api/clientes/${id}`;
+        return fetch(url, {
+            method: "DELETE"
+        });
+    };
     return Repositorio;
 });

@@ -30,7 +30,6 @@
             detalhes: "detalhes",
             cadastro: "cadastro",
             edicao: "edicao"
-
         }
         return Controller.extend("sap.ui.InterfaceUsuario.Cadastro", {
             onInit: function () {

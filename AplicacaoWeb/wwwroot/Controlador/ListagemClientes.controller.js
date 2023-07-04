@@ -10,6 +10,11 @@
         "use strict";
         return Controller.extend("sap.ui.InterfaceUsuario.ListagemClientes", {
             onInit: function () {
+                const paginaListagem = "listagemClientes";
+                this.getOwnerComponent().getRouter().getRoute(paginaListagem).attachMatched(this.aoCoincidirRota, this);  
+            },
+
+            aoCoincidirRota: function () {
                 this.carregarDadosClientesApi();
             },
 
@@ -19,10 +24,9 @@
 
                 Repositorio.obterClientes()
                     .then(dados => modeloDeClientes.setData({ clientes: dados }))
-                    .catch(erro => console.error(mensagemDeErro, erro));
+                    .catch(erro => console.error(mensagemDeErro, erro))
                 this.getView().setModel(modeloDeClientes);
             },
-
             filtrarCliente: function (oEvent) {
                 const idTabelaCliente = "idTabelaCliente";
                 const consulta = "query";
@@ -46,7 +50,8 @@
             
             aoClicarNoCliente: function (oEvent) {
                 const paginaDedetalhes = "detalhes";
-                var idObtido = oEvent.getSource().getBindingContext().getProperty("id");
+                const idCLiente = "id";
+                var idObtido = oEvent.getSource().getBindingContext().getProperty(idCLiente);
                 this.getOwnerComponent().getRouter().navTo(paginaDedetalhes, { id: idObtido });
             },
         });
