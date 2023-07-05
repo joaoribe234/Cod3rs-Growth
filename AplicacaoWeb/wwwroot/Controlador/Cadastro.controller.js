@@ -49,7 +49,11 @@
             },
 
             aoClicarEmVoltar: function () {
-                this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);  
+                MessageBoxServico.mostrarMessageBox(i18n.getText(mensagens.aoCancelar), function (confirmacaoCancelar) {
+                    if (confirmacaoCancelar) {
+                        this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
+                    }
+                }.bind(this));
             },
 
             aoClicarEmSalvar: async function () {
