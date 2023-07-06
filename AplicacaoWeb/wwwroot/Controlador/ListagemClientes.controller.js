@@ -8,7 +8,8 @@
     ],
     function (Controller, JSONModel, Filter, FilterOperator, Repositorio) {
         "use strict";
-        return Controller.extend("sap.ui.InterfaceUsuario.ListagemClientes", {
+        const caminhoControladorDeListagem = "sap.ui.InterfaceUsuario.ListagemClientes";
+        return Controller.extend(caminhoControladorDeListagem, {
             onInit: function () {
                 const paginaListagem = "listagemClientes";
                 this.getOwnerComponent().getRouter().getRoute(paginaListagem).attachMatched(this.aoCoincidirRota, this);  
@@ -19,12 +20,11 @@
             },
 
             carregarDadosClientesApi: function () {
-                const mensagemDeErro = "Ocorreu algum erro ao obter os clientes cadastrados!";
                 var modeloDeClientes = new JSONModel();
 
                 Repositorio.obterClientes()
                     .then(dados => modeloDeClientes.setData({ clientes: dados }))
-                    .catch(erro => console.error(mensagemDeErro, erro))
+                    .catch(erro => console.error( erro))
                 this.getView().setModel(modeloDeClientes);
             },
             filtrarCliente: function (oEvent) {

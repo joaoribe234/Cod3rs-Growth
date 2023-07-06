@@ -24,7 +24,8 @@
             confirmacaoAoRemover: "Deseja realmente remover o cliente selecionado"
         };
         const i18n = i18nModel.getResourceBundle();
-        return Controller.extend("sap.ui.InterfaceUsuario.Detalhes", {
+        const caminhoControladorDeDetalhes = "sap.ui.InterfaceUsuario.Detalhes";
+        return Controller.extend(caminhoControladorDeDetalhes, {
             onInit: function () {
                 this.getOwnerComponent().getRouter().getRoute(paginaDe.detalhes).attachMatched(this.rotaCorrespondida, this);
             },
