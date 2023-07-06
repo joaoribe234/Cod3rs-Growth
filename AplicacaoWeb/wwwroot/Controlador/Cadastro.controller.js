@@ -30,8 +30,9 @@
             detalhes: "detalhes",
             cadastro: "cadastro",
             edicao: "edicao"
-        }
-        return Controller.extend("sap.ui.InterfaceUsuario.Cadastro", {
+        };
+        const caminhoControladorCadastro = "sap.ui.InterfaceUsuario.Cadastro";
+        return Controller.extend(caminhoControladorCadastro, {
             onInit: function () {
                 this.getOwnerComponent().getRouter().getRoute(paginaDe.cadastro).attachMatched(this.rotaCorrespondida, this);
                 this.getOwnerComponent().getRouter().getRoute(paginaDe.edicao).attachMatched(this.rotaCorrespondida, this);
@@ -49,7 +50,11 @@
             },
 
             aoClicarEmVoltar: function () {
-                this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);  
+                MessageBoxServico.mostrarMessageBox(i18n.getText(mensagens.aoCancelar), function (confirmacaoCancelar) {
+                    if (confirmacaoCancelar) {
+                        this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
+                    }
+                }.bind(this));
             },
 
             aoClicarEmSalvar: async function () {
