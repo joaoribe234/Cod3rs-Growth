@@ -1,6 +1,7 @@
 ﻿sap.ui.define([
-    "sap/m/MessageBox"
-], function (MessageBox) {
+    "sap/m/MessageBox",
+    "sap/m/MessageToast"
+], function (MessageBox, MessageToast) {
     "use strict";
 
     var MessageBoxServico = {
@@ -17,16 +18,24 @@
                 }
             });
         },
-        mostrarMensagemDeSucesso: function (mensagem, title) {
-            MessageBox.success(mensagem, {
-                title: title || "Sucesso"
-            });
+        confirmar: function (mensagem, funcaoCallback, id) {
+            return MessageBox.confirm(mensagem, {
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                onClose: (acao) => {
+                    if (acao === MessageBox.Action.YES) {
+                        return funcaoCallback.apply(this, id)
+                    }
+                    return
+                }
+            })
         },
-        mostrarMensagemDeErro: function (mensagem, title) {
-            MessageBox.error(mensagem, {
-                title: title || "Erro"
-            });
-        }
+        mostrarMensagemDeErro: function (mensagem) {
+            return MessageBox.error(mensagem);
+        },
+        mostrarMensagemDeSucesso: function (mensagem) {
+            return MessageBox.success(mensagem);
+        },
+
     };
     MessageBoxServico.mostrarMensagemDeSucessoo = function (mensagem, delay) {
         setTimeout(function () {
