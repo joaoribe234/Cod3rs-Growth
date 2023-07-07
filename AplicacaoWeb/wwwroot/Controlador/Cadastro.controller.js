@@ -23,7 +23,8 @@
             confirmacaoAoCriar: "mensagemConfirmacao",
             confirmacaoAoAtualizar: "mensagemConfirmacaoAtualizacao",
             idInvalido: "mensagemIdInvalido",
-            aoCancelar: "mensagemAoCancelar"
+            aoCancelar: "mensagemAoCancelar",
+            mensagemOperacaoCancelada: "mensagemOperacaoCancelada"
         };
         const paginaDe = {
             listagem: "listagemClientes",
@@ -51,34 +52,23 @@
                 })        
             },
             aoClicarEmVoltar: function () {
-                MessageBoxServico.mostrarMessageBox(i18n.getText(mensagens.aoCancelar), function (confirmacaoCancelar) {
-                    if (confirmacaoCancelar) {
-                        this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
-                    }
-                }.bind(this));
+                this.navegarPaginaDeListagem();
             },
-            aoClicarEmSalvar: async function () {
+            aoClicarEmSalvar: function () {
                 var modeloDeClientes = this.getView().getModel(dados).getData();
                 if (!ValidacoesCadastro.validarCamposFormulario(this.getView())) {
                     return;
                 }
-                try {
+                this._processarEvento(() => {
                     if (modeloDeClientes.id) {
-                        await this.atualizarCliente(modeloDeClientes);
+                        this.atualizarCliente(modeloDeClientes);
                     } else {
-                        await this.criarCliente(modeloDeClientes);
+                        this.criarCliente(modeloDeClientes);
                     }
-                } catch (erro) {
-                    console.error(i18n.getText(mensagens.erroCadastro), erro);
-                    MessageBoxServico.mostrarMensagemDeErro(i18n.getText(mensagens.erroCadastro));
-                }
+                });
             },
             aoClicarEmCancelar: function () {
-                MessageBoxServico.mostrarMessageBox(i18n.getText(mensagens.aoCancelar), function (confirmacaoCancelar) {
-                    if (confirmacaoCancelar) {
-                        this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
-                    }
-                }.bind(this));
+                this.navegarPaginaDeListagem();
             },
             navegarPaginaDetalhes: function (novoId) {
                 if (novoId === 0) {
@@ -93,23 +83,42 @@
                 });
             },        
             criarCliente: function (modeloDeClientes) {
-                const confirmacaoCriar = this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoCriar));
-                if (!confirmacaoCriar) {
-                    return;
-                }
-                const dados = Repositorio.criarCliente(modeloDeClientes);
-                this.navegarPaginaDetalhes(dados.id);
-                MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoCadastro), 500);
+                this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoCriar))
+                    .then(confirmacaoCriar => {
+                    if (!confirmacaoCriar) {
+                        return;
+                    }
+                    return Repositorio.criarCliente(modeloDeClientes);
+                    })
+                    .then(dados => {
+                        this.navegarPaginaDetalhes(dados.id);
+                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoCadastro), 500);
+                    })
             },
             atualizarCliente: function (modeloDeClientes) {
-                const confirmacaoAtualizar = this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoAtualizar));
-                if (!confirmacaoAtualizar) {
-                    return;
-                }
-                Repositorio.atualizarCliente(modeloDeClientes.id, modeloDeClientes);
-                this.navegarPaginaDetalhes(modeloDeClientes.id);
-                MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoAtualizacao), 500);
+                     this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoAtualizar))
+                    .then(confirmacaoAtualizar => {
+                        if (confirmacaoAtualizar) {
+                            return Repositorio.atualizarCliente(modeloDeClientes.id, modeloDeClientes);
+                        } else {
+                            throw i18n.getText(mensagens.mensagemOperacaoCancelada);
+                        }
+                    })
+                    .then(() => {
+                        this.navegarPaginaDetalhes(modeloDeClientes.id);
+                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoAtualizacao), 500);
+                    });
+            },
+            navegarPaginaDeListagem: function () {
+                this._processarEvento(() => {
+                    MessageBoxServico.mostrarMessageBox(i18n.getText(mensagens.aoCancelar), function (confirmacaoCancelar) {
+                        if (confirmacaoCancelar) {
+                            this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
+                        }
+                    }.bind(this));
+                });
             }
         });
     }
 );
+

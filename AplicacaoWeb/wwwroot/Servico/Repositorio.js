@@ -3,60 +3,73 @@
 ], function (JSONModel) {
     "use strict";
 
-    var Repositorio = {};
+    var Repositorio = {
+        UrlBase: "https://localhost:7258/api/clientes",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        fetchOptions: {
+            headers: this.headers
+        }
+    };
 
     Repositorio.obterClientes = function () {
-        const url = "https://localhost:7258/api/clientes";
-        return fetch(url)
-            .then(response => response.json());
+        return fetch(this.UrlBase)
+            .then(resposta => resposta.json());
     };
 
     Repositorio.obterClientePorId = function (id) {
-        const url = `https://localhost:7258/api/clientes/${id}`;
+        const url = `${this.UrlBase}/${id}`;
         return fetch(url)
-            .then(response => response.json());
+            .then(resposta => resposta.json());
     };
-
-    Repositorio.criarCliente = function (modeloDeClientes) {
-        var novoCliente = {
+    function construirNovoCliente(modeloDeClientes) {
+        return {
             nome: modeloDeClientes.nome,
             dataDeNascimento: modeloDeClientes.dataDeNascimento,
             sexo: modeloDeClientes.sexo,
             telefone: modeloDeClientes.telefone,
         };
-        const url = "https://localhost:7258/api/clientes";
-        return fetch(url, {
+    }
+
+    Repositorio.criarCliente = function (modeloDeClientes) {
+        var novoCliente = construirNovoCliente(modeloDeClientes);
+        return fetch(this.UrlBase, {
             method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: this.headers,
             body: JSON.stringify(novoCliente),
         })
-            .then(response => response.json());
+            .then(resposta => resposta.json());
     };
-    Repositorio.atualizarCliente = function (id, modeloDeClientes) {
-        var clienteAtualizado = {
+
+    function construirClienteAtualizado(modeloDeClientes) {
+        return {
             id: modeloDeClientes.id,
             nome: modeloDeClientes.nome,
             dataDeNascimento: modeloDeClientes.dataDeNascimento,
             sexo: modeloDeClientes.sexo,
             telefone: modeloDeClientes.telefone,
         };
-        const url = `https://localhost:7258/api/clientes/${modeloDeClientes.id}`;
+    }
+
+    Repositorio.atualizarCliente = function (id, modeloDeClientes) {
+        var clienteAtualizado = construirClienteAtualizado(modeloDeClientes);
+        const url = `${this.UrlBase}/${modeloDeClientes.id}`;
         return fetch(url, {
             method: "PUT",
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: this.headers,
             body: JSON.stringify(clienteAtualizado),
         })
-            .then(response => response.json());
+            .then(resposta => resposta.json());
     };
+
     Repositorio.removerCliente = function (id) {
-        const url = `https://localhost:7258/api/clientes/${id}`;
+        const url = `${this.UrlBase}/${id}`;
         return fetch(url, {
             method: "DELETE"
         });
     };
+
     return Repositorio;
 });
+
