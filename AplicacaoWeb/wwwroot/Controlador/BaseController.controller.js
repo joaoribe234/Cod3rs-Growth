@@ -25,10 +25,10 @@
             }
         },
         aoNavegar: function (nomeDaRota, id) {
-                var rota = this.getOwnerComponent().getRouter();
-                if (id) {
-                    rota.navTo(nomeDaRota, {id});
-                }
+            var rota = this.getOwnerComponent().getRouter();
+            if (id) {
+                rota.navTo(nomeDaRota, { id });
+            }
             rota.navTo(nomeDaRota);
         },
     });

@@ -7,7 +7,7 @@
         "sap/ui/model/resource/ResourceModel",
         "../Servico/MessageBoxServico"
     ],
-    function (BaseController, JSONModel, ValidacoesCadastro,  Repositorio, ResourceModel, MessageBoxServico) {
+    function (BaseController, JSONModel, ValidacoesCadastro, Repositorio, ResourceModel, MessageBoxServico) {
         "use strict";
 
         var i18nModel = new ResourceModel({
@@ -32,6 +32,12 @@
             cadastro: "cadastro",
             edicao: "edicao"
         };
+        const campo = {
+            nome: "campoNome",
+            data: "campoData",
+            telefone: "campoTelefone",
+            sexo: "campoSexo"
+        };
         const caminhoControladorCadastro = "sap.ui.InterfaceUsuario.Cadastro";
         return BaseController.extend(caminhoControladorCadastro, {
             onInit: function () {
@@ -49,14 +55,18 @@
                             .then(dadosCliente => objetoDeDadosCliente.setData(dadosCliente))
                             .catch(error => console.error(error));
                     }
-                })        
+                })
             },
             aoClicarEmVoltar: function () {
                 this.navegarPaginaDeListagem();
             },
             aoClicarEmSalvar: function () {
                 var modeloDeClientes = this.getView().getModel(dados).getData();
-                if (!ValidacoesCadastro.validarCamposFormulario(this.getView())) {
+                var campoNome = this.getView().byId(campo.nome);
+                var campoData = this.getView().byId(campo.data);
+                var campoTelefone = this.getView().byId(campo.telefone);
+                var campoSexo = this.getView().byId(campo.sexo);
+                if (!ValidacoesCadastro.validarCamposFormulario(campoNome, campoData, campoTelefone, campoSexo)) {
                     return;
                 }
                 this._processarEvento(() => {
@@ -81,14 +91,14 @@
                 return new Promise(resolve => {
                     MessageBoxServico.mostrarMessageBox(mensagem, res => resolve(res));
                 });
-            },        
+            },
             criarCliente: function (modeloDeClientes) {
                 this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoCriar))
                     .then(confirmacaoCriar => {
-                    if (!confirmacaoCriar) {
-                        return;
-                    }
-                    return Repositorio.criarCliente(modeloDeClientes);
+                        if (!confirmacaoCriar) {
+                            return;
+                        }
+                        return Repositorio.criarCliente(modeloDeClientes);
                     })
                     .then(dados => {
                         this.navegarPaginaDetalhes(dados.id);
@@ -96,7 +106,7 @@
                     })
             },
             atualizarCliente: function (modeloDeClientes) {
-                     this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoAtualizar))
+                this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoAtualizar))
                     .then(confirmacaoAtualizar => {
                         if (confirmacaoAtualizar) {
                             return Repositorio.atualizarCliente(modeloDeClientes.id, modeloDeClientes);
@@ -121,4 +131,3 @@
         });
     }
 );
-

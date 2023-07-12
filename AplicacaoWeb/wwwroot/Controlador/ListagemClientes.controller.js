@@ -13,12 +13,12 @@
         return BaseController.extend(caminhoControladorDeListagem, {
             onInit: function () {
                 const paginaListagem = "listagemClientes";
-                this.getOwnerComponent().getRouter().getRoute(paginaListagem).attachMatched(this.aoCoincidirRota, this);  
+                this.getOwnerComponent().getRouter().getRoute(paginaListagem).attachMatched(this.aoCoincidirRota, this);
             },
 
             aoCoincidirRota: function () {
                 this._processarEvento(() => {
-                     this.carregarDadosClientesApi();
+                    this.carregarDadosClientesApi();
                 })
             },
             carregarDadosClientesApi: function () {
@@ -44,7 +44,7 @@
                     var obterIdTabela = this.byId(idTabelaCliente);
                     var bindingClienteTabela = obterIdTabela.getBinding(items);
                     bindingClienteTabela.filter(arrayFiltro);
-                }) 
+                })
             },
 
             navegarParaPaginaDeCadastro: function () {
@@ -53,14 +53,14 @@
                     this.aoNavegar(paginaDeCadastro);
                 })
             },
-            
+
             aoClicarNoCliente: function (evento) {
                 this._processarEvento(() => {
                     const paginaDedetalhes = "detalhes";
                     const idCLiente = "id";
                     var idObtido = evento.getSource().getBindingContext().getProperty(idCLiente);
                     this.getOwnerComponent().getRouter().navTo(paginaDedetalhes, { id: idObtido });
-                }) 
+                })
             }
         });
     }

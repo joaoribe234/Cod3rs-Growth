@@ -40,14 +40,14 @@
                 var modeloDeClientes = new JSONModel();
                 Repositorio.obterClientePorId(id)
                     .then(dados => modeloDeClientes.setData({ cliente: dados }))
-                    .catch(erro => MessageBoxServico.mostrarMensagemDeErro(erro.message))
+                    .catch(erro => MessageBoxServico.mostrarMensagem(erro.message))
                 this.getView().setModel(modeloDeClientes);
             },
             aoClicarEmVoltar: function () {
                 this._processarEvento(() => {
                     this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
-                })  
-            },          
+                })
+            },
             aoClicarNoBotaoDeEditar: function (oEvent) {
                 this._processarEvento(() => {
                     var idObtido = oEvent.getSource().getBindingContext().getProperty("id");
@@ -58,8 +58,8 @@
                 this._processarEvento(() => {
                     const acessoAoId = "id";
                     const idCliente = evento.getSource().getBindingContext().getProperty(acessoAoId);
-                    MessageBoxServico.confirmar(i18n.getText(mensagens.confirmacaoAoRemover), this.removerCliente.bind(this), [idCliente]) 
-                }) 
+                    MessageBoxServico.confirmar(i18n.getText(mensagens.confirmacaoAoRemover), this.removerCliente.bind(this), [idCliente])
+                })
             },
             removerCliente: function (idCliente) {
                 Repositorio.removerCliente(idCliente)
@@ -67,7 +67,7 @@
                         MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.aoRemoverCliente), 500);
                         this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
                     })
-                    .catch((erro) => MessageBoxServico.mostrarMensagemDeErro(erro.message))
+                    .catch((erro) => MessageBoxServico.mostrarMensagem(erro.message))
             }
         });
     }

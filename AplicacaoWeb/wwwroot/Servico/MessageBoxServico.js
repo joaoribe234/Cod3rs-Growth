@@ -1,7 +1,6 @@
 ﻿sap.ui.define([
-    "sap/m/MessageBox",
-    "sap/m/MessageToast"
-], function (MessageBox, MessageToast) {
+    "sap/m/MessageBox"
+], function (MessageBox) {
     "use strict";
 
     var MessageBoxServico = {
@@ -29,17 +28,22 @@
                 }
             })
         },
-        mostrarMensagemDeErro: function (mensagem) {
-            return MessageBox.error(mensagem);
-        },
-        mostrarMensagemDeSucesso: function (mensagem) {
-            return MessageBox.success(mensagem);
-        },
-
+        mostrarMensagem: function (mensagem, tipo) {
+            const erro = "error";
+            const sucesso = "sucesso";
+            switch (tipo) {
+                case erro:
+                    return MessageBox.error(mensagem);
+                case sucesso:
+                    return MessageBox.success(mensagem);
+                default:
+                    return MessageBox.information(mensagem);
+            }
+        }
     };
     MessageBoxServico.mostrarMensagemDeSucessoo = function (mensagem, delay) {
         setTimeout(function () {
-            MessageBoxServico.mostrarMensagemDeSucesso(mensagem);
+            MessageBoxServico.mostrarMensagem(mensagem);
         }, delay);
     };
 
