@@ -50,7 +50,8 @@
             },
             aoClicarNoBotaoDeEditar: function (oEvent) {
                 this._processarEvento(() => {
-                    var idObtido = oEvent.getSource().getBindingContext().getProperty("id");
+                    const acessoAoId = "id";
+                    var idObtido = oEvent.getSource().getBindingContext().getProperty(acessoAoId);
                     this.getOwnerComponent().getRouter().navTo(paginaDe.edicao, { id: idObtido });
                 })
             },
@@ -62,9 +63,10 @@
                 })
             },
             removerCliente: function (idCliente) {
+                const delay = 500;
                 Repositorio.removerCliente(idCliente)
                     .then((dadosDoCliente) => {
-                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.aoRemoverCliente), 500);
+                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.aoRemoverCliente), delay);
                         this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
                     })
                     .catch((erro) => MessageBoxServico.mostrarMensagem(erro.message))

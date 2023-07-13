@@ -15,6 +15,7 @@
             bundleUrl: "../i18n/i18n.properties"
         });
         const dados = "dados";
+        const delay = 500;
         const i18n = i18nModel.getResourceBundle();
         const mensagens = {
             erroCadastro: "mensagemDeErro",
@@ -58,7 +59,9 @@
                 })
             },
             aoClicarEmVoltar: function () {
-                this.navegarPaginaDeListagem();
+                this._processarEvento(() => { 
+                    this.navegarPaginaDeListagem();
+                })
             },
             aoClicarEmSalvar: function () {
                 var modeloDeClientes = this.getView().getModel(dados).getData();
@@ -78,7 +81,9 @@
                 });
             },
             aoClicarEmCancelar: function () {
-                this.navegarPaginaDeListagem();
+                this._processarEvento(() => { 
+                    this.navegarPaginaDeListagem();
+                })
             },
             navegarPaginaDetalhes: function (novoId) {
                 if (novoId === 0) {
@@ -102,7 +107,7 @@
                     })
                     .then(dados => {
                         this.navegarPaginaDetalhes(dados.id);
-                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoCadastro), 500);
+                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoCadastro), delay);
                     })
             },
             atualizarCliente: function (modeloDeClientes) {
@@ -116,7 +121,7 @@
                     })
                     .then(() => {
                         this.navegarPaginaDetalhes(modeloDeClientes.id);
-                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoAtualizacao), 500);
+                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoAtualizacao), delay);
                     });
             },
             navegarPaginaDeListagem: function () {

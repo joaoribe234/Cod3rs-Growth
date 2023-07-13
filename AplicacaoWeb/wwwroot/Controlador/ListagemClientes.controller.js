@@ -23,10 +23,8 @@
             },
             carregarDadosClientesApi: function () {
                 var modeloDeClientes = new JSONModel();
-
                 Repositorio.obterClientes()
                     .then(dados => modeloDeClientes.setData({ clientes: dados }))
-                    .catch(erro => MessageBoxServico.mostrarMensagemDeSucesso(erro.message))
                 this.getView().setModel(modeloDeClientes);
             },
             filtrarCliente: function (evento) {
