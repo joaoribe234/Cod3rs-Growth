@@ -101,12 +101,10 @@
             this.removerMensagemDeErro(valorInserido);
             return true;
         },
-
         validarNomeCaracteres: function (nome) {
             const regex = /^[a-zA-Z\s]+$/;
             return regex.test(nome);
         },
-
         validarTamanhoMinimoNome: function (tamanhoNome) {
             const tamanhoMinimoNome = 2;
 
@@ -122,7 +120,6 @@
 
             return regex.test(valorData);
         },
-
         mostrarMensagemDeErro: function (campo, mensagem) {
             campo.setValueStateText(mensagem);
             campo.setValueState(sap.ui.core.ValueState.Error);

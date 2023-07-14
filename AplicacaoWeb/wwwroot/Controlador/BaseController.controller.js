@@ -18,16 +18,16 @@
             try {
                 var promise = action();
                 if (promise && typeof promise[tipoDaPromise] === tipoBuscado) {
-                    promise.catch(error => MessageBoxServico.mostrarMensagemDeErro(error.message));
+                    promise.catch(error => MessageBoxServico.mostrarMensagem(error.message));
                 }
             } catch (error) {
-                MessageBoxServico.mostrarMensagemDeErro(error.message);
+                MessageBoxServico.mostrarMensagem(error.message);
             }
         },
         aoNavegar: function (nomeDaRota, id) {
             var rota = this.getOwnerComponent().getRouter();
             if (id) {
-                rota.navTo(nomeDaRota, { id });
+                rota.navTo(nomeDaRota, {id});
             }
             rota.navTo(nomeDaRota);
         },

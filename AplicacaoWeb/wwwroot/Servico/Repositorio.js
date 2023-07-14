@@ -1,6 +1,7 @@
 ﻿sap.ui.define([
-    "sap/ui/model/json/JSONModel"
-], function (JSONModel) {
+    "../Servico/MessageBoxServico"
+
+], function ( MessageBoxServico) {
     "use strict";
 
     var Repositorio = {
@@ -15,13 +16,21 @@
 
     Repositorio.obterClientes = function () {
         return fetch(this.UrlBase)
-            .then(resposta => resposta.json());
+            .then(resposta => resposta.json())
+            .catch(erro => {
+                MessageBoxServico.mostrarMessageBox(erro.message);
+                throw erro;
+            });
     };
 
     Repositorio.obterClientePorId = function (id) {
         const url = `${this.UrlBase}/${id}`;
         return fetch(url)
-            .then(resposta => resposta.json());
+            .then(resposta => resposta.json())
+            .catch(erro => {
+                MessageBoxServico.mostrarMessageBox(erro.message);
+                throw erro;
+            });
     };
     function construirNovoCliente(modeloDeClientes) {
         return {
@@ -39,7 +48,11 @@
             headers: this.headers,
             body: JSON.stringify(novoCliente),
         })
-            .then(resposta => resposta.json());
+            .then(resposta => resposta.json())
+            .catch(erro => {
+                MessageBoxServico.mostrarMessageBox(erro.message);
+                throw erro;
+            });
     };
 
     function construirClienteAtualizado(modeloDeClientes) {
@@ -60,14 +73,22 @@
             headers: this.headers,
             body: JSON.stringify(clienteAtualizado),
         })
-            .then(resposta => resposta.json());
+            .then(resposta => resposta.json())
+            .catch(erro => {
+                MessageBoxServico.mostrarMessageBox(erro.message);
+                throw erro;
+            });
     };
 
     Repositorio.removerCliente = function (id) {
         const url = `${this.UrlBase}/${id}`;
         return fetch(url, {
             method: "DELETE"
-        });
+        })
+            .catch(erro => {
+                MessageBoxServico.mostrarMessageBox(erro.message);
+                throw erro;
+            });
     };
 
     return Repositorio;

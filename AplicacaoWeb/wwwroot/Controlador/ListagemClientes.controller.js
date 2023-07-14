@@ -5,9 +5,9 @@
         "sap/ui/model/Filter",
         "sap/ui/model/FilterOperator",
         "../Servico/Repositorio",
-        "../Servico/MessageBoxServico"
+        "sap/ui/core/BusyIndicator"
     ],
-    function (BaseController, JSONModel, Filter, FilterOperator, Repositorio, MessageBoxServico) {
+    function (BaseController, JSONModel, Filter, FilterOperator, Repositorio, BusyIndicator) {
         "use strict";
         const caminhoControladorDeListagem = "sap.ui.InterfaceUsuario.ListagemClientes";
         return BaseController.extend(caminhoControladorDeListagem, {
@@ -15,17 +15,18 @@
                 const paginaListagem = "listagemClientes";
                 this.getOwnerComponent().getRouter().getRoute(paginaListagem).attachMatched(this.aoCoincidirRota, this);
             },
-
             aoCoincidirRota: function () {
                 this._processarEvento(() => {
                     this.carregarDadosClientesApi();
-                })
+                });
             },
             carregarDadosClientesApi: function () {
                 var modeloDeClientes = new JSONModel();
+                BusyIndicator.show();
                 Repositorio.obterClientes()
                     .then(dados => modeloDeClientes.setData({ clientes: dados }))
                 this.getView().setModel(modeloDeClientes);
+                BusyIndicator.hide();
             },
             filtrarCliente: function (evento) {
                 this._processarEvento(() => {
@@ -44,21 +45,23 @@
                     bindingClienteTabela.filter(arrayFiltro);
                 })
             },
-
             navegarParaPaginaDeCadastro: function () {
+                BusyIndicator.show();
                 this._processarEvento(() => {
                     const paginaDeCadastro = "cadastro";
                     this.aoNavegar(paginaDeCadastro);
-                })
+                });
+                BusyIndicator.hide();
             },
-
             aoClicarNoCliente: function (evento) {
+                BusyIndicator.show();
                 this._processarEvento(() => {
                     const paginaDedetalhes = "detalhes";
                     const idCLiente = "id";
                     var idObtido = evento.getSource().getBindingContext().getProperty(idCLiente);
                     this.getOwnerComponent().getRouter().navTo(paginaDedetalhes, { id: idObtido });
-                })
+                });
+                BusyIndicator.hide();
             }
         });
     }

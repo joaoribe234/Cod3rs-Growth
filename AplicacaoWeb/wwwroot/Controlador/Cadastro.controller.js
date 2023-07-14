@@ -5,9 +5,10 @@
         "../Servico/ValidacoesCadastro",
         "../Servico/Repositorio",
         "sap/ui/model/resource/ResourceModel",
-        "../Servico/MessageBoxServico"
+        "../Servico/MessageBoxServico",
+        "sap/ui/core/BusyIndicator"
     ],
-    function (BaseController, JSONModel, ValidacoesCadastro, Repositorio, ResourceModel, MessageBoxServico) {
+    function (BaseController, JSONModel, ValidacoesCadastro, Repositorio, ResourceModel, MessageBoxServico, BusyIndicator) {
         "use strict";
 
         var i18nModel = new ResourceModel({
@@ -45,23 +46,26 @@
                 this.getOwnerComponent().getRouter().getRoute(paginaDe.cadastro).attachMatched(this.rotaCorrespondida, this);
                 this.getOwnerComponent().getRouter().getRoute(paginaDe.edicao).attachMatched(this.rotaCorrespondida, this);
             },
-            rotaCorrespondida: function (oEvent) {
+            rotaCorrespondida: function (evento) {
                 this._processarEvento(() => {
                     const argumentos = "arguments";
                     var objetoDeDadosCliente = new JSONModel({});
                     this.getView().setModel(objetoDeDadosCliente, dados);
-                    var parametro = oEvent.getParameter(argumentos);
+                    var parametro = evento.getParameter(argumentos);
                     if (parametro && parametro.id) {
+                        BusyIndicator.show();
                         Repositorio.obterClientePorId(parametro.id)
-                            .then(dadosCliente => objetoDeDadosCliente.setData(dadosCliente))
-                            .catch(error => console.error(error));
+                            .then(dadosCliente => objetoDeDadosCliente.setData(dadosCliente));
+                        BusyIndicator.hide();
                     }
                 })
             },
             aoClicarEmVoltar: function () {
-                this._processarEvento(() => { 
+                BusyIndicator.show();
+                this._processarEvento(() => {
                     this.navegarPaginaDeListagem();
-                })
+                });
+                BusyIndicator.hide();
             },
             aoClicarEmSalvar: function () {
                 var modeloDeClientes = this.getView().getModel(dados).getData();
@@ -81,16 +85,20 @@
                 });
             },
             aoClicarEmCancelar: function () {
-                this._processarEvento(() => { 
+                BusyIndicator.show();
+                this._processarEvento(() => {
                     this.navegarPaginaDeListagem();
-                })
+                });
+                BusyIndicator.hide();
             },
             navegarPaginaDetalhes: function (novoId) {
+                BusyIndicator.show();
                 if (novoId === 0) {
                     console.error(i18n.getText(mensagens.idInvalido));
                     return;
                 }
                 this.getOwnerComponent().getRouter().navTo(paginaDe.detalhes, { id: novoId });
+                BusyIndicator.hide();
             },
             mostrarConfirmacao: function (mensagem) {
                 return new Promise(resolve => {
@@ -103,17 +111,20 @@
                         if (!confirmacaoCriar) {
                             return;
                         }
+                        BusyIndicator.show();
                         return Repositorio.criarCliente(modeloDeClientes);
                     })
                     .then(dados => {
                         this.navegarPaginaDetalhes(dados.id);
                         MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoCadastro), delay);
+                        BusyIndicator.hide();
                     })
             },
             atualizarCliente: function (modeloDeClientes) {
                 this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoAtualizar))
                     .then(confirmacaoAtualizar => {
                         if (confirmacaoAtualizar) {
+                            BusyIndicator.show();
                             return Repositorio.atualizarCliente(modeloDeClientes.id, modeloDeClientes);
                         } else {
                             throw i18n.getText(mensagens.mensagemOperacaoCancelada);
@@ -122,9 +133,11 @@
                     .then(() => {
                         this.navegarPaginaDetalhes(modeloDeClientes.id);
                         MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoAtualizacao), delay);
+                        BusyIndicator.hide();
                     });
             },
             navegarPaginaDeListagem: function () {
+                BusyIndicator.show();
                 this._processarEvento(() => {
                     MessageBoxServico.mostrarMessageBox(i18n.getText(mensagens.aoCancelar), function (confirmacaoCancelar) {
                         if (confirmacaoCancelar) {
@@ -132,6 +145,7 @@
                         }
                     }.bind(this));
                 });
+                BusyIndicator.hide();
             }
         });
     }
