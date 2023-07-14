@@ -15,25 +15,25 @@
 			</headerContent>
 			<content>
 				<FlexBox       alignItems="Start">
-                 <f:SimpleForm editable="true"
-                               layout="ResponsiveGridLayout" 
-					           labelSpanXL="3"
-                               labelSpanL="3"
-                               labelSpanM="3"
-					           adjustLabelSpan="false"
-					           emptySpanXL="4"
-					           emptySpanL="4"
-					           emptySpanM="4"
-					           columnsXL="1"
-					           columnsL="1"
-					           singleContainerFullSize="false" >
+					<f:SimpleForm editable="true"
+								  layout="ResponsiveGridLayout"
+								  labelSpanXL="3"
+								  labelSpanL="3"
+								  labelSpanM="3"
+								  adjustLabelSpan="false"
+								  emptySpanXL="4"
+								  emptySpanL="4"
+								  emptySpanM="4"
+								  columnsXL="1"
+								  columnsL="1"
+								  singleContainerFullSize="false" >
 						<f:content>
 							<Label text="{i18n>Nome}"/>
 							<Input value="{dados>/nome}" placeholder="Nome" id="campoNome" />
-							
+
 							<Label text="{i18n>dataDeNascimento}"/>
 							<DatePicker value="{dados>/dataDeNascimento}" placeholder="Dia/Mês/Ano" valueFormat="yyyy-MM-ddTHH:mm:ss.mmm'" displayFormat="dd/MM/yyyy" id="campoData"/>
-							
+
 							<Label text="{i18n>Telefone}"/>
 							<Input  value="{dados>/telefone}" placeholder="(99) 99999-9999" id="campoTelefone" />
 
@@ -46,7 +46,6 @@
 		</Page>
 	</Shell>
 </mvc:View>
-
 
 
 

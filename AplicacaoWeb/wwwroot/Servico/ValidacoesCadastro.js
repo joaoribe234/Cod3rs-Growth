@@ -82,7 +82,7 @@
             }
             this.removerMensagemDeErro(valorInserido);
             return true;
-},
+        },
         validarSexo: function (valorInserido) {
             const sexo = valorInserido.getValue();
             const mensagemCampoVazio = "CampoVazio";
@@ -100,13 +100,11 @@
             }
             this.removerMensagemDeErro(valorInserido);
             return true;
-},
-
+        },
         validarNomeCaracteres: function (nome) {
             const regex = /^[a-zA-Z\s]+$/;
             return regex.test(nome);
         },
-
         validarTamanhoMinimoNome: function (tamanhoNome) {
             const tamanhoMinimoNome = 2;
 
@@ -122,7 +120,6 @@
 
             return regex.test(valorData);
         },
-
         mostrarMensagemDeErro: function (campo, mensagem) {
             campo.setValueStateText(mensagem);
             campo.setValueState(sap.ui.core.ValueState.Error);
@@ -130,26 +127,21 @@
         removerMensagemDeErro: function (campo) {
             campo.setValueState(sap.ui.core.ValueState.None);
         },
-        validarCamposFormulario: function (view) {
-            const campoNome = "campoNome";
-            const campoData = "campoData";
-            const campoTelefone = "campoTelefone";
-            const campoSexo = "campoSexo";
+        validarCamposFormulario: function (campoNome, campoData, campoTelefone, campoSexo) {
 
-            if (!this.validarNome(view.byId(campoNome))) {
+            if (!this.validarNome(campoNome)) {
                 return false;
             }
-            if (!this.validarDataDeNascimento(view.byId(campoData))) {
+            if (!this.validarDataDeNascimento(campoData)) {
                 return false;
             }
-            if (!this.validarTelefone(view.byId(campoTelefone))) {
+            if (!this.validarTelefone(campoTelefone)) {
                 return false;
             }
-            if (!this.validarSexo(view.byId(campoSexo))) {
+            if (!this.validarSexo(campoSexo)) {
                 return false;
             }
             return true;
         }
-
     };
 });

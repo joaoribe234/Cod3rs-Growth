@@ -1,12 +1,13 @@
 ﻿sap.ui.define(
     [
-        "sap/ui/core/mvc/Controller",
+        "./BaseController.controller",
         "sap/ui/model/json/JSONModel",
         "../Servico/Repositorio",
         "../Servico/MessageBoxServico",
-        "sap/ui/model/resource/ResourceModel"
+        "sap/ui/model/resource/ResourceModel",
+        "sap/ui/core/BusyIndicator"
     ],
-    function (Controller, JSONModel, Repositorio, MessageBoxServico, ResourceModel) {
+    function (BaseController, JSONModel, Repositorio, MessageBoxServico, ResourceModel, BusyIndicator) {
         "use strict";
 
         var i18nModel = new ResourceModel({
@@ -20,51 +21,62 @@
             edicao: "edicao"
         };
         const mensagens = {
-            aoRemoverCliente: "Cliente Removido com Sucesso",
-            confirmacaoAoRemover: "Deseja realmente remover o cliente selecionado"
+            aoRemoverCliente: "aoRemoverCliente",
+            confirmacaoAoRemover: "confirmacaoAoRemover"
         };
         const i18n = i18nModel.getResourceBundle();
         const caminhoControladorDeDetalhes = "sap.ui.InterfaceUsuario.Detalhes";
-        return Controller.extend(caminhoControladorDeDetalhes, {
+        return BaseController.extend(caminhoControladorDeDetalhes, {
             onInit: function () {
                 this.getOwnerComponent().getRouter().getRoute(paginaDe.detalhes).attachMatched(this.rotaCorrespondida, this);
             },
-
-            rotaCorrespondida: function (oEvent) {
-                var parametro = oEvent.getParameters();
-                var idCliente = parametro.arguments.id;
-                this.carregarDadosCliente(idCliente);
+            rotaCorrespondida: function (evento) {
+                this._processarEvento(() => {
+                    var parametro = evento.getParameters();
+                    var idCliente = parametro.arguments.id;
+                    this.carregarDadosCliente(idCliente);
+                })
             },
-
             carregarDadosCliente: function (id) {
                 var modeloDeClientes = new JSONModel();
+                BusyIndicator.show();
                 Repositorio.obterClientePorId(id)
-                    .then(dados => modeloDeClientes.setData({ cliente: dados }));
+                    .then(dados => modeloDeClientes.setData({ cliente: dados }))
                 this.getView().setModel(modeloDeClientes);
+                BusyIndicator.hide();
             },
             aoClicarEmVoltar: function () {
-                this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
-            },
-            
-            aoClicarNoBotaoDeEditar: function (oEvent) {
-                var idObtido = oEvent.getSource().getBindingContext().getProperty("id");
-                this.getOwnerComponent().getRouter().navTo(paginaDe.edicao, { id: idObtido });
-            },
-            mostrarConfirmacao: function (mensagem) {
-                return new Promise(resolve => {
-                    MessageBoxServico.mostrarMessageBox(mensagem, res => resolve(res));
+                BusyIndicator.show();
+                this._processarEvento(() => {
+                    this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
                 });
+                BusyIndicator.hide();
             },
-            aoClicarNoBotaoDeRemocao: async function () {
-                const acessoAoId = "/cliente/id";
-                const idCliente = this.getView().getModel().getProperty(acessoAoId);
-                const confirmacaoRemocao = await this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoRemover));
-                if (!confirmacaoRemocao) {
-                    return;
-                }
-                await Repositorio.removerCliente(idCliente);
-                MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.aoRemoverCliente), 500);
-                this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
+            aoClicarNoBotaoDeEditar: function (evento) {
+                BusyIndicator.show();
+                this._processarEvento(() => {
+                    const acessoAoId = "id";
+                    var idObtido = evento.getSource().getBindingContext().getProperty(acessoAoId);
+                    this.getOwnerComponent().getRouter().navTo(paginaDe.edicao, { id: idObtido });
+                });
+                BusyIndicator.hide();
+            },
+            aoClicarNoBotaoDeRemocao: function (evento) {
+                this._processarEvento(() => {
+                    const acessoAoId = "id";
+                    const idCliente = evento.getSource().getBindingContext().getProperty(acessoAoId);
+                    MessageBoxServico.confirmar(i18n.getText(mensagens.confirmacaoAoRemover), this.removerCliente.bind(this), [idCliente])
+                })
+            },
+            removerCliente: function (idCliente) {
+                const delay = 500;
+                BusyIndicator.show();
+                Repositorio.removerCliente(idCliente)
+                    .then(() => {
+                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.aoRemoverCliente), delay);
+                        this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
+                        BusyIndicator.hide();
+                    });
             }
         });
     }

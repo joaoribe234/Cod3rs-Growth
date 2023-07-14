@@ -17,20 +17,33 @@
                 }
             });
         },
-        mostrarMensagemDeSucesso: function (mensagem, title) {
-            MessageBox.success(mensagem, {
-                title: title || "Sucesso"
-            });
+        confirmar: function (mensagem, funcaoCallback, id) {
+            return MessageBox.confirm(mensagem, {
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                onClose: (acao) => {
+                    if (acao === MessageBox.Action.YES) {
+                        return funcaoCallback.apply(this, id)
+                    }
+                    return
+                }
+            })
         },
-        mostrarMensagemDeErro: function (mensagem, title) {
-            MessageBox.error(mensagem, {
-                title: title || "Erro"
-            });
+        mostrarMensagem: function (mensagem, tipo) {
+            const erro = "error";
+            const sucesso = "sucesso";
+            switch (tipo) {
+                case erro:
+                    return MessageBox.error(mensagem);
+                case sucesso:
+                    return MessageBox.success(mensagem);
+                default:
+                    return MessageBox.information(mensagem);
+            }
         }
     };
     MessageBoxServico.mostrarMensagemDeSucessoo = function (mensagem, delay) {
         setTimeout(function () {
-            MessageBoxServico.mostrarMensagemDeSucesso(mensagem);
+            MessageBoxServico.mostrarMensagem(mensagem);
         }, delay);
     };
 
