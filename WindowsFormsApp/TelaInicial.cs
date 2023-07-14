@@ -1,4 +1,7 @@
-﻿namespace WindowsFormsAppStart
+﻿using Dominio.Entidades;
+using Dominio.Interface;
+
+namespace WindowsFormsAppStart
 {
     public partial class TelaInicial : Form
     {

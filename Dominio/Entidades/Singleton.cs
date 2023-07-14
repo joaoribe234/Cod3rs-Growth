@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsAppStart
+﻿namespace Dominio.Entidades
 {
     public sealed class Singleton
     {

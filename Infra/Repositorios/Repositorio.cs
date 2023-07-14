@@ -1,4 +1,7 @@
-﻿namespace WindowsFormsAppStart
+﻿using Dominio.Entidades;
+using Dominio.Interface;
+
+namespace Infra.Repositorios
 {
     public class Repositorio : IRepositorio
     {
@@ -18,9 +21,10 @@
             }
             return cliente;
         }
-        public void CriarCliente(Clientes cliente)
+        public int CriarCliente(Clientes cliente)
         {
             listaDeClientes.Add(cliente);
+            return cliente.Id;
         }
         public void AtualizarCliente(Clientes clienteEditado)
         {

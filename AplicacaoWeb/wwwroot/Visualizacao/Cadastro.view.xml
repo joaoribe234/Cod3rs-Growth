@@ -1,0 +1,58 @@
+﻿<mvc:View  controllerName="sap.ui.InterfaceUsuario.Controlador.Cadastro"
+	                      xmlns="sap.m"
+						  xmlns:mvc="sap.ui.core.mvc"
+                          xmlns:f="sap.ui.layout.form"
+                          xmlns:core="sap.ui.core">
+
+	<Shell>
+		<Page title="{i18n>i18n>tituloPaginaCadastro}"
+			  titleAlignment="Center"
+              showNavButton="true"
+              navButtonPress=".aoClicarEmVoltar">
+			<headerContent>
+				<Button icon="sap-icon://save" text="Salvar Cliente" press="aoClicarEmSalvar"/>
+				<Button icon="sap-icon://decline" text="Cancelar" press="aoClicarEmCancelar"/>
+			</headerContent>
+			<content>
+				<FlexBox       alignItems="Start">
+					<f:SimpleForm editable="true"
+								  layout="ResponsiveGridLayout"
+								  labelSpanXL="3"
+								  labelSpanL="3"
+								  labelSpanM="3"
+								  adjustLabelSpan="false"
+								  emptySpanXL="4"
+								  emptySpanL="4"
+								  emptySpanM="4"
+								  columnsXL="1"
+								  columnsL="1"
+								  singleContainerFullSize="false" >
+						<f:content>
+							<Label text="{i18n>Nome}"/>
+							<Input value="{dados>/nome}" placeholder="Nome" id="campoNome" />
+
+							<Label text="{i18n>dataDeNascimento}"/>
+							<DatePicker value="{dados>/dataDeNascimento}" placeholder="Dia/Mês/Ano" valueFormat="yyyy-MM-ddTHH:mm:ss.mmm'" displayFormat="dd/MM/yyyy" id="campoData"/>
+
+							<Label text="{i18n>Telefone}"/>
+							<Input  value="{dados>/telefone}" placeholder="(99) 99999-9999" id="campoTelefone" />
+
+							<Label text="{i18n>Sexo}" />
+							<Input  value="{dados>/sexo}" placeholder="Sexo" id="campoSexo"/>
+						</f:content>
+					</f:SimpleForm>
+				</FlexBox>
+			</content>
+		</Page>
+	</Shell>
+</mvc:View>
+
+
+
+
+
+
+
+
+
+

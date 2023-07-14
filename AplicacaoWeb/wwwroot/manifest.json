@@ -1,0 +1,92 @@
+﻿{
+  "_version": "1.21.0",
+  "sap.app": {
+    "id": "sap.ui.InterfaceUsuario",
+    "type": "application",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "i18n": {
+      "bundleUrl": "i18n/i18n.properties"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "https://localhost:7258/api/clientes",
+        "type": "JSON"
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "sap.ui.InterfaceUsuario.Visualizacao.ListagemClientes",
+      "type": "XML",
+      "async": true,
+      "id": "app"
+    },
+    "dependencies": {
+      "minUI5Version": "1.98.0",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {}
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "type": "View",
+        "viewType": "XML",
+        "path": "sap.ui.InterfaceUsuario.Visualizacao",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "listagemClientes",
+          "target": "listagemClientes"
+        },
+        {
+          "pattern": "detalhes/{id}",
+          "name": "detalhes",
+          "target": "detalhes"
+        },
+        {
+          "pattern": "cadastro",
+          "name": "cadastro",
+          "target": "cadastro"
+        },
+        {
+          "pattern": "edicao/{id}",
+          "name": "edicao",
+          "target": "edicao"
+        }
+      ],
+      "targets": {
+        "listagemClientes": {
+          "id": "listagemClientes",
+          "name": "ListagemClientes"
+        },
+        "detalhes": {
+          "id": "detalhes",
+          "name": "Detalhes"
+        },
+        "cadastro": {
+          "id": "cadastro",
+          "name": "Cadastro"
+        },
+        "edicao": {
+          "id": "edicao",
+          "name": "Cadastro"
+        }
+      }
+    }
+  }
+}

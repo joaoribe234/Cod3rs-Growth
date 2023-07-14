@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
 
-namespace WindowsFormsAppStart
+namespace Infra.Servico
 {
     public static class MigracaoServico
     {
@@ -26,7 +26,7 @@ namespace WindowsFormsAppStart
                 .ConfigureRunner(rb => rb
                     .AddSqlServer()
                     .WithGlobalConnectionString(connectionString)
-                    .ScanIn(typeof(Migracao).Assembly).For.Migrations())
+                    .ScanIn(typeof(MigracaoServico).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
 
                 .BuildServiceProvider(false);

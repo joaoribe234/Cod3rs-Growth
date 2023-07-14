@@ -1,4 +1,8 @@
-﻿namespace WindowsFormsAppStart
+﻿using Dominio.Entidades;
+using Dominio.Mensagens;
+using Dominio.Servico;
+
+namespace WindowsFormsAppStart
 {
     public partial class Cadastro : Form
     {

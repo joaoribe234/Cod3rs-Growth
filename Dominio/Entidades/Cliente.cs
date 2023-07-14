@@ -1,6 +1,6 @@
 ﻿using LinqToDB.Mapping;
 
-namespace WindowsFormsAppStart
+namespace Dominio.Entidades
 {
     public class Clientes
     {

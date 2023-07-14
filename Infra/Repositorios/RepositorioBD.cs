@@ -1,12 +1,16 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Dominio.Entidades;
+using Dominio.Interface;
+using Dominio.Mensagens;
+using Infra.Conversao;
+using Microsoft.Data.SqlClient;
 using System.Configuration;
 
-namespace WindowsFormsAppStart
+namespace Infra.Repositorios
 {
     public class RepositorioBD : IRepositorio
     {
-        public List<Clientes> listaDeClientes = Singleton.ObterInstancia(); 
-        
+        public List<Clientes> listaDeClientes = Singleton.ObterInstancia();
+
 
         public List<Clientes> ObterTodosClientes()
         {
@@ -21,7 +25,7 @@ namespace WindowsFormsAppStart
                     SqlDataReader leitor = comando.ExecuteReader();
                     listaClientes = conversaoDeDados.ConversaoClientes(leitor);
                     return listaClientes;
-                    
+
                 }
                 catch (MensagensDeErros)
                 {
@@ -30,8 +34,9 @@ namespace WindowsFormsAppStart
             }
         }
         public Clientes ObterClientePorId(int id)
-        {  
-            using (var conexao = CriarConexao()) {             
+        {
+            using (var conexao = CriarConexao())
+            {
                 try
                 {
                     Clientes clienteObtidoPorId = new Clientes();
@@ -48,9 +53,10 @@ namespace WindowsFormsAppStart
                 }
             }
         }
-        public void CriarCliente(Clientes cliente)
+        public int CriarCliente(Clientes cliente)
         {
-            using (var conexao = CriarConexao()) {
+            using (var conexao = CriarConexao())
+            {
                 try
                 {
                     var instrucaoSQL = "INSERT INTO Clientes (nome, dataDeNascimento, sexo, telefone) VALUES (@nome, @dataDeNascimento, @sexo, @telefone)";
@@ -65,11 +71,13 @@ namespace WindowsFormsAppStart
                 {
                     throw new MensagensDeErros(ExcecoesBD.FALHA_CRIACAO_NOVO_CLIENTE);
                 }
+                return cliente.Id;
             }
         }
         public void AtualizarCliente(Clientes clienteEditado)
         {
-            using (var conexao = CriarConexao()) {       
+            using (var conexao = CriarConexao())
+            {
                 try
                 {
                     var instrucaoSQL = "UPDATE Clientes SET nome=@Nome, dataDeNascimento=@dataDeNascimento, sexo=@sexo, telefone=@telefone " + $"WHERE id = {clienteEditado.Id}";
@@ -89,7 +97,7 @@ namespace WindowsFormsAppStart
         public void RemoverCliente(int id)
         {
             using (var conexao = CriarConexao())
-            {         
+            {
                 try
                 {
                     Clientes cliente = ObterClientePorId(id);
@@ -112,8 +120,9 @@ namespace WindowsFormsAppStart
                 conexao.Open();
                 return conexao;
             }
-            catch(MensagensDeErros) {
-               throw new MensagensDeErros(ExcecoesBD.FALHA_CRIACAO_CONEXAO);
+            catch (MensagensDeErros)
+            {
+                throw new MensagensDeErros(ExcecoesBD.FALHA_CRIACAO_CONEXAO);
             }
         }
     }
