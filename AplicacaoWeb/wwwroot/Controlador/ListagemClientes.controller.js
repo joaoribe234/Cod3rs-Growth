@@ -4,10 +4,9 @@
         "sap/ui/model/json/JSONModel",
         "sap/ui/model/Filter",
         "sap/ui/model/FilterOperator",
-        "../Servico/Repositorio",
-        "sap/ui/core/BusyIndicator"
+        "../Servico/Repositorio"
     ],
-    function (BaseController, JSONModel, Filter, FilterOperator, Repositorio, BusyIndicator) {
+    function (BaseController, JSONModel, Filter, FilterOperator, Repositorio) {
         "use strict";
         const caminhoControladorDeListagem = "sap.ui.InterfaceUsuario.ListagemClientes";
         return BaseController.extend(caminhoControladorDeListagem, {
@@ -22,11 +21,9 @@
             },
             carregarDadosClientesApi: function () {
                 var modeloDeClientes = new JSONModel();
-                BusyIndicator.show();
                 Repositorio.obterClientes()
                     .then(dados => modeloDeClientes.setData({ clientes: dados }))
                 this.getView().setModel(modeloDeClientes);
-                BusyIndicator.hide();
             },
             filtrarCliente: function (evento) {
                 this._processarEvento(() => {
@@ -46,22 +43,18 @@
                 })
             },
             navegarParaPaginaDeCadastro: function () {
-                BusyIndicator.show();
                 this._processarEvento(() => {
                     const paginaDeCadastro = "cadastro";
                     this.aoNavegar(paginaDeCadastro);
                 });
-                BusyIndicator.hide();
             },
             aoClicarNoCliente: function (evento) {
-                BusyIndicator.show();
                 this._processarEvento(() => {
                     const paginaDedetalhes = "detalhes";
                     const idCLiente = "id";
                     var idObtido = evento.getSource().getBindingContext().getProperty(idCLiente);
                     this.getOwnerComponent().getRouter().navTo(paginaDedetalhes, { id: idObtido });
                 });
-                BusyIndicator.hide();
             }
         });
     }

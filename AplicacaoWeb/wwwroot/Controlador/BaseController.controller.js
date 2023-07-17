@@ -1,7 +1,8 @@
 ﻿sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "../Servico/MessageBoxServico"
-], function (Controller, MessageBoxServico) {
+    "../Servico/MessageBoxServico",
+    "sap/ui/core/BusyIndicator"
+], function (Controller, MessageBoxServico, BusyIndicator) {
     "use strict";
     const caminhoBaseController = "sap.ui.InterfaceUsuario.BaseController"
 
@@ -16,10 +17,12 @@
             const tipoDaPromise = "catch";
             const tipoBuscado = "function";
             try {
+                 BusyIndicator.show();
                 var promise = action();
                 if (promise && typeof promise[tipoDaPromise] === tipoBuscado) {
                     promise.catch(error => MessageBoxServico.mostrarMensagem(error.message));
                 }
+                BusyIndicator.hide();
             } catch (error) {
                 MessageBoxServico.mostrarMensagem(error.message);
             }

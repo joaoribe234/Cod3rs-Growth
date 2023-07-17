@@ -4,10 +4,9 @@
         "sap/ui/model/json/JSONModel",
         "../Servico/Repositorio",
         "../Servico/MessageBoxServico",
-        "sap/ui/model/resource/ResourceModel",
-        "sap/ui/core/BusyIndicator"
+        "sap/ui/model/resource/ResourceModel"
     ],
-    function (BaseController, JSONModel, Repositorio, MessageBoxServico, ResourceModel, BusyIndicator) {
+    function (BaseController, JSONModel, Repositorio, MessageBoxServico, ResourceModel) {
         "use strict";
 
         var i18nModel = new ResourceModel({
@@ -39,27 +38,21 @@
             },
             carregarDadosCliente: function (id) {
                 var modeloDeClientes = new JSONModel();
-                BusyIndicator.show();
                 Repositorio.obterClientePorId(id)
                     .then(dados => modeloDeClientes.setData({ cliente: dados }))
                 this.getView().setModel(modeloDeClientes);
-                BusyIndicator.hide();
             },
             aoClicarEmVoltar: function () {
-                BusyIndicator.show();
                 this._processarEvento(() => {
                     this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
                 });
-                BusyIndicator.hide();
             },
             aoClicarNoBotaoDeEditar: function (evento) {
-                BusyIndicator.show();
                 this._processarEvento(() => {
                     const acessoAoId = "id";
                     var idObtido = evento.getSource().getBindingContext().getProperty(acessoAoId);
                     this.getOwnerComponent().getRouter().navTo(paginaDe.edicao, { id: idObtido });
                 });
-                BusyIndicator.hide();
             },
             aoClicarNoBotaoDeRemocao: function (evento) {
                 this._processarEvento(() => {
@@ -70,13 +63,13 @@
             },
             removerCliente: function (idCliente) {
                 const delay = 500;
-                BusyIndicator.show();
+                this._processarEvento(() => {
                 Repositorio.removerCliente(idCliente)
                     .then(() => {
                         MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.aoRemoverCliente), delay);
                         this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
-                        BusyIndicator.hide();
                     });
+                })
             }
         });
     }

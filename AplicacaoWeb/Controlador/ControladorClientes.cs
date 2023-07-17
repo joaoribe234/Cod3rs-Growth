@@ -68,7 +68,7 @@ namespace AplicacaoWeb.Controllers
                 return BadRequest(ex.Message);
             }
         }
-[HttpPut("{id}")]
+        [HttpPut("{id}")]
         public IActionResult AtualizarCliente(int id, [FromBody] Clientes clienteASerEditado)
         {
             try
