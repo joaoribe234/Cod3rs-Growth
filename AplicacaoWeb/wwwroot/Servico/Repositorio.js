@@ -14,23 +14,26 @@
         }
     };
 
-    Repositorio.obterClientes = function () {
-        return fetch(this.UrlBase)
-            .then(resposta => resposta.json())
-            .catch(erro => {
-                MessageBoxServico.mostrarMessageBox(erro.message);
-                throw erro;
-            });
+    Repositorio.obterClientes = async function () {
+        try {
+            const resposta = await fetch(this.UrlBase);
+            return resposta.json();
+        }
+         catch(erro) {
+           MessageBoxServico.mostrarMessageBox(erro.message);
+           throw erro;
+            };
     };
-
-    Repositorio.obterClientePorId = function (id) {
-        const url = `${this.UrlBase}/${id}`;
-        return fetch(url)
-            .then(resposta => resposta.json())
-            .catch(erro => {
+    Repositorio.obterClientePorId = async function (id) {
+        const urlAoObterPorId = `${this.UrlBase}/${id}`;
+        try {
+            const resposta = await fetch(urlAoObterPorId);
+            return resposta.json();
+        }
+        catch(erro) {
                 MessageBoxServico.mostrarMessageBox(erro.message);
                 throw erro;
-            });
+            };
     };
     function construirNovoCliente(modeloDeClientes) {
         return {
@@ -41,20 +44,21 @@
         };
     }
 
-    Repositorio.criarCliente = function (modeloDeClientes) {
+    Repositorio.criarCliente = async function (modeloDeClientes) {
         var novoCliente = construirNovoCliente(modeloDeClientes);
-        return fetch(this.UrlBase, {
-            method: "POST",
-            headers: this.headers,
-            body: JSON.stringify(novoCliente),
-        })
-            .then(resposta => resposta.json())
-            .catch(erro => {
+        try {
+            const resposta = await fetch(this.UrlBase, {
+                method: "POST",
+                headers: this.headers,
+                body: JSON.stringify(novoCliente),
+            });
+            return resposta.json();
+            }
+        catch(erro) {
                 MessageBoxServico.mostrarMessageBox(erro.message);
                 throw erro;
-            });
+            };
     };
-
     function construirClienteAtualizado(modeloDeClientes) {
         return {
             id: modeloDeClientes.id,
@@ -65,30 +69,35 @@
         };
     }
 
-    Repositorio.atualizarCliente = function (id, modeloDeClientes) {
+    Repositorio.atualizarCliente = async function (id, modeloDeClientes) {
         var clienteAtualizado = construirClienteAtualizado(modeloDeClientes);
-        const url = `${this.UrlBase}/${modeloDeClientes.id}`;
-        return fetch(url, {
-            method: "PUT",
-            headers: this.headers,
-            body: JSON.stringify(clienteAtualizado),
-        })
-            .then(resposta => resposta.json())
-            .catch(erro => {
+        const urlAoAtualizar = `${this.UrlBase}/${modeloDeClientes.id}`;
+        try {
+            const resposta = await fetch(urlAoAtualizar, {
+                method: "PUT",
+                headers: this.headers,
+                body: JSON.stringify(clienteAtualizado),
+            });
+            return resposta.json();
+        }
+        catch(erro) {
                 MessageBoxServico.mostrarMessageBox(erro.message);
                 throw erro;
-            });
+            };
     };
 
-    Repositorio.removerCliente = function (id) {
-        const url = `${this.UrlBase}/${id}`;
-        return fetch(url, {
-            method: "DELETE"
-        })
-            .catch(erro => {
+    Repositorio.removerCliente = async function (id) {
+        const urlAoRemover = `${this.UrlBase}/${id}`;
+        try {
+            const resposta = await fetch(urlAoRemover, {
+                method: "DELETE"
+            });
+            return resposta.json();
+        }
+        catch(erro) {
                 MessageBoxServico.mostrarMessageBox(erro.message);
                 throw erro;
-            });
+            };
     };
 
     return Repositorio;

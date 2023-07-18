@@ -51,7 +51,7 @@
                     var objetoDeDadosCliente = new JSONModel({});
                     this.getView().setModel(objetoDeDadosCliente, dados);
                     var parametro = evento.getParameter(argumentos);
-                    if (parametro && parametro.id) {       
+                    if (parametro && parametro.id) {
                         Repositorio.obterClientePorId(parametro.id)
                             .then(dadosCliente => objetoDeDadosCliente.setData(dadosCliente));
                     }
@@ -71,13 +71,13 @@
                 if (!ValidacoesCadastro.validarCamposFormulario(campoNome, campoData, campoTelefone, campoSexo)) {
                     return;
                 }
-                this._processarEvento(() => {
+              //  this._processarEvento(() => {
                     if (modeloDeClientes.id) {
-                        this.atualizarCliente(modeloDeClientes);
+                        return this.atualizarCliente(modeloDeClientes);
                     } else {
-                        this.criarCliente(modeloDeClientes);
+                        return this.criarCliente(modeloDeClientes);
                     }
-                });
+          //      });
             },
             aoClicarEmCancelar: function () {
                 this._processarEvento(() => {
@@ -97,42 +97,39 @@
                 });
             },
             criarCliente: function (modeloDeClientes) {
-                this._processarEvento(() => { 
-                    this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoCriar))
-                        .then(confirmacaoCriar => {
-                            if (!confirmacaoCriar) {
-                                return;
-                            }
-                            return Repositorio.criarCliente(modeloDeClientes);
-                        })
-                        .then(dados => {
-                            this.navegarPaginaDetalhes(dados.id);
-                            MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoCadastro), delay);
-                        });
-                })
+                return this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoCriar))
+                    .then(confirmacaoCriar => {
+                        if (!confirmacaoCriar) {
+                            return;
+                        }
+                        return Repositorio.criarCliente(modeloDeClientes);
+                    })
+                    .then(dados => {
+                        this.navegarPaginaDetalhes(dados.id);
+                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoCadastro), delay);
+                    });
             },
             atualizarCliente: function (modeloDeClientes) {
-                this._processarEvento(() => { 
-                this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoAtualizar))
+                return this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoAtualizar))
                     .then(confirmacaoAtualizar => {
                         if (confirmacaoAtualizar) {
                             return Repositorio.atualizarCliente(modeloDeClientes.id, modeloDeClientes);
                         } else {
-                            throw i18n.getText(mensagens.mensagemOperacaoCancelada);
+                            throw new Error(i18n.getText(mensagens.mensagemOperacaoCancelada));
                         }
                     })
                     .then(() => {
                         this.navegarPaginaDetalhes(modeloDeClientes.id);
                         MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoAtualizacao), delay);
                     });
-                    })
             },
             navegarPaginaDeListagem: function () {
-                this._processarEvento(() => {
+                return new Promise(resolve => {
                     MessageBoxServico.mostrarMessageBox(i18n.getText(mensagens.aoCancelar), function (confirmacaoCancelar) {
                         if (confirmacaoCancelar) {
                             this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
                         }
+                        resolve();
                     }.bind(this));
                 });
             }

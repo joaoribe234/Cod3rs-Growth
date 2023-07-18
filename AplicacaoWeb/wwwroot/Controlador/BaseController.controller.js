@@ -13,18 +13,20 @@
                 this.aoNavegar(nomeDaRota, id);
             })
         },
-        _processarEvento: function (action) {
-            const tipoDaPromise = "catch";
+
+        _processarEvento: async function (action) {
+            const tipoDaPromessa = "catch";
             const tipoBuscado = "function";
             try {
-                 BusyIndicator.show();
-                var promise = action();
-                if (promise && typeof promise[tipoDaPromise] === tipoBuscado) {
-                    promise.catch(error => MessageBoxServico.mostrarMensagem(error.message));
+                BusyIndicator.show();
+                var promessa = action();
+                if (promessa && typeof promessa[tipoDaPromessa] === tipoBuscado) {
+                    await promessa.catch(error => MessageBoxServico.mostrarMensagem(error.message));
                 }
-                BusyIndicator.hide();
             } catch (error) {
                 MessageBoxServico.mostrarMensagem(error.message);
+            } finally {
+                BusyIndicator.hide();
             }
         },
         aoNavegar: function (nomeDaRota, id) {

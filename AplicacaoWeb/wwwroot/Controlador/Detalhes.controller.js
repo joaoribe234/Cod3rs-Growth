@@ -4,9 +4,10 @@
         "sap/ui/model/json/JSONModel",
         "../Servico/Repositorio",
         "../Servico/MessageBoxServico",
-        "sap/ui/model/resource/ResourceModel"
+        "sap/ui/model/resource/ResourceModel",
+        "sap/ui/core/BusyIndicator"
     ],
-    function (BaseController, JSONModel, Repositorio, MessageBoxServico, ResourceModel) {
+    function (BaseController, JSONModel, Repositorio, MessageBoxServico, ResourceModel, BusyIndicator) {
         "use strict";
 
         var i18nModel = new ResourceModel({
@@ -64,10 +65,12 @@
             removerCliente: function (idCliente) {
                 const delay = 500;
                 this._processarEvento(() => {
+                    BusyIndicator.show();
                 Repositorio.removerCliente(idCliente)
                     .then(() => {
                         MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.aoRemoverCliente), delay);
                         this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
+                        BusyIndicator.hide();
                     });
                 })
             }
