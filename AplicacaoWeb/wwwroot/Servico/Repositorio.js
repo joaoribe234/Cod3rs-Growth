@@ -21,7 +21,6 @@
         }
          catch(erro) {
            MessageBoxServico.mostrarMessageBox(erro.message);
-           throw erro;
             };
     };
     Repositorio.obterClientePorId = async function (id) {
@@ -32,7 +31,6 @@
         }
         catch(erro) {
                 MessageBoxServico.mostrarMessageBox(erro.message);
-                throw erro;
             };
     };
     function construirNovoCliente(modeloDeClientes) {
@@ -56,7 +54,6 @@
             }
         catch(erro) {
                 MessageBoxServico.mostrarMessageBox(erro.message);
-                throw erro;
             };
     };
     function construirClienteAtualizado(modeloDeClientes) {
@@ -82,7 +79,6 @@
         }
         catch(erro) {
                 MessageBoxServico.mostrarMessageBox(erro.message);
-                throw erro;
             };
     };
 
@@ -96,7 +92,6 @@
         }
         catch(erro) {
                 MessageBoxServico.mostrarMessageBox(erro.message);
-                throw erro;
             };
     };
 

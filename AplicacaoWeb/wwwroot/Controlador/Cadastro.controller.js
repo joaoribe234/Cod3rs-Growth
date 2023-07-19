@@ -71,13 +71,11 @@
                 if (!ValidacoesCadastro.validarCamposFormulario(campoNome, campoData, campoTelefone, campoSexo)) {
                     return;
                 }
-              //  this._processarEvento(() => {
                     if (modeloDeClientes.id) {
                         return this.atualizarCliente(modeloDeClientes);
                     } else {
                         return this.criarCliente(modeloDeClientes);
                     }
-          //      });
             },
             aoClicarEmCancelar: function () {
                 this._processarEvento(() => {
@@ -96,33 +94,28 @@
                     MessageBoxServico.mostrarMessageBox(mensagem, res => resolve(res));
                 });
             },
-            criarCliente: function (modeloDeClientes) {
-                return this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoCriar))
-                    .then(confirmacaoCriar => {
-                        if (!confirmacaoCriar) {
-                            return;
-                        }
-                        return Repositorio.criarCliente(modeloDeClientes);
-                    })
-                    .then(dados => {
-                        this.navegarPaginaDetalhes(dados.id);
-                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoCadastro), delay);
-                    });
-            },
-            atualizarCliente: function (modeloDeClientes) {
-                return this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoAtualizar))
-                    .then(confirmacaoAtualizar => {
-                        if (confirmacaoAtualizar) {
-                            return Repositorio.atualizarCliente(modeloDeClientes.id, modeloDeClientes);
-                        } else {
-                            throw new Error(i18n.getText(mensagens.mensagemOperacaoCancelada));
-                        }
-                    })
-                    .then(() => {
-                        this.navegarPaginaDetalhes(modeloDeClientes.id);
-                        MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoAtualizacao), delay);
-                    });
-            },
+            criarCliente: async function (modeloDeClientes) {
+             const confirmacaoCriar = await this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoCriar));
+              if (!confirmacaoCriar) {
+                 return;
+              }
+                this._processarEvento(async () => {
+                    const dados = await Repositorio.criarCliente(modeloDeClientes);
+                    this.navegarPaginaDetalhes(dados.id);
+                    MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoCadastro), delay);
+                });
+             },
+            atualizarCliente: async function (modeloDeClientes) {
+             const confirmacaoAtualizar = await this.mostrarConfirmacao(i18n.getText(mensagens.confirmacaoAoAtualizar));
+              if (!confirmacaoAtualizar) {
+                throw new Error(i18n.getText(mensagens.mensagemOperacaoCancelada));
+                }
+                this._processarEvento(async () => {
+                    await Repositorio.atualizarCliente(modeloDeClientes.id, modeloDeClientes);
+                    this.navegarPaginaDetalhes(modeloDeClientes.id);
+                    MessageBoxServico.mostrarMensagemDeSucessoo(i18n.getText(mensagens.sucessoAtualizacao), delay);
+                });
+             },
             navegarPaginaDeListagem: function () {
                 return new Promise(resolve => {
                     MessageBoxServico.mostrarMessageBox(i18n.getText(mensagens.aoCancelar), function (confirmacaoCancelar) {
