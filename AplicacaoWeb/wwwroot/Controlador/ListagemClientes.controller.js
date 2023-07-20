@@ -19,11 +19,13 @@
                     this.carregarDadosClientesApi();
                 });
             },
-            carregarDadosClientesApi: function () {
+            carregarDadosClientesApi: async function () {
                 var modeloDeClientes = new JSONModel();
-                Repositorio.obterClientes()
-                    .then(dados => modeloDeClientes.setData({ clientes: dados }))
-                this.getView().setModel(modeloDeClientes);
+                this._processarEvento(async () => {
+                    const dados = await Repositorio.obterClientes();
+                    modeloDeClientes.setData({ clientes: dados });
+                    this.getView().setModel(modeloDeClientes);
+                });
             },
             filtrarCliente: function (evento) {
                 this._processarEvento(() => {
