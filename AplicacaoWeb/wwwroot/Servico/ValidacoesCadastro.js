@@ -31,6 +31,7 @@
             this.removerMensagemDeErro(valorInserido);
             return true;
         },
+
         validarDataDeNascimento: function (campoDeData) {
             const valorData = campoDeData.getValue();
             const quantidadeDeCaracteres = 10;
@@ -67,6 +68,7 @@
             this.removerMensagemDeErro(campoDeData);
             return true;
         },
+
         validarTelefone: function (valorInserido) {
             const telefone = valorInserido.getValue();
             const mensagemCampoVazio = "CampoVazio";
@@ -83,6 +85,7 @@
             this.removerMensagemDeErro(valorInserido);
             return true;
         },
+
         validarSexo: function (valorInserido) {
             const sexo = valorInserido.getValue();
             const mensagemCampoVazio = "CampoVazio";
@@ -101,32 +104,39 @@
             this.removerMensagemDeErro(valorInserido);
             return true;
         },
+
         validarNomeCaracteres: function (nome) {
             const regex = /^[a-zA-Z\s]+$/;
             return regex.test(nome);
         },
+
         validarTamanhoMinimoNome: function (tamanhoNome) {
             const tamanhoMinimoNome = 2;
 
             return tamanhoNome.length >= tamanhoMinimoNome;
         },
+
         validarTamanhoMinimoTelefone: function (tamanhoTelefone) {
             const tamanhoMininoTelefone = 14;
 
             return tamanhoTelefone.length > tamanhoMininoTelefone;
         },
+
         validarFormatoData: function (valorData) {
             const regex = /^\d{2}\/\d{2}\/\d{4}$/;
 
             return regex.test(valorData);
         },
+
         mostrarMensagemDeErro: function (campo, mensagem) {
             campo.setValueStateText(mensagem);
             campo.setValueState(sap.ui.core.ValueState.Error);
         },
+
         removerMensagemDeErro: function (campo) {
             campo.setValueState(sap.ui.core.ValueState.None);
         },
+
         validarCamposFormulario: function (campoNome, campoData, campoTelefone, campoSexo) {
 
             if (!this.validarNome(campoNome)) {
