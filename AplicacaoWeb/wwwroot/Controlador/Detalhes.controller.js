@@ -29,11 +29,13 @@
             onInit: function () {
                 this.getOwnerComponent().getRouter().getRoute(paginaDe.detalhes).attachMatched(this.rotaCorrespondida, this);
             },
+
             rotaCorrespondida: function (evento) {
                     var parametro = evento.getParameters();
                     var idCliente = parametro.arguments.id;
                     this.carregarDadosCliente(idCliente);
             },
+
             carregarDadosCliente: async function (id) {
                 this._processarEvento(async () => {
                 var modeloDeClientes = new JSONModel();
@@ -42,11 +44,13 @@
                 this.getView().setModel(modeloDeClientes);
                 });
             },
+
             aoClicarEmVoltar: function () {
                 this._processarEvento(() => {
                     this.getOwnerComponent().getRouter().navTo(paginaDe.listagem, {}, true);
                 });
             },
+
             aoClicarNoBotaoDeEditar: function (evento) {
                 this._processarEvento(() => {
                     const acessoAoId = "id";
@@ -54,6 +58,7 @@
                     this.getOwnerComponent().getRouter().navTo(paginaDe.edicao, { id: idObtido });
                 });
             },
+
             aoClicarNoBotaoDeRemocao: function (evento) {
                 this._processarEvento(() => {
                     const acessoAoId = "id";
@@ -61,6 +66,7 @@
                     MessageBoxServico.confirmar(i18n.getText(mensagens.confirmacaoAoRemover), this.removerCliente.bind(this), [idCliente])
                 })
             },
+            
             removerCliente: async function (idCliente) {
                 const delay = 500;
                 this._processarEvento(async () => {

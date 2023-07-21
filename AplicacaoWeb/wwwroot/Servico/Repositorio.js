@@ -23,6 +23,7 @@
            MessageBoxServico.mostrarMessageBox(erro.message);
             };
     };
+
     Repositorio.obterClientePorId = async function (id) {
         const urlAoObterPorId = `${this.UrlBase}/${id}`;
         try {
@@ -33,6 +34,7 @@
                 MessageBoxServico.mostrarMessageBox(erro.message);
             };
     };
+
     function construirNovoCliente(modeloDeClientes) {
         return {
             nome: modeloDeClientes.nome,
@@ -56,6 +58,7 @@
                 MessageBoxServico.mostrarMessageBox(erro.message);
             };
     };
+
     function construirClienteAtualizado(modeloDeClientes) {
         return {
             id: modeloDeClientes.id,
@@ -66,9 +69,10 @@
         };
     }
 
-    Repositorio.atualizarCliente = async function (id, modeloDeClientes) {
+    Repositorio.atualizarCliente = async function (modeloDeClientes) {
+        const idDoCliente = modeloDeClientes.id;
         var clienteAtualizado = construirClienteAtualizado(modeloDeClientes);
-        const urlAoAtualizar = `${this.UrlBase}/${modeloDeClientes.id}`;
+        const urlAoAtualizar = `${this.UrlBase}/${idDoCliente}`;
         try {
             const resposta = await fetch(urlAoAtualizar, {
                 method: "PUT",

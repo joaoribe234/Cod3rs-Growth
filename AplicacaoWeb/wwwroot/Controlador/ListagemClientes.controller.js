@@ -14,9 +14,11 @@
                 const paginaListagem = "listagemClientes";
                 this.getOwnerComponent().getRouter().getRoute(paginaListagem).attachMatched(this.aoCoincidirRota, this);
             },
+
             aoCoincidirRota: function () {
                 this.carregarDadosClientesApi();
             },
+
             carregarDadosClientesApi: async function () {
                 this._processarEvento(async () => {
                 var modeloDeClientes = new JSONModel();
@@ -25,6 +27,7 @@
                 this.getView().setModel(modeloDeClientes);
                 });
             },
+
             filtrarCliente: function (evento) {
                 this._processarEvento(() => {
                     const idTabelaCliente = "idTabelaCliente";
@@ -42,12 +45,14 @@
                     bindingClienteTabela.filter(arrayFiltro);
                 })
             },
+
             navegarParaPaginaDeCadastro: function () {
                 this._processarEvento(() => {
                     const paginaDeCadastro = "cadastro";
                     this.aoNavegar(paginaDeCadastro);
                 });
             },
+
             aoClicarNoCliente: function (evento) {
                 this._processarEvento(() => {
                     const paginaDedetalhes = "detalhes";

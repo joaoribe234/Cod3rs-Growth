@@ -29,6 +29,7 @@
                 BusyIndicator.hide();
             }
         },
+
         aoNavegar: function (nomeDaRota, id) {
             var rota = this.getOwnerComponent().getRouter();
             if (id) {
