@@ -17,6 +17,7 @@
                 }
             });
         },
+
         confirmar: function (mensagem, funcaoCallback, id) {
             return MessageBox.confirm(mensagem, {
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -28,6 +29,7 @@
                 }
             })
         },
+
         mostrarMensagem: function (mensagem, tipo) {
             const erro = "error";
             const sucesso = "sucesso";
@@ -41,6 +43,7 @@
             }
         }
     };
+
     MessageBoxServico.mostrarMensagemDeSucessoo = function (mensagem, delay) {
         setTimeout(function () {
             MessageBoxServico.mostrarMensagem(mensagem);
@@ -48,4 +51,5 @@
     };
 
     return MessageBoxServico;
+
 });
