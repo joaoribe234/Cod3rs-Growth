@@ -15,16 +15,14 @@
                 this.getOwnerComponent().getRouter().getRoute(paginaListagem).attachMatched(this.aoCoincidirRota, this);
             },
             aoCoincidirRota: function () {
-                this._processarEvento(() => {
-                    this.carregarDadosClientesApi();
-                });
+                this.carregarDadosClientesApi();
             },
             carregarDadosClientesApi: async function () {
-                var modeloDeClientes = new JSONModel();
                 this._processarEvento(async () => {
+                var modeloDeClientes = new JSONModel();
                     const dados = await Repositorio.obterClientes();
                     modeloDeClientes.setData({ clientes: dados });
-                    this.getView().setModel(modeloDeClientes);
+                this.getView().setModel(modeloDeClientes);
                 });
             },
             filtrarCliente: function (evento) {

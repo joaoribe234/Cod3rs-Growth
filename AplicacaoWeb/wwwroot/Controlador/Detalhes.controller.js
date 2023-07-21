@@ -30,17 +30,17 @@
                 this.getOwnerComponent().getRouter().getRoute(paginaDe.detalhes).attachMatched(this.rotaCorrespondida, this);
             },
             rotaCorrespondida: function (evento) {
-                this._processarEvento(() => {
                     var parametro = evento.getParameters();
                     var idCliente = parametro.arguments.id;
                     this.carregarDadosCliente(idCliente);
-                })
             },
-            carregarDadosCliente: function (id) {
+            carregarDadosCliente: async function (id) {
+                this._processarEvento(async () => {
                 var modeloDeClientes = new JSONModel();
-                Repositorio.obterClientePorId(id)
-                    .then(dados => modeloDeClientes.setData({ cliente: dados }))
+                const dados = await Repositorio.obterClientePorId(id);
+                modeloDeClientes.setData({ cliente: dados });
                 this.getView().setModel(modeloDeClientes);
+                });
             },
             aoClicarEmVoltar: function () {
                 this._processarEvento(() => {

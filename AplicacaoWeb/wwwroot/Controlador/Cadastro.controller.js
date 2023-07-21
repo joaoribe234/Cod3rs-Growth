@@ -59,7 +59,7 @@
             },
             aoClicarEmVoltar: function () {
                 this._processarEvento(() => {
-                    this.navegarPaginaDeListagem();
+                     this.navegarPaginaDeListagem();
                 });
             },
             aoClicarEmSalvar: function () {
